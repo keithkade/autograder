@@ -3,11 +3,8 @@
 
 <div class="login-form">
     <%= form_tag :action => :create do %>
-        <%= label_tag :user, 'Username: ' %><br>
-        <%= text_field_tag :user %><br>
-
-        <%= label_tag :password, 'Password: ' %><br>
-        <%= password_field_tag :password %><br>
-        <%= submit_tag 'Login', :id=> "login-btn" %>
+        <%= text_field_tag :user, nil, :placeholder => 'Username' %><br>
+        <%= password_field_tag :password, nil, :placeholder => 'Password' %><br>
+        <%= submit_tag 'Login', :id=> 'login-btn' %>
     <% end %>
 </div>

@@ -1,7 +1,7 @@
 // Site-wide styles
 
 //palette
-$deepPurple: #150f48;
+$deepPurple: #18152e;
 $lightTeal: #44c6b7;
 $lightGrey: #e6e6e6;
 
@@ -13,13 +13,16 @@ $lightGrey: #e6e6e6;
 html, body {
     height: 100%;
     width: 100%;
+}
+
+body {
     background: $lightGrey;
+    font-family: sans-serif;
 }
 
 header {
     background: $deepPurple;
     color: white;
-    font-family: sans-serif;
     border-bottom: 2px solid $lightTeal;
     padding: 6px;
     
