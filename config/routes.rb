@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
+  get 'student/home'
 
+  get 'admin/home'
+
+  get 'login/index'
+  get 'login' => 'login#index'
+
+  get 'welcome/index'
   get 'welcome' => 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
