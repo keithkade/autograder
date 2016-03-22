@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'login/index'
   get 'login' => 'login#index'
+  post 'login/create'
 
   get 'welcome/index'
   get 'welcome' => 'welcome#index'

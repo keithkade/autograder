@@ -11,19 +11,19 @@ end
 When /^I fill in the login form with valid admin credentials$/ do
   fill_in('Username', :with => 'admin')
   fill_in('Password', :with => 'password')
-  find('Login').click
+  find('#login-btn').click
 end
 
 When /^I fill in the login form with valid student credentials$/ do
   fill_in('Username', :with => 'student')
   fill_in('Password', :with => 'password')
-  find('Login').click
+  find('#login-btn').click
 end
 
 When /^I fill in the login form with invalid credentials$/ do
   fill_in('Username', :with => 'bad')
   fill_in('Password', :with => 'bad')
-  find('Login').click
+  find('#login-btn').click
 end
 
 Then /^I should be on the (.*)$/ do |page|

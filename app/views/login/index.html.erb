@@ -1,2 +1,13 @@
-<h1>Login#index</h1>
-<p>This is the login page</p>
+
+<%= render :partial => 'layouts/header' %>
+
+<div class="login-form">
+    <%= form_tag :action => :create do %>
+        <%= label_tag :user, 'Username: ' %><br>
+        <%= text_field_tag :user %><br>
+
+        <%= label_tag :password, 'Password: ' %><br>
+        <%= password_field_tag :password %><br>
+        <%= submit_tag 'Login', :id=> "login-btn" %>
+    <% end %>
+</div>
