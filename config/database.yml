@@ -31,8 +31,6 @@ test: &test
 production:
   <<: *default
   database: sample_app_production
-  username: testapp
-  password: <%= ENV['TESTAPP_DATABASE_PASSWORD'] %>
 
 cucumber:
   <<: *test
