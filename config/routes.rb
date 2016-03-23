@@ -1,6 +1,18 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
   resources :problems
+=======
+  get 'student/home'
+
+  get 'admin/home'
+
+  get 'login/index'
+  get 'login' => 'login#index'
+  post 'login/create'
+
+>>>>>>> 8723636cdb3dc68ad644c0a590d1c5fb96543e99
   get 'welcome/index'
+  get 'welcome' => 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
