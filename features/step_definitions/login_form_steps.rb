@@ -1,7 +1,7 @@
 PAGES = {
     "login page" => "/login",
-    "admin home page" => "/admin",
-    "student home page" => "/student",
+    "admin index page" => "/admin",
+    "home index page" => "/index",
 }
 
 Given /^I am on the (.*)$/ do |page|
@@ -15,7 +15,7 @@ When /^I fill in the login form with valid admin credentials$/ do
 end
 
 When /^I fill in the login form with valid student credentials$/ do
-  fill_in('Username', :with => 'student')
+  fill_in('Username', :with => 'home')
   fill_in('Password', :with => 'password')
   find('#login-btn').click
 end
