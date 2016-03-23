@@ -103,9 +103,9 @@ GEM
     minitest (5.8.4)
     multi_json (1.11.2)
     multi_test (0.1.2)
-    mysql2 (0.3.20)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    pg (0.18.4)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -189,7 +189,7 @@ DEPENDENCIES
   database_cleaner
   jbuilder (~> 2.0)
   jquery-rails
-  mysql2 (~> 0.3.18)
+  pg
   rails (= 4.2.4)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
