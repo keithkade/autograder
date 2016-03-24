@@ -17,7 +17,6 @@ default: &default
   password: <%= ENV['PASSWORD'] %>
   host:     <%= ENV['IP'] %>
 
-
 development:
   <<: *default
   database: sample_app_development
@@ -31,9 +30,7 @@ test: &test
 
 production:
   <<: *default
-  database: testapp_production
-  username: testapp
-  password: <%= ENV['TESTAPP_DATABASE_PASSWORD'] %>
+  database: sample_app_production
 
 cucumber:
   <<: *test

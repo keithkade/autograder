@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  resources :problems
-  resources :problems
   get 'student/home'
 
-  get 'admin/home'
+  resources :problems
 
+  get 'home/index'
+
+  get 'admin/index'
+
+  root 'login#index'
   get 'login/index'
   get 'login' => 'login#index'
   post 'login/create'

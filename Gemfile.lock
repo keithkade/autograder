@@ -139,6 +139,11 @@ GEM
     rake (10.5.0)
     rdoc (4.2.1)
       json (~> 1.4)
+<<<<<<< HEAD
+=======
+    ruby_parser (3.8.1)
+      sexp_processor (~> 4.1)
+>>>>>>> 6be96ca04c1a827a517c988b514da532cb944431
     rubyzip (1.2.0)
     sass (3.4.21)
     sass-rails (5.0.4)
@@ -154,6 +159,7 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sexp_processor (4.7.0)
     spring (1.6.2)
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
