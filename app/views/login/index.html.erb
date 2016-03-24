@@ -1,9 +1,12 @@
 <%= render :partial => 'layouts/header' %>
 
 <div class="login-form">
-    <%= form_tag :action => :create do %>
-        <%= text_field_tag :user, nil, :placeholder => 'Username' %><br>
-        <%= password_field_tag :password, nil, :placeholder => 'Password' %><br>
-        <%= submit_tag 'Login', :id=> 'login-btn' %>
-    <% end %>
+  <%= form_tag :action => :create do %>
+    <%= text_field_tag :user, nil, :placeholder => 'Username' %><br>
+    <%= password_field_tag :password, nil, :placeholder => 'Password' %><br>
+    <%= submit_tag 'Login', :id=> 'login-btn' %>
+  <% end %>
+  <span class="login-message">
+    <%= @message %>
+  </span>
 </div>
