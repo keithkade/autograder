@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
   resources :problems
-=======
+  resources :problems
   get 'student/home'
 
   get 'admin/home'
@@ -10,7 +9,6 @@ Rails.application.routes.draw do
   get 'login' => 'login#index'
   post 'login/create'
 
->>>>>>> 8723636cdb3dc68ad644c0a590d1c5fb96543e99
   get 'welcome/index'
   get 'welcome' => 'welcome#index'
 
