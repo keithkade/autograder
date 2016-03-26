@@ -6,8 +6,6 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Body</th>
-      <th>Skeleton</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,8 +14,6 @@
     <% @problems.each do |problem| %>
       <tr>
         <td><%= problem.title %></td>
-        <td><%= problem.body %></td>
-        <td><%= problem.skeleton %></td>
         <td><%= link_to 'Show', problem %></td>
         <td><%= link_to 'Edit', edit_problem_path(problem) %></td>
         <td><%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>

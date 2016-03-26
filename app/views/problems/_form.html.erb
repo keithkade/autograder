@@ -16,12 +16,20 @@
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_field :body %>
+    <%= f.label :summary %><br>
+    <%= f.text_area :summary %>
+  </div>
+  <div class="field">
+    <%= f.label :input_description %><br>
+    <%= f.text_area :input_description %>
+  </div>
+  <div class="field">
+    <%= f.label :output_description %><br>
+    <%= f.text_area :output_description %>
   </div>
   <div class="field">
     <%= f.label :skeleton %><br>
-    <%= f.text_field :skeleton %>
+    <%= f.text_area :skeleton %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Input:</strong>
+  <%= @problem_test_case.input %>
+</p>
+
+<p>
+  <strong>Output:</strong>
+  <%= @problem_test_case.output %>
+</p>
+
+<%= link_to 'Edit', edit_problem_test_case_path(@problem_test_case) %> |
+<%= link_to 'Back', problem_test_cases_path %>
