@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   get 'home' => 'home#index'
   #get 'admin/classes/'
 
-  root 'login#index'
-  get 'login' => 'login#index'
-  post 'login/create'
+  get    'login'   => 'login#new'
+  post   'login'   => 'login#create'
+  delete 'logout'  => 'login#destroy'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
