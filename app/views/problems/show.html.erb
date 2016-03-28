@@ -1,19 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @problem.title %>
-</p>
-
-<p>
-  <strong>Body:</strong>
-  <%= @problem.body %>
-</p>
-
-<p>
-  <strong>Skeleton:</strong>
-  <%= @problem.skeleton %>
-</p>
+<div class="container">
+  <div class="page-title"><p><%= @problem.title %></p></div>
+  <div class="main-content">
+    <h1>Problem Summary:</h1>
+    <div><%= @problem.summary %></div>
+    
+    <h1>Input:</h1>
+    <div><%= @problem.input_description %></div>
+    
+    <h1>Output:</h1>
+    <div><%= @problem.output_description %></div>
+    
+    <h1>Code Skeleton:</h1>
+    <code><pre><%= @problem.skeleton %></pre></code>
+    
+    <h1>Test Cases:</h1>
+    <div id="problem-test-cases">
+      <div class="add-problem-test-case">
+        <p><%= link_to 'New Test Case', new_problem_test_case_path(:problemid => @myid) %></p>
+      </div>
+      <% @problem_test_cases.each do |problem_test_case| %>
+        <div class="problem-test-case">
+          <p><%= link_to 'Show', problem_test_case %> <%= link_to 'Edit', edit_problem_test_case_path(problem_test_case) %> <%= link_to 'Destroy', problem_test_case, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_problem_path(@problem) %> |
 <%= link_to 'Back', problems_path %>

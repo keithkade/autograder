@@ -10,6 +10,8 @@ class ProblemsController < ApplicationController
   # GET /problems/1
   # GET /problems/1.json
   def show
+    @problem_test_cases = ProblemTestCase.where(problemid: params[:id])
+    @myid = params[:id]
   end
 
   # GET /problems/new
@@ -69,6 +71,6 @@ class ProblemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
-      params.require(:problem).permit(:title, :body, :skeleton)
+      params.require(:problem).permit(:title, :summary, :input_description, :output_description, :skeleton)
     end
 end
