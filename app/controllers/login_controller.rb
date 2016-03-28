@@ -8,6 +8,7 @@ class LoginController < ApplicationController
     #todo validation of credentials
     #user.is_valid_student
     if params['user'] == 'student' && params['password'] == 'root'
+      #log_in(user.id)
       redirect_to '/home'
     #user.is_valid_admin
     elsif params['user'] == 'admin' && params['password'] == 'root'
