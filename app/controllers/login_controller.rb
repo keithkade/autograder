@@ -13,7 +13,7 @@ class LoginController < ApplicationController
     elsif params['user'] == 'admin' && params['password'] == 'root'
       redirect_to '/admin/classes'
     else
-      flash.now[:danger] = 'Invalid email/password combination'
+      flash.now[:danger] = 'Login Failed: Invalid email/password combination'
       render 'new'
     end
 

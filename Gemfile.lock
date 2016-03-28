@@ -138,6 +138,19 @@ GEM
     rake (10.5.0)
     rdoc (4.2.1)
       json (~> 1.4)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.2)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     rubyzip (1.2.0)
     sass (3.4.21)
     sass-rails (5.0.4)
@@ -194,6 +207,7 @@ DEPENDENCIES
   jquery-rails
   pg
   rails (= 4.2.4)
+  rspec
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   selenium-webdriver
