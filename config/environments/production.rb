@@ -79,4 +79,5 @@ Rails.application.configure do
 
   # only serve over https since we are sending passwords
   config.force_ssl = true
+  
 end
