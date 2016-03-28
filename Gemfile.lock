@@ -192,10 +192,6 @@ DEPENDENCIES
   haml
   jbuilder (~> 2.0)
   jquery-rails
-<<<<<<< HEAD
-  mysql2 (~> 0.3.18)
-=======
->>>>>>> 07ded94433db9a6cff25b23c08ab4dd8ec239cc4
   pg
   rails (= 4.2.4)
   sass-rails (~> 5.0)
