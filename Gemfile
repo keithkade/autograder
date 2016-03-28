@@ -3,8 +3,10 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
-# Use mysql as the database for Active Record
-gem 'mysql2', '~> 0.3.18'
+
+#postgres
+gem 'pg'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -14,7 +16,6 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'haml'
-gem "pg"
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -24,7 +25,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'pg'
+gem 'bootstrap-sass', '~> 3.3.6'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -49,8 +50,12 @@ group :development do
 end
 
 group :test do
+  gem 'pry-byebug'
   gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails-training-wheels'
   gem 'database_cleaner'
   gem 'capybara'
-  gem 'selenium-webdriver'
+  gem 'launchy'
+  gem 'rspec-rails'
+  gem 'simplecov'
 end
