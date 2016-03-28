@@ -1,6 +1,6 @@
 <%= form_for(@problem_test_case) do |f| %>
   <% if @problem_test_case.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger">
       <h2><%= pluralize(@problem_test_case.errors.count, "error") %> prohibited this problem_test_case from being saved:</h2>
 
       <ul>
@@ -12,19 +12,19 @@
   <% end %>
 
 <!---->
-  <div class="hide" style="display: none;">
+  <div class="hidden" style="display: none;">
     <%= f.number_field :problemid %>
   </div>
 <!---->
-  <div class="field">
-    <%= f.label :input %><br>
-    <%= f.text_area :input %>
+  <div class="form-group">
+    <%= f.label :input %>
+    <%= f.text_area :input, :rows => 6, :class => 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :output %><br>
-    <%= f.text_area :output %>
+    <%= f.text_area :output, :rows => 6, :class => 'form-control' %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Submit', :class => 'btn btn-primary' %>
   </div>
 <% end %>

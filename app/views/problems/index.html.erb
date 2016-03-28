@@ -1,8 +1,12 @@
+<div class="container-wrap">
+<div class="container">
+  
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Problems</h1>
+<h1>List of Problems</h1>
+<%= link_to 'New Problem', new_problem_path, :class => 'btn btn-primary' %>
 
-<table>
+<table class="problems-list-table table">
   <thead>
     <tr>
       <th>Title</th>
@@ -14,14 +18,13 @@
     <% @problems.each do |problem| %>
       <tr>
         <td><%= problem.title %></td>
-        <td><%= link_to 'Show', problem %></td>
-        <td><%= link_to 'Edit', edit_problem_path(problem) %></td>
-        <td><%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'View', problem, :class => 'btn btn-default' %></td>
+        <td><%= link_to 'Edit', edit_problem_path(problem), :class => 'btn btn-primary' %></td>
+        <td><%= link_to 'Delete', problem, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Problem', new_problem_path %>
+</div>
+</div>
