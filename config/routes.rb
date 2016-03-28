@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
+=======
+  resources :problem_test_cases
+  get 'student/home'
+>>>>>>> ad8b66e2ef42572913267c75576ba6e3742c0bb2
 
   resources :problems
 

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Problem Test Cases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Problemid</th>
+      <th>Input</th>
+      <th>Output</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @problem_test_cases.each do |problem_test_case| %>
+      <tr>
+        <td><%= problem_test_case.problemid %></td>
+        <td><%= problem_test_case.input %></td>
+        <td><%= problem_test_case.output %></td>
+        <td><%= link_to 'Show', problem_test_case %></td>
+        <td><%= link_to 'Edit', edit_problem_test_case_path(problem_test_case) %></td>
+        <td><%= link_to 'Destroy', problem_test_case, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Problem test case', new_problem_test_case_path %>
