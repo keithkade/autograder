@@ -1,28 +1,34 @@
-describe LoginHelper do
+require 'rails_helper'
 
-  before :each do
-    @bad_movie = double('Movie')
-    @bad_movie.stub(:director).and_return(' ')
-    @bad_movie.stub(:id).and_return('1')
-    @bad_movie.stub(:title).and_return('bad title')
+describe LoginHelper, :type => :helper do
 
-    @good_movie = double('Movie')
-    @good_movie.stub(:director).and_return('good director')
-    @good_movie.stub(:id).and_return('2')
-    @good_movie.stub(:title).and_return('good title')
-
-    Movie.stub(:find).with(@bad_movie.id).and_return(@bad_movie)
-    Movie.stub(:find).with(@good_movie.id).and_return(@good_movie)
+  describe 'Keep students logged in' do
+    it 'store succesful student login in session' do
+      log_in_student('1')
+      expect(session[:user_id]).to eq('1')
+    end
+    it 'remove student id from session on log out' do
+      log_out_student
+      expect(session.key?(:user_id)).to be_falsey
+    end
+    it 'should check that a student is logged in based on session' do
+      session[:user_id] = '1'
+      expect(logged_in_student?).to be_truthy
+    end
   end
 
-  describe 'Keep users logged in' do
-    it 'store succesful student login in session' do
-      log_in('1')
-      assert(session.key?('1'))
+  describe 'Keep admin logged in' do
+    it 'store succesful admin login in session' do
+      log_in_admin
+      expect(session[:is_admin]).to be_truthy
     end
-    it 'remove user id from session on log out' do
-      log_out
-      #assert(not session.key?(:user_id))
+    it 'remove admin id from session on log out' do
+      log_out_admin
+      expect(session.key?(:is_admin)).to be_falsey
+    end
+    it 'should check that a admin is logged in based on session' do
+      session[:is_admin] = true
+      expect(logged_in_admin?).to be_truthy
     end
   end
 
