@@ -20,12 +20,12 @@ module NavigationHelpers
       '/home'
 
     when /^the problem\s?page$/
-      '/problems'
+      '/admin/problems'
 
     when /^the details page for "(.*?)"$/
       title = $1
       problem = Problem.all.find_by(title: title)
-      "/problems/#{problem.id}"
+      "/admin/problems/#{problem.id}"
   
     else
       begin
