@@ -19,6 +19,14 @@ module NavigationHelpers
     when /^the student home\s?page$/
       '/home'
 
+    when /^the problem\s?page$/
+      '/problems'
+
+    when /^the details page for "(.*?)"$/
+      title = $1
+      problem = Problem.all.find_by(title: title)
+      "/problems/#{problem.id}"
+  
     else
       begin
         page_name =~ /^the (.*) page$/
