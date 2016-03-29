@@ -5,7 +5,7 @@ Feature: Login
     And I fill in "Username" with "admin"
     And I fill in "Password" with "root"
     When I press "Login"
-    Then I should be on the admin home page
+    Then I should be on the admin courses page
 
   Scenario: Login as student
     Given I am on the login page

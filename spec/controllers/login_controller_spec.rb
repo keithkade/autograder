@@ -32,7 +32,8 @@ describe LoginController do
       post :create, { :user => @student.username, :password => @student.password }
     end
     it 'should login valid students' do
-      @helper.should_receive(:log_in_student)
+      helper = double('LoginHelper')
+      helper.should_receive(:log_in_student)
       post :create, { :user => @student.username, :password => @student.password }
     end
     it 'should logout students' do
