@@ -19,13 +19,21 @@ module NavigationHelpers
     when /^the student home\s?page$/
       '/home'
 
-    when /^the problem\s?page$/
+    when /^the problems\s?page$/
       '/admin/problems'
 
-    when /^the details page for "(.*?)"$/
+    when /^the problem page for "(.*)"$/
       title = $1
       problem = Problem.all.find_by(title: title)
       "/admin/problems/#{problem.id}"
+
+    when /^the courses\s?page$/
+      '/admin/courses'
+ 
+    when /^the course page for "(.*)"$/
+      name = $1
+      course = Course.all.find_by(name: name)
+      "/admin/courses/#{course.id}"
   
     else
       begin
