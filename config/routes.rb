@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  resources :problem_test_cases
   get 'student/home'
-  
-  resources :courses
-
-  resources :problems
+    
+  resources :courses, path: 'admin/courses'
+  resources :problems, path: 'admin/problems'
+  resources :problem_test_cases, path: 'admin/problem_test_cases'
 
   get 'home' => 'home#index'
   #get 'admin/classes/'
