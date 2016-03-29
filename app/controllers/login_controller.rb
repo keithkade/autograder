@@ -11,7 +11,7 @@ class LoginController < ApplicationController
       #log_in(user.id)
       redirect_to '/home'
     #user.is_valid_admin
-    elsif params['user'] == 'admin' && params['password'] == 'root'
+    elsif params['user'] == Rails.application.secrets.admin_username && params['password'] == Rails.application.secrets.admin_password
       redirect_to '/admin/classes'
     else
       flash.now[:danger] = 'Login Failed: Invalid email/password combination'
