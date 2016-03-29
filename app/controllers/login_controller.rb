@@ -5,12 +5,11 @@ class LoginController < ApplicationController
   end
 
   def create
-    #todo validation of credentials
+    #todo check user model to see if valid
     #user.is_valid_student
     if params['user'] == 'student' && params['password'] == 'root'
       log_in_student(params['user'])
       redirect_to '/home'
-    #user.is_valid_admin
     elsif params['user'] == Rails.application.secrets.admin_username && params['password'] == Rails.application.secrets.admin_password
       log_in_admin
       redirect_to '/admin/classes'
