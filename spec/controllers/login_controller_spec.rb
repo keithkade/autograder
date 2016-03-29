@@ -25,7 +25,8 @@ describe LoginController do
   end
 
   describe 'Allow students and admin to login' do
-    #TODO these don't pass. can't figure out how to access helper
+    #TODO these don't pass. can't figure out how to access helper and documentation is slim
+    #covered by cucumber though
     it 'should check if submitted credentials are a valid student' do
       @User.should_receive(:is_valid).with(@student.username, @student.password)
       post :create, { :user => @student.username, :password => @student.password }
