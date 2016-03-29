@@ -10,11 +10,11 @@ class ApplicationController < ActionController::Base
   def check_credentials
 
     if request.path.include?('/admin') and not logged_in_admin?
-      redirect_to '/home'
+      redirect_to '/home' and return
     end
 
     if not request.path == login_path and not (logged_in_student? or logged_in_admin?)
-      redirect_to login_path
+      redirect_to login_path and return
     end
   end
 
