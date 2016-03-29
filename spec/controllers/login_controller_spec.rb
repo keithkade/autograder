@@ -1,26 +1,46 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe LoginController do
 
   before :each do
-    @bad_movie = double('Movie')
-    @bad_movie.stub(:director).and_return(' ')
-    @bad_movie.stub(:id).and_return('1')
-    @bad_movie.stub(:title).and_return('bad title')
+    @admin = double('User')
 
-    @good_movie = double('Movie')
-    @good_movie.stub(:director).and_return('good director')
-    @good_movie.stub(:id).and_return('2')
-    @good_movie.stub(:title).and_return('good title')
+    @student = double('User')
+    @student.stub(:id).and_return('1')
+    @student.stub(:username).and_return('student')
+    @student.stub(:password).and_return('root')
 
-    Movie.stub(:find).with(@bad_movie.id).and_return(@bad_movie)
-    Movie.stub(:find).with(@good_movie.id).and_return(@good_movie)
+    @admin = double('User')
+    @admin.stub(:id).and_return('1')
+    @admin.stub(:username).and_return('admin')
+    @admin.stub(:password).and_return('root')
+
+    @helper = Object.new.extend LoginHelper
+    @helper.stub(:log_in_student)
+    @helper.stub(:log_out_student)
+
+    @User = double('User')
+    @User.stub(:is_valid)
+    @User.stub(:is_valid)
   end
 
   describe 'Allow students and admin to login' do
-    it 'store user login in session' do
-      Movie.should_receive(:same_director).with(@good_movie.director)
-      get :same_director, {:id => @good_movie.id}
+    #TODO these don't pass. can't figure out how to access helper
+    it 'should check if submitted credentials are a valid student' do
+      @User.should_receive(:is_valid).with(@student.username, @student.password)
+      post :create, { :user => @student.username, :password => @student.password }
+    end
+    it 'should login valid students' do
+      @helper.should_receive(:log_in_student)
+      post :create, { :user => @student.username, :password => @student.password }
+    end
+    it 'should logout students' do
+      @helper.should_receive(:log_out_student)
+      delete :destroy
+    end
+    it 'should redirect on logout' do
+      response.should redirect_to(login_path)
+      delete :destroy
     end
   end
 
