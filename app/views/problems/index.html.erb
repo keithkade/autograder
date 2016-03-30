@@ -1,10 +1,8 @@
-<div class="container-wrap">
-<div class="container">
-  
-<p id="notice"><%= notice %></p>
+<% content_for :title do %>List of Problems<% end %>
 
-<h1>List of Problems</h1>
-<%= link_to 'New Problem', new_problem_path, :class => 'btn btn-primary' %>
+<% content_for :options do %>
+  <%= link_to 'New Problem', new_problem_path, :class => 'btn btn-primary' %>
+<% end %>
 
 <table class="problems-list-table table">
   <thead>
@@ -25,6 +23,3 @@
     <% end %>
   </tbody>
 </table>
-
-</div>
-</div>

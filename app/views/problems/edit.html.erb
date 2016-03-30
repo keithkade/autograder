@@ -1,9 +1,9 @@
-<div class="container">
-<h1>Editing Problem</h1>
+<% content_for :title do %>
+  Editing Problem
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Show', @problem %> | <%= link_to 'Back', problems_path %>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @problem %> |
-<%= link_to 'Back', problems_path %>
-
-</div>

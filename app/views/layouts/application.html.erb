@@ -1,18 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Testapp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= (content_for?(:title) ? yield(:title) + " - " : "") + "Autograder" %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
-<% flash.each do |message_type, message| %>
-    <div class="alert alert-<%= message_type %>"><%= message %></div>
-<% end %>
-
+  <a name="page-top"></a>
+  <div class="container-wrap">
+    
+    <header class="header-wrap">
+      <%= render 'layouts/header' %>
+    </header>
+    
+    <main class="content-wrap" role="main">
+      <div class="container content">
+        <div class="main-content">
+          <div class="flash-notices">
+            <% flash.each do |message_type, message| %>
+              <div class="alert alert-<%= message_type %>"><%= message %></div>
+            <% end %>
+          </div>
+          
+          <div class="page-title page-header"><span><%= yield(:title) %></span></div>
+          
+          <%= yield %>
+          
+          <div class="page-options-bottom">
+            <%= yield(:options) %>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <footer class="footer-wrap">
+      <%= render 'layouts/footer' %>
+    </footer>
+    
+  </div>
+  
 </body>
 </html>

@@ -1,65 +1,51 @@
-<div class="container-wrap">
+<% content_for :title do %>
+  <%= @problem.title %>
+<% end %>
 
-<header class="container">
-  <h1><%= @problem.title %></h1>
-</header>
+<% content_for :options do %>
+  <%= link_to 'Edit This Problem', edit_problem_path(@problem), :class => 'btn btn-primary' %> <%= link_to 'Back to Problem List', problems_path, :class => 'btn btn-default' %>
+<% end %>
 
-<main class="container">
-  <div id="notice" class="alert alert-info">
-    <p><%= notice %></p>
+<h1>Problem Summary</h1>
+<div class="problem-summary">
+  <%= @problem.summary %>
+</div>
+
+<h1>Input Description</h1>
+<div class="problem-input-description">
+  <%= @problem.input_description %>
+</div>
+
+<h1>Output Description</h1>
+<div class="problem-output-description">
+  <%= @problem.output_description %>
+</div>
+
+<h1>Code Skeleton</h1>
+<div class="problem-code-skeleton">
+  <pre><code><%= @problem.skeleton %></code></pre>
+</div>
+
+<h1>Test Cases</h1>
+<div class="problem-test-cases">
+  <div class="add-problem-test-case">
+    <p><%= link_to 'New Test Case', new_problem_test_case_path(:problemid => @myid), :class => 'btn btn-primary' %></p>
   </div>
-  
-  <div class="main-content">
-    <h1>Problem Summary</h1>
-    <div class="problem-summary">
-      <%= @problem.summary %>
-    </div>
-    
-    <h1>Input Description</h1>
-    <div class="problem-input-description">
-      <%= @problem.input_description %>
-    </div>
-    
-    <h1>Output Description</h1>
-    <div class="problem-output-description">
-      <%= @problem.output_description %>
-    </div>
-    
-    <h1>Code Skeleton</h1>
-    <div class="problem-code-skeleton">
-      <pre><code><%= @problem.skeleton %></code></pre>
-    </div>
-    
-    <h1>Test Cases</h1>
-    <div class="problem-test-cases">
-      <div class="add-problem-test-case">
-        <p><%= link_to 'New Test Case', new_problem_test_case_path(:problemid => @myid), :class => 'btn btn-primary' %></p>
-      </div>
-      <% @problem_test_cases.each do |problem_test_case| %>
-        <div class="problem-test-case">
-          <div class="row">
-            <div class="col-sm-6">
-              <h2>Input</h2>
-              <pre><code><%= problem_test_case.input %></code></pre>
-            </div>
-            <div class="col-sm-6">
-              <h2>Output</h2>
-              <pre><code><%= problem_test_case.output %></code></pre>
-            </div>
-          </div>
-          <div>
-            <%= link_to 'Edit Test Case', edit_problem_test_case_path(problem_test_case), :class => 'btn btn-primary' %> <%= link_to 'Destroy', problem_test_case, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-          </div>
+  <% @problem_test_cases.each do |problem_test_case| %>
+    <div class="problem-test-case">
+      <div class="row">
+        <div class="col-sm-6">
+          <h2>Input</h2>
+          <pre><code><%= problem_test_case.input %></code></pre>
         </div>
-      <% end %>
+        <div class="col-sm-6">
+          <h2>Output</h2>
+          <pre><code><%= problem_test_case.output %></code></pre>
+        </div>
+      </div>
+      <div>
+        <%= link_to 'Edit Test Case', edit_problem_test_case_path(problem_test_case), :class => 'btn btn-primary' %> <%= link_to 'Destroy', problem_test_case, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      </div>
     </div>
-  </div>
-</main>
-
-<footer class="container">
-  <div class="page-options-bottom">
-    <%= link_to 'Edit This Problem', edit_problem_path(@problem), :class => 'btn btn-primary' %> <%= link_to 'Back to Problem List', problems_path, :class => 'btn btn-default' %>
-  </div>
-</footer>
-    
+  <% end %>
 </div>
