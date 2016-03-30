@@ -8,9 +8,10 @@ Feature: Login
     Then I should be on the admin courses page
 
   Scenario: Login as student
+    #todo fix this one
     Given I am on the login page
-    And I fill in "Username" with "JohnDoe"
-    And I fill in "Password" with "JohnDoePassword"
+    And I fill in "Username" with "dman"
+    And I fill in "Password" with "password"
     When I press "Login"
     Then I should be on the student home page
 
