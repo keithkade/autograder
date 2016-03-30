@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   root 'login#new'
   
   get 'student/home'
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
   resources :courses, path: 'admin/courses'
   resources :problems, path: 'admin/problems'
   resources :problem_test_cases, path: 'admin/problem_test_cases'
+  resources :students, path: 'admin/students'
 
   get 'home' => 'home#index'
   #get 'admin/classes/'
