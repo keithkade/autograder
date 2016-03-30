@@ -5,11 +5,13 @@ class ProblemTestCasesController < ApplicationController
   # GET /problem_test_cases.json
   def index
     @problem_test_cases = ProblemTestCase.all
+    redirect_to problems_path
   end
 
   # GET /problem_test_cases/1
   # GET /problem_test_cases/1.json
   def show
+    redirect_to problems_path
   end
 
   # GET /problem_test_cases/new
@@ -29,7 +31,7 @@ class ProblemTestCasesController < ApplicationController
 
     respond_to do |format|
       if @problem_test_case.save
-        format.html { redirect_to @problem, notice: 'Problem test case was successfully created.' }
+        format.html { redirect_to problem_path(@problem), notice: 'Problem test case was successfully created.' }
         format.json { render :show, status: :created, location: @problem_test_case }
       else
         format.html { render :new }
@@ -44,7 +46,7 @@ class ProblemTestCasesController < ApplicationController
     @problem = Problem.find(problem_test_case_params[:problemid])
     respond_to do |format|
       if @problem_test_case.update(problem_test_case_params)
-        format.html { redirect_to @problem, notice: 'Problem test case was successfully updated.' }
+        format.html { redirect_to problem_path(@problem), notice: 'Problem test case was successfully updated.' }
         format.json { render :show, status: :ok, location: @problem_test_case }
       else
         format.html { render :edit }
@@ -56,10 +58,10 @@ class ProblemTestCasesController < ApplicationController
   # DELETE /problem_test_cases/1
   # DELETE /problem_test_cases/1.json
   def destroy
-    @problem = Problem.find(problem_test_case_params[:problemid])
+    @problem = @problem_test_case.problemid
     @problem_test_case.destroy
     respond_to do |format|
-      format.html { redirect_to @problem, notice: 'Problem test case was successfully destroyed.' }
+      format.html { redirect_to problem_path(@problem), notice: 'Problem test case was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

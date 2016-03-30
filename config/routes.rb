@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'login#new'
+  
   get 'student/home'
     
   resources :courses, path: 'admin/courses'

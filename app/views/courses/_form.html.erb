@@ -1,6 +1,6 @@
 <%= form_for(@course) do |f| %>
   <% if @course.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger">
       <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
 
       <ul>
@@ -11,11 +11,11 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name , :placeholder => "Name" %>
+    <%= f.text_field :name , :placeholder => "Name", :class => 'form-control' %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn btn-primary' %>
   </div>
 <% end %>
