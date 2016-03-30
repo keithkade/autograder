@@ -5,10 +5,9 @@ class LoginController < ApplicationController
   end
 
   def create
-    #todo check user model to see if valid
-    #user.is_valid_student
-    if params['user'] == 'student' && params['password'] == 'root'
-      log_in_student(params['user'])
+    user = Student.find_by(UserName: params['user'], Password:  params['password'])
+    if not user.nil?
+      log_in_student(user.id)
       redirect_to '/home'
     elsif params['user'] == Rails.application.secrets.admin_username && params['password'] == Rails.application.secrets.admin_password
       log_in_admin

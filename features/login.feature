@@ -9,8 +9,8 @@ Feature: Login
 
   Scenario: Login as student
     Given I am on the login page
-    And I fill in "Username" with "student"
-    And I fill in "Password" with "root"
+    And I fill in "Username" with "JohnDoe"
+    And I fill in "Password" with "JohnDoePassword"
     When I press "Login"
     Then I should be on the student home page
 
