@@ -4,11 +4,7 @@
 $deepPurple: #18152e;
 $lightTeal: #44c6b7;
 $lightGrey: #e6e6e6;
-
-* {
-    margin: 0;
-    padding: 0;
-}
+$white: #FFF;
 
 html, body {
     height: 100%;
@@ -16,8 +12,8 @@ html, body {
 }
 
 body {
-    background: $lightGrey;
-    font-family: sans-serif;
+    background: $white;
+    font-family: 'Open Sans', sans-serif;
 }
 
 header {
@@ -26,13 +22,28 @@ header {
     border-bottom: 2px solid $lightTeal;
     padding: 6px;
     
-    h1 {
+    .site-title h1 {
         font-weight: 400;
         font-size: 24px;
+        margin: 0.72em 0;
+    }
+    
+    .site-title h1 a {
+        color: #FFF;
     }
 }
 
-.alert {
-  color: #730E15;
-  font-size: 18px;
+footer {
+    margin-top: 42px;
+    
+    .license-area {
+        text-align: center;
+    }
+}
+
+main {
+    .page-title {
+        font-size: 36px;
+        line-height: 1em;
+    }
 }

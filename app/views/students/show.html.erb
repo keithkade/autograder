@@ -1,18 +1,14 @@
-<div class="container-wrap">
-  <header class="container">
-    <h1>Student: <% @student.Name %></h1>
-  </header>
-  
-  <main class="container">
-    <ul>
-      <li><strong>Id: <%= @student.ID %></strong></li>
-      <li><strong>Username: <%= @student.UserName %></strong></li>
-      <li><strong>Password: <%= @student.Password %></strong></li>
-      <li><strong>Class: <%= @student.Class %></strong></li>
-    </ul>
-  </main>
-  
-  <footer class="container">
-    <%= link_to 'Edit', edit_student_path(@student), :class => 'btn btn-primary' %> <%= link_to 'Back', students_path, :class => 'btn btn-default' %>
-  </footer>
-</div>
+<% content_for :title do %>
+  Student: <%= @student.Name %>
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Edit', edit_student_path(@student), :class => 'btn btn-primary' %> <%= link_to 'Back', students_path, :class => 'btn btn-default' %>
+<% end %>
+
+<ul>
+  <li><strong>Id: <%= @student.ID %></strong></li>
+  <li><strong>Username: <%= @student.UserName %></strong></li>
+  <li><strong>Password: <%= @student.Password %></strong></li>
+  <li><strong>Class: <%= @student.Class %></strong></li>
+</ul>

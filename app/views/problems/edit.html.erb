@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :options do %>
-  <%= link_to 'Show', @problem %> | <%= link_to 'Back', problems_path %>
+  <%= link_to 'Cancel', @problem, :class => 'btn btn-danger' %>
 <% end %>
 
 <%= render 'form' %>

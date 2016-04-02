@@ -1,8 +1,9 @@
-<div class="container">
-<h1>Editing Problem Test Case</h1>
+<% content_for :title do %>
+  Editing Problem Test Case
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Cancel', @problem, :class => 'btn btn-danger' %>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @problem_test_case %> |
-<%= link_to 'Back', problems_path %>
-</div>

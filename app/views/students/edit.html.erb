@@ -1,8 +1,9 @@
-<div class="container">
-<h1>Editing Student</h1>
+<% content_for :title do %>
+  Editing <%= @student.Name %>
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Cancel', @student, :class => 'btn btn-danger' %>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @student %> |
-<%= link_to 'Back', students_path %>
-</div>

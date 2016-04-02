@@ -17,10 +17,13 @@ class ProblemTestCasesController < ApplicationController
   # GET /problem_test_cases/new
   def new
     @problem_test_case = ProblemTestCase.new(:problemid => params[:problemid])
+    @problem = Problem.find(@problem_test_case.problemid)
   end
 
   # GET /problem_test_cases/1/edit
   def edit
+    @problem_test_case = ProblemTestCase.find(params[:id])
+    @problem = Problem.find(@problem_test_case.problemid)
   end
 
   # POST /problem_test_cases

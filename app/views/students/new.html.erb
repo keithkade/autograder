@@ -1,7 +1,9 @@
-<div class="container">
-<h1>New Student</h1>
+<% content_for :title do %>
+  Creating Student
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Cancel', students_path, :class => 'btn btn-danger' %>
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', students_path %>
-</div>

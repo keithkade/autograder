@@ -1,16 +1,12 @@
-<div class="container-wrap">
-  <header class="container">
-    <h1><%= @course.name %></h1>
-  </header>
-  
-  <main class="container">
-    <div class="alert alert-warning">
-      <p>In the future you will be able to add problems and students to the course.</p>
-    </div>
-  </main>
-  
-  <footer class="container">
-    <%= link_to 'Edit', edit_course_path(@course), :class => 'btn btn-primary' %> 
-    <%= link_to 'Back', courses_path, :class => 'btn btn-default' %>
-  </footer>
+<% content_for :title do %>
+  <%= @course.name %>
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Edit', edit_course_path(@course), :class => 'btn btn-primary' %> 
+  <%= link_to 'Back', courses_path, :class => 'btn btn-default' %>
+<% end %>
+
+<div class="alert alert-warning">
+  <p>In the future you will be able to add problems and students to the course.</p>
 </div>
