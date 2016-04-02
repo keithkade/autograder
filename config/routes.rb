@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :course_user_relations
+  resources :course_problem_relations
   root 'login#new'
   
   get 'student/home'
