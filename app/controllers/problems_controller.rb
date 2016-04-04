@@ -14,6 +14,7 @@ class ProblemsController < ApplicationController
     @myid = params[:id]
   end
 
+
   # GET /problems/new
   def new
     @problem = Problem.new
