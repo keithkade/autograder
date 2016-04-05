@@ -19,7 +19,13 @@ class LoginController < ApplicationController
     end
 
   def destroy
-    log_out_student
+    if logged_in_student?
+      log_out_student
+    end
+    if logged_in_admin?
+      log_out_admin
+    end
+
     redirect_to '/'
   end
 
