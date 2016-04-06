@@ -5,22 +5,10 @@ describe LoginController do
   let(:helpers) { LoginController.helpers }
 
   before :each do
-    @admin = double('User')
-
     @student = double('Student')
     @student.stub(:id).and_return('1')
-    @student.stub(:username).and_return('student')
-    @student.stub(:password).and_return('root')
-
-    @admin = double('Admin')
-    @admin.stub(:id).and_return('1')
-    @admin.stub(:username).and_return('admin')
-    @admin.stub(:password).and_return('root')
-
-    @helper = Object.new.extend LoginHelper
-    @helper.stub(:log_in_student)
-    @helper.stub(:log_out_student)
-
+    @student.stub(:username).and_return('dman')
+    @student.stub(:password).and_return('password')
   end
 
   describe 'Allow students and admin to login' do
@@ -31,15 +19,12 @@ describe LoginController do
     end
     #TODO these don't pass. can't figure out how to access helper and documentation is slim
     it 'should login valid students' do
-      helper.should_receive(:log_in_student)
+      controller.should_receive(:log_in_student)
       post :create, { :user => @student.username, :password => @student.password }
     end
     it 'should logout students' do
-      @helper.should_receive(:log_out_student)
-      delete :destroy
-    end
-    it 'should redirect on logout' do
-      response.should redirect_to(login_path)
+      controller.should_receive(:log_out_student)
+      post :create, { :user => @student.username, :password => @student.password }
       delete :destroy
     end
   end
