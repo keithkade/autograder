@@ -2,7 +2,7 @@
   <div class="site-title pull-left">
     <h1><a href="/"><span>Bryan High School Autograder</span></a></h1>
   </div>
-  <% if !current_page?(root_path) %>
+  <% if !current_page?('/login') %>
       <%= link_to 'Logout', logout_path,  method: :delete, class: 'logout-button' %>
   <% end %>
 </div>
