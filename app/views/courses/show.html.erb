@@ -10,3 +10,7 @@
 <div class="alert alert-warning">
   <p>In the future you will be able to add problems and students to the course.</p>
 </div>
+
+<div id="course-problems" class="course-problems">
+  <%= link_to 'Create New Problem', new_problem_path(:courseid => @myid), :class => 'btn btn-primary' %>
+</div>
