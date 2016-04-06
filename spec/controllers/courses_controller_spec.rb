@@ -10,11 +10,11 @@ describe CoursesController do
   end
 
   describe 'Courses controller spec' do
-    
+
     context "update with invalid attributes" do
       it  "should render edit again on bad input for new class" do
         course.stub(:update).and_return(false)
-        put :update, :name => 'test'
+        put :update, :id => 1, :course => {:name => 'test'}
         response.should render_template(:edit)
       end
     end
