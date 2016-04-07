@@ -1,0 +1,2 @@
+module CourseUserRelationsHelper
+end

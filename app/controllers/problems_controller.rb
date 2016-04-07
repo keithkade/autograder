@@ -31,6 +31,9 @@ class ProblemsController < ApplicationController
 
     respond_to do |format|
       if @problem.save
+        if params.include?(:courseid) and params[:courseid].size > 0
+          CourseProblemRelation.relate!(params[:courseid], @problem.id)
+        end
         format.html { redirect_to @problem, notice: 'Problem was successfully created.' }
         format.json { render :show, status: :created, location: @problem }
       else
@@ -57,6 +60,7 @@ class ProblemsController < ApplicationController
   # DELETE /problems/1
   # DELETE /problems/1.json
   def destroy
+    CourseProblemRelation.destroy_by_problem(@problem.id)
     @problem.destroy
     respond_to do |format|
       format.html { redirect_to problems_url, notice: 'Problem was successfully destroyed.' }

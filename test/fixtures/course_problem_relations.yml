@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course: 1
+  problem: 1
+
+two:
+  course: 1
+  problem: 1
