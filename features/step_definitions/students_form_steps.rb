@@ -1,5 +1,5 @@
 Then /^I have a student named "(.*)"$/ do |name|
-    student = student.new
-    student.name = name
+    student = Student.new
+    student.Name = name
     student.save
 end

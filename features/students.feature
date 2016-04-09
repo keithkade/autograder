@@ -4,13 +4,13 @@ Feature: Students
     Given I am logged in as Admin
     And I am on the students page
     When I follow "New Student"
-    And I fill in "Name" with "New Student"
+    And I fill in "Name" with "studentname"
     And I fill in "Id" with "00001"
     And I fill in "Username" with "New Student Username"
     And I fill in "Password" with "New Password"
-    And I fill in "Course" with "New Course"
+    And I fill in "Class" with "New class"
     And I press "Create Student"
-    Then I should be on the student page for "New Student"
+    Then I should be on the student page for "studentname"
     
   Scenario: I want to delete a student
     Given I am logged in as Admin
@@ -32,5 +32,5 @@ Feature: Students
     And I am on the students page
     When I follow "Edit"
     And I fill in "Name" with "New Name"
-    And I press "Update student"
+    And I press "Update Student"
     Then I should be on the student page for "New Name"

@@ -2,52 +2,36 @@ require 'rails_helper'
 
 describe StudentsController do
 
+  let!(:student) { Student.new }
+
   before :each do
-    @student = students(:one)
+    controller.stub(:logged_in_admin?).and_return(true)
+    Student.stub(:new).and_return(student)
   end
 
-  describe 'Students Controller' do
+  describe 'Students Controller spec' do
 
-    it "should get index" do
-      get :index
-      assert_response :success
-      assert_not_nil assigns(:students)
+    context "update with invalid attributes" do
+      it  "should render edit again on bad input for new class" do
+        student.stub(:update).and_return(false)
+        put :update, :id => 1, :student => {:name => 'test'}
+        response.should render_template(:edit)
+      end
     end
 
-    it "should get new" do
-      get :new
-      assert_response :success
-    end
-
-    it "should create student" do
-      assert_difference('Student.count') do
-        post :create, student: { Class: @student.Class, ID: @student.ID, Name: @student.Name, Password: @student.Password, UserName: @student.UserName }
+    context "creation with invalid attributes" do
+      it "does not create the vehicle" do
+        count = Student.count
+        student.stub(:save).and_return(false)
+        post :create, :student => {:name => 'test'}
+        expect(Student.count).to eq(count)
       end
 
-      assert_redirected_to student_path(assigns(:student))
-    end
-
-    it "should show student" do
-      get :show, id: @student
-      assert_response :success
-    end
-
-    it "should get edit" do
-      get :edit, id: @student
-      assert_response :success
-    end
-
-    it "should update student" do
-      patch :update, id: @student, student: { Class: @student.Class, ID: @student.ID, Name: @student.Name, Password: @student.Password, UserName: @student.UserName }
-      assert_redirected_to student_path(assigns(:student))
-    end
-
-    it "should destroy student" do
-      assert_difference('Student.count', -1) do
-        delete :destroy, id: @student
+      it  "should render new again on bad input for new class" do
+        student.stub(:save).and_return(false)
+        post :create, :student => {:name => 'test'}
+        response.should render_template(:new)
       end
-
-      assert_redirected_to students_path
     end
 
   end

@@ -34,7 +34,15 @@ module NavigationHelpers
       name = $1
       course = Course.all.find_by(name: name)
       "/admin/courses/#{course.id}"
-  
+    
+    when /^the student\s?page$/
+      '/admin/students'
+
+    when /^the student page for "(.*)"$/
+      name = $1
+      student = Student.all.find_by(Name: name)
+      "/admin/students/#{student.id}"
+
     else
       begin
         page_name =~ /^the (.*) page$/
