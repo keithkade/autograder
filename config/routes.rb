@@ -5,14 +5,14 @@ Rails.application.routes.draw do
   get 'student/home'
   
   # Example resource route within a namespace:
-   namespace :admin do
+  namespace :admin do
      # Directs /admin/products/* to Admin::ProductsController
      # (app/controllers/admin/products_controller.rb)
-     resources :problems
-     resources :courses
-     resources :problem_test_cases
-     resources :students
-   end
+    resources :problems
+    resources :courses
+    resources :problem_test_cases
+    resources :students
+  end
 
   resources :problems
 

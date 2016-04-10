@@ -13,12 +13,14 @@ response encoding
   results : [
     {
       title: "test case #0",
-      result: "success/fail",
+      result: "success/fail",,
+      err: "runtimeError: yadadada",
       input: "test case input 0"
     },
     {
       title: "test case #1",
       result: "success/fail",
+      err: "runtimeError: yadadada",
       input: "test case input 1"
     },
     ...

@@ -1,4 +1,7 @@
 class ProblemsController < ApplicationController
+  require 'open3'
+  include ProblemsHelper
+  
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
 
   # GET /problems
