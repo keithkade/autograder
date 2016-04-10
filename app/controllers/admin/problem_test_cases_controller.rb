@@ -1,4 +1,4 @@
-class ProblemTestCasesController < ApplicationController
+class Admin::ProblemTestCasesController < ApplicationController
   before_action :set_problem_test_case, only: [:show, :edit, :update, :destroy]
 
   # GET /problem_test_cases
