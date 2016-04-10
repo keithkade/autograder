@@ -6,6 +6,7 @@ class CreateSubmissions < ActiveRecord::Migration
       t.text :code
       t.timestamp :timeOnPage
       t.text :response
+      t.string :result
 
       t.timestamps null: false
     end
