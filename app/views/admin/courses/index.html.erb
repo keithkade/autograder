@@ -20,9 +20,9 @@
     <% @courses.each do |course| %>
       <tr>
         <td><%= course.name %></td>
-        <td><%= link_to 'Show', course, :class => 'btn btn-default' %></td>
+        <td><%= link_to 'Show', admin_course_path(course), :class => 'btn btn-default' %></td>
         <td><%= link_to 'Edit', edit_admin_course_path(course), :class => 'btn btn-primary' %></td>
-        <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+        <td><%= link_to 'Destroy', admin_course_path(course), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
