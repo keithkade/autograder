@@ -3,16 +3,16 @@ class ProblemTestCasesController < ApplicationController
 
   # GET /problem_test_cases
   # GET /problem_test_cases.json
-  def index
-    @problem_test_cases = ProblemTestCase.all
-    redirect_to problems_path
-  end
+  #def index
+  #  @problem_test_cases = ProblemTestCase.all
+  #  redirect_to problems_path
+  #end
 
   # GET /problem_test_cases/1
   # GET /problem_test_cases/1.json
-  def show
-    redirect_to problems_path
-  end
+  #def show
+  #  redirect_to problems_path
+  #end
 
   # GET /problem_test_cases/new
   def new

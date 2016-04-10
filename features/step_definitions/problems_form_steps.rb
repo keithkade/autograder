@@ -4,6 +4,15 @@ Given /^I already have the problem "(.*)"$/ do |title|
     problem.save
 end
 
+Given /^the problem "(.*)" has a "(.*)" test case$/ do |problem, testcase|
+    problem = Problem.all.find_by(title: problem)
+    testCase = ProblemTestCase.new
+    testCase.problemid = problem.id
+    testCase.input = 'test'
+    testCase.output = 'test'
+    testCase.save
+end
+
 Then /^"(.*)" should have field skeleton with value "(.*)"$/ do |title, value|
     problem = Problem.all.find_by(title: title)
     problem.skeleton.should eq(value)

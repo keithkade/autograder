@@ -44,7 +44,29 @@ Scenario: I want to add a test case to a problem
   Then I should be on the problem page for "Existing Problem"
   And I should see "Input"
   And I should see "Output"
+
+Scenario: I want to edit a test case for a problem
+  Given I already have the problem "Existing Problem"
+  And the problem "Existing Problem" has a "Existing test case" test case
+  And I am logged in as Admin
+  And I am on the problems page
+  When I follow "View"
+  And I follow "Edit Test Case"
+  And I fill in "Input" with "Edited Input"
+  And I fill in "Output" with "Edited Output"
+  And I press "Submit"
+  Then I should be on the problem page for "Existing Problem"
+  And I should see "Edited Input"
+  And I should see "Edited Output"
   
-#Scenario: I want to edit an existing test case for a problem
-  
-#Scenario: I want to remove a test case from a problem
+Scenario: I want to remove a test case for a problem
+  Given I already have the problem "Existing Problem"
+  And the problem "Existing Problem" has a "Existing test case" test case
+  And I am logged in as Admin
+  And I am on the problems page
+  When I follow "View"
+  And I follow "Destroy"
+  Then I should be on the problem page for "Existing Problem"
+  And I should not see "Edit Test Case"
+
+
