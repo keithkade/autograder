@@ -29,9 +29,11 @@ class Admin::CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
 
+    logger.debug admin_courses_path(@course)
+
     respond_to do |format|
       if @course.save
-        format.html { redirect_to admin_courses_path(@course), notice: 'Course was successfully created.' }
+        format.html { redirect_to admin_course_path(@course), notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: admin_courses_path(@course) }
       else
         format.html { render :new }
@@ -45,7 +47,7 @@ class Admin::CoursesController < ApplicationController
   def update
     respond_to do |format|
       if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
+        format.html { redirect_to admin_course_path(@course), notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
         format.html { render :edit }

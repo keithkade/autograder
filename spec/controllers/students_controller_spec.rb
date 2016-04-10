@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe StudentsController do
+describe Admin::StudentsController do
 
   let!(:student) { Student.new }
 

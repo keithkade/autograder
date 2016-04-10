@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CoursesController do
+describe Admin::CoursesController do
 
   let!(:course) { Course.new }
 

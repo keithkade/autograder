@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ProblemsController do
+describe Admin::ProblemsController do
 
   let!(:problem) { Problem.new }
 
