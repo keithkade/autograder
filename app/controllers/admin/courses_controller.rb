@@ -30,8 +30,8 @@ class Admin::CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
-        format.json { render :show, status: :created, location: @course }
+        format.html { redirect_to admin_courses_path(@course), notice: 'Course was successfully created.' }
+        format.json { render :show, status: :created, location: admin_courses_path(@course) }
       else
         format.html { render :new }
         format.json { render json: @course.errors, status: :unprocessable_entity }
@@ -60,7 +60,7 @@ class Admin::CoursesController < ApplicationController
     CourseUserRelation.destroy_by_course(@course.id)
     @course.destroy
     respond_to do |format|
-      format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
+      format.html { redirect_to admin_courses_url, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

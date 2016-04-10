@@ -29,7 +29,7 @@
 <h1>Test Cases</h1>
 <div class="problem-test-cases">
   <div class="add-problem-test-case">
-    <p><%= link_to 'New Test Case', new_problem_test_case_path(:problemid => @myid), :class => 'btn btn-primary' %></p>
+    <p><%= link_to 'New Test Case', new_admin_problem_test_case_path(:problemid => @myid), :class => 'btn btn-primary' %></p>
   </div>
   <% @problem_test_cases.each do |problem_test_case| %>
     <div class="problem-test-case">
