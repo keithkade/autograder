@@ -7,7 +7,11 @@ class ProblemsController < ApplicationController
   # GET /problems
   # GET /problems.json
   def index
-    @problems = Problem.all
+    @student = Student.find(session[:user_id])
+    courses = @student.courses
+    for course in courses 
+      @problems = course.problems
+    end
   end
 
   # GET /problems/1
