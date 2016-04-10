@@ -1,9 +1,8 @@
 #
 # Best method to reset your database
-# To reset schema (shouldn't be nessecary but do if broken in some way)
-# rake db:reset db:migrate
-# To reset values 
-# rake db:drop db:create db:migrate
+
+# rake db:reset 
+# rake db:drop db:create db:migrate db:seed
 #
 
 courses = [{:name => 'CSCE 111'},
