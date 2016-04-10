@@ -1,8 +1,6 @@
 <% content_for :title do %>List of Problems<% end %>
 
 <% content_for :options do %>
-  <%= link_to 'Back', courses_path, :class => 'btn btn-default' %> 
-  <%= link_to 'New Problem', new_problem_path, :class => 'btn btn-primary' %>
 <% end %>
 
 <table class="problems-list-table table">
@@ -18,8 +16,6 @@
       <tr>
         <td><%= problem.title %></td>
         <td><%= link_to 'View', problem, :class => 'btn btn-default' %></td>
-        <td><%= link_to 'Edit', edit_problem_path(problem), :class => 'btn btn-primary' %></td>
-        <td><%= link_to 'Delete', problem, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
