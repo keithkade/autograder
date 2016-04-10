@@ -5,8 +5,10 @@
 <table>
   <thead>
     <tr>
-      <th>Student ID</th>
-      <th>Problem ID</th>
+      <th>Studentid</th>
+      <th>Problemid</th>
+      <th>Timeonpage</th>
+      <th>Response</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,8 +18,11 @@
       <tr>
         <td><%= submission.studentID %></td>
         <td><%= submission.problemID %></td>
+        <td><%= submission.timeOnPage %></td>
+        <td><%= submission.response %></td>
         <td><%= link_to 'Show', submission %></td>
-        
+        <td><%= link_to 'Evaluate', edit_submission_path(submission) %></td>
+        <td><%= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,5 +30,3 @@
 
 <br>
 
-<%= link_to 'New Submission', new_submission_path %>
-<%= link_to 'Back', courses_path %></td>

@@ -12,24 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :studentID %><br>
-    <%= f.text_field :studentID %>
-  </div>
-  <div class="field">
-    <%= f.label :problemID %><br>
-    <%= f.text_field :problemID %>
-  </div>
-  <div class="field">
     <%= f.label :code %><br>
     <%= f.text_area :code %>
   </div>
-  <div class="field">
-    <%= f.label :timeOnPage %><br>
-    <%= f.number_field :timeOnPage %>
-  </div>
+
   <div class="field">
     <%= f.label :response %><br>
-    <%= f.text_field :response %>
+    <%= f.text_area :response %>
   </div>
   <div class="actions">
     <%= f.submit %>

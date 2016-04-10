@@ -4,12 +4,12 @@ one:
   studentID: MyString
   problemID: MyString
   code: MyText
-  timeOnPage: 1
-  response: MyString
+  timeOnPage: 2016-04-10 17:50:22
+  response: MyText
 
 two:
   studentID: MyString
   problemID: MyString
   code: MyText
-  timeOnPage: 1
-  response: MyString
+  timeOnPage: 2016-04-10 17:50:22
+  response: MyText

@@ -4,8 +4,8 @@ class CreateSubmissions < ActiveRecord::Migration
       t.string :studentID
       t.string :problemID
       t.text :code
-      t.integer :timeOnPage
-      t.string :response
+      t.timestamp :timeOnPage
+      t.text :response
 
       t.timestamps null: false
     end
