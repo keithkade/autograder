@@ -1,4 +1,4 @@
-class SubmissionsController < ApplicationController
+class Admin::SubmissionsController < ApplicationController
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
 
   # GET /submissions

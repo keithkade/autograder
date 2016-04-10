@@ -20,15 +20,15 @@
         <td><%= submission.problemID %></td>
         <td><%= submission.timeOnPage %></td>
         <td><%= submission.result %></td>
-        <td><%= link_to 'Show', submission %></td>
-        <td><%= link_to 'Grade', edit_submission_path(submission) %></td>
-        <td><%= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', admin_submission_path(submission) %></td>
+        <td><%= link_to 'Grade', edit_admin_submission_path(submission) %></td>
+        <td><%= link_to 'Destroy', admin_submission_path(submission), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Back', courses_path %></td>
+<%= link_to 'Back', admin_courses_path %></td>
 
 <br>
 
