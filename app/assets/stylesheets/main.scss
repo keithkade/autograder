@@ -8,6 +8,8 @@
 $primary: #685CC4;
 $primaryDark: #49418C;
 $primaryVeryDark: #18152e;
+$primaryLight: #C4C2ED;
+$primaryVeryLight: #E1E0FF;
 $secondary: #44c6b7;
 
 $white: #FFF;
@@ -46,6 +48,8 @@ a:hover, a:active, a:focus {
     text-decoration: none;
     background: none;
 }
+
+.flash-notices {  margin-top: 24px; }
 
 /*  Bootstrap Overrides (@bootstrap)
  *  ==========================================================================*/
@@ -128,6 +132,12 @@ a:hover, a:active, a:focus {
     padding: 5px 11px;
     box-shadow: none;
     border-color: $secondary;
+}
+
+.alert.alert-notice {
+    border-color: $primaryLight;
+    background-color: $primaryVeryLight;
+    color: $primary;
 }
 
 pre {
