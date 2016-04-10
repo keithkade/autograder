@@ -3,21 +3,18 @@ Rails.application.routes.draw do
   root 'login#new'
   
   get 'student/home'
-    
+  
   # Example resource route within a namespace:
-  namespace :admin do
-    # Directs /admin/products/* to Admin::ProductsController
-    # (app/controllers/admin/products_controller.rb)
-    resources :problems
-  end
+   namespace :admin do
+     # Directs /admin/products/* to Admin::ProductsController
+     # (app/controllers/admin/products_controller.rb)
+     resources :problems
+     resources :courses
+     resources :problem_test_cases
+     resources :students
+   end
+
   resources :problems
-  
-  scope '/admin' do
-    resources :problem_test_cases
-    resources :students
-    resources :courses
-  end
-  
 
   get 'home' => 'home#index'
 
