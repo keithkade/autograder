@@ -14,6 +14,8 @@ Rails.application.routes.draw do
      resources :courses
      resources :problem_test_cases
      resources :students
+     resources :course_user_relations
+     resources :course_problem_relations
    end
 
   resources :problems
