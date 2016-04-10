@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  resources :course_user_relations
+  resources :course_problem_relations
+
   root 'login#new'
   
   get 'student/home'
@@ -12,6 +15,7 @@ Rails.application.routes.draw do
     resources :courses
     resources :problem_test_cases
     resources :students
+    resources :submissions
   end
 
   resources :problems
