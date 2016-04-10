@@ -1,4 +1,4 @@
-class CourseProblemRelationsController < ApplicationController
+class Admin::CourseProblemRelationsController < ApplicationController
   before_action :set_course_problem_relation, only: [:show, :edit, :update, :destroy]
 
   # GET /course_problem_relations

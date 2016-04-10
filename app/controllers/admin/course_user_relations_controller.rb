@@ -1,4 +1,4 @@
-class CourseUserRelationsController < ApplicationController
+class Admin::CourseUserRelationsController < ApplicationController
   before_action :set_course_user_relation, only: [:show, :edit, :update, :destroy]
 
   # GET /course_user_relations
