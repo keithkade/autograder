@@ -1,11 +1,29 @@
-// Site-wide styles
-
-//palette
-$deepPurple: #18152e;
-$lightTeal: #44c6b7;
-$lightGrey: #e6e6e6;
+/** 
+ *  Autograder Theme
+ *  Copyright 2016 Team SegFaultless - All rights reserved
+ */
+ 
+/*  Palette (@palette)
+ *  ==========================================================================*/
+$primary: #685CC4;
+$primaryDark: #49418C;
+$primaryVeryDark: #18152e;
+$secondary: #44c6b7;
 $white: #FFF;
 
+//$info: #5BC0DE;
+$info: $secondary;
+$success: #5CB85C;
+$warning: #F0AD4E;
+$danger: #D9534F;
+
+$font: 'Open Sans';
+$fontFallback: sans-serif;
+$fancyFont: 'Shadows Into Light Two';
+$fancyFontFallback: cursive;
+
+/*  Global (@global)
+ *  ==========================================================================*/
 html, body {
     height: 100%;
     width: 100%;
@@ -13,39 +31,152 @@ html, body {
 
 body {
     background: $white;
-    font-family: 'Open Sans', sans-serif;
+    font-family: $font, $fontFallback;
 }
 
+a {
+    color: $primary;
+    text-decoration: none;
+    background: none;
+}
+a:hover, a:active, a:focus {
+    color: $primaryDark;
+    text-decoration: none;
+    background: none;
+}
+
+/*  Bootstrap Overrides (@bootstrap)
+ *  ==========================================================================*/
+.btn {
+    border-radius: 0;
+    font-size: 16px;
+    border-width: 2px;
+}
+.btn.btn-max {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 6px;
+}
+.btn.btn-primary,
+.btn.btn-info,
+.btn.btn-danger,
+.btn.btn-success,
+.btn.btn-warning {
+    background: $white;
+}
+.btn.btn-primary {
+    color: $primary;
+    border-color: $primary;
+}
+.btn.btn-info { 
+    color: $info;
+    border-color: $info;
+}
+.btn.btn-success {  
+    color: $success; 
+    border-color: $success;
+}
+.btn.btn-warning {  
+    color: $warning; 
+    border-color: $warning;
+}
+.btn.btn-danger {  
+    color: $danger; 
+    border-color: $danger;
+}
+.btn.btn-primary:hover,
+.btn.btn-primary:active,
+.btn.btn-primary:focus {
+    background: $primary;
+    border-color: $primary;
+    color: $white;
+}
+.btn.btn-info:hover,
+.btn.btn-info:active,
+.btn.btn-info:focus {
+    background: $info;
+    border-color: $info;
+    color: $white;
+}
+.btn.btn-success:hover,
+.btn.btn-success:active,
+.btn.btn-success:focus {
+    background: $success;
+    border-color: $success;
+    color: $white;
+}
+.btn.btn-warning:hover,
+.btn.btn-warning:active,
+.btn.btn-warning:focus {
+    background: $warning;
+    border-color: $warning;
+    color: $white;
+}
+.btn.btn-danger:hover,
+.btn.btn-danger:active,
+.btn.btn-danger:focus {
+    background: $danger;
+    border-color: $danger;
+    color: $white;
+}
+
+pre {
+    background: $white;
+    border: 1px solid $secondary;
+    font-size: 14px;
+    box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.18) inset;
+    position: relative;
+    overflow-y: hidden;
+}
+
+pre::after {
+    color: $secondary;
+    content: '{}';
+    font-size: 72px;
+    font-style: italic;
+    line-height: 1;
+    opacity: 0.25;
+    position: absolute;
+    top: 14px; right: 24px;
+}
+
+/*  Header (@header)
+ *  ==========================================================================*/
 header {
-    background: $deepPurple;
-    color: white;
-    border-bottom: 2px solid $lightTeal;
+    background: $primaryVeryDark;
+    color: $white;
+    border-bottom: 3px solid $secondary;
     padding: 6px;
     
     .site-title h1 {
-        font-weight: 400;
+        font-family: $fancyFont, $fancyFontFallback;
+        font-weight: normal;
         font-size: 24px;
         margin: 0.72em 0;
     }
     
-    .site-title h1 a {
-        color: #FFF;
+    .site-title h1 a {  color: #FFF; }
+    .site-title h1 a:hover {
+        
     }
-
+    
     .logout-button {
-      float: right;
-      color: white;
-      padding: 5px;
-      border: 2px solid white;
-      margin: 10px 0 0 0;
+        float: right;
+        color: $white;
+        padding: 5px;
+        border: 2px solid $white;
+        margin: 10px 0 0 0;
     }
 
     .logout-button:hover {
-      background-color: white;
-      color: $deepPurple;
+        background-color: $white;
+        color: $primaryVeryDark;
     }
 }
+ 
 
+/*  Footer (@footer)
+ *  ==========================================================================*/
 footer {
     margin-top: 42px;
     
@@ -54,13 +185,36 @@ footer {
     }
 }
 
+/*  Main (@main)
+ *  ==========================================================================*/
 main {
+    font-size: 16px;
+    line-height: 1.72em;
+    
     .page-title {
         font-size: 36px;
         line-height: 1em;
+        margin-bottom: 42px;
+    }
+    
+    h1, h2, h3,
+    h4, h5, h6 {
+        margin-top: 42px;
+        margin-bottom: 18px;
+    }
+    
+    h1 {
+        font-size: 28px
+    }
+    
+    .page-options-bottom {
+        margin-top: 42px;
+        text-align: center;
     }
 }
 
+/*  Utility (@util)
+ *  ==========================================================================*/
 .alert-debug {
     color: black;
     border: 3px solid black;
