@@ -51,7 +51,7 @@ Scenario: I want to edit a test case for a problem
   And I am logged in as Admin
   And I am on the problems page
   When I follow "View"
-  And I follow "Edit Test Case"
+  And I follow "Edit"
   And I fill in "Input" with "Edited Input"
   And I fill in "Output" with "Edited Output"
   And I press "Submit"
