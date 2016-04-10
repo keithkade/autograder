@@ -17,7 +17,7 @@ Rails.application.routes.draw do
    end
 
   resources :problems
-  
+
   get 'home' => 'home#index'
 
   get    'login'   => 'login#new'
