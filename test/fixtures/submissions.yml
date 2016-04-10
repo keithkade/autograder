@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  studentID: MyString
+  problemID: MyString
+  code: MyText
+  timeOnPage: 1
+  response: MyString
+
+two:
+  studentID: MyString
+  problemID: MyString
+  code: MyText
+  timeOnPage: 1
+  response: MyString
