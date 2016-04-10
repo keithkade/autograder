@@ -38,6 +38,9 @@ module NavigationHelpers
     when /^the student\s?page$/
       '/admin/students'
 
+    when /^the students page$/
+      '/admin/students'
+
     when /^the student page for "(.*)"$/
       name = $1
       student = Student.all.find_by(Name: name)
