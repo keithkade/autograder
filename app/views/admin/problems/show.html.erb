@@ -3,7 +3,8 @@
 <% end %>
 
 <% content_for :options do %>
-  <%= link_to 'Edit This Problem', edit_admin_problem_path(@problem), :class => 'btn btn-primary' %> <%= link_to 'Back to Problem List', problems_path, :class => 'btn btn-default' %>
+  <%= link_to 'Edit This Problem', edit_admin_problem_path(@problem), :class => 'btn btn-primary' %>
+  <%= link_to 'Back to Problem List', admin_problems_path, :class => 'btn btn-default' %>
 <% end %>
 
 <!--<h1>Problem Summary</h1>-->
