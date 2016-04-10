@@ -27,6 +27,15 @@
   <pre><code><%= @problem.skeleton %></code></pre>
 </div>
 
+<div class="problem-courses">
+  <h1>Courses</h1>
+  <ul>
+    <% @courses.each do |course| %>
+      <li><%= course.name %></li>
+    <% end %>
+  </ul>
+</div>
+
 <h1>Test Cases</h1>
 <div class="problem-test-cases">
   <div class="add-problem-test-case">

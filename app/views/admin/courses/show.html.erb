@@ -20,6 +20,15 @@
   </ul>
 </div>
 
+<div class="course-problems">
+  <h1>Problems for this Course</h1>
+  <ul>
+    <% @problems.each do |problem| %>
+      <li><%= link_to "#{problem.title}", admin_problem_path(problem) %></li>
+    <% end %>
+  </ul>
+</div>
+
 <div id="course-problems" class="course-problems">
   <%= link_to 'Create New Problem', new_admin_problem_path(:courseid => @myid), :class => 'btn btn-primary' %>
 </div>

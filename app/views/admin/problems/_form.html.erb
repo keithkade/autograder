@@ -40,6 +40,15 @@
     <%= f.text_area :skeleton, :rows => 9, :class => 'form-control' %>
   </div>
   
+  <div class="problem-courses-form">
+    <strong>Select Courses which have this problem:</strong><br />
+    <% @courses.each do |course| %>
+      <div class="checkbox"><label>
+        <%= check_box_tag "course-checkbox-#{course.id}", "", @rels[course.id] %> <%= course.name %>
+      </label></div>
+    <% end %>
+  </div>
+  
   <div class="actions">
     <%= f.submit 'Submit', :class => 'btn btn-primary' %>
   </div>

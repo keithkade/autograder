@@ -38,11 +38,11 @@ class Admin::StudentsController < ApplicationController
   # POST /students.json
   def create
     @student = Student.new(student_params)
-    relate_with_courses
 
     respond_to do |format|
       if @student.save
-        format.html { redirect_to @student, notice: 'Student was successfully created.' }
+        relate_with_courses
+        format.html { redirect_to admin_student_path(@student), notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }
@@ -58,7 +58,7 @@ class Admin::StudentsController < ApplicationController
     
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+        format.html { redirect_to admin_student_path(@student), notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
         format.html { render :edit }

@@ -12,6 +12,7 @@ class Admin::CoursesController < ApplicationController
   def show
     @myid = params[:id]
     @students = @course.users
+    @problems = @course.problems
   end
 
   # GET /courses/new
