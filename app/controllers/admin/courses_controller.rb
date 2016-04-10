@@ -28,9 +28,11 @@ class Admin::CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
 
+    logger.debug admin_courses_path(@course)
+
     respond_to do |format|
       if @course.save
-        format.html { redirect_to admin_courses_path(@course), notice: 'Course was successfully created.' }
+        format.html { redirect_to admin_course_path(@course), notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: admin_courses_path(@course) }
       else
         format.html { render :new }
