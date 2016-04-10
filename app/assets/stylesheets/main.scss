@@ -9,7 +9,9 @@ $primary: #685CC4;
 $primaryDark: #49418C;
 $primaryVeryDark: #18152e;
 $secondary: #44c6b7;
+
 $white: #FFF;
+$grey: #DDD;
 
 //$info: #5BC0DE;
 $info: $secondary;
@@ -120,6 +122,14 @@ a:hover, a:active, a:focus {
     color: $white;
 }
 
+.form-control {  border-radius: 0; }
+.form-control:focus {
+    border-width: 2px;
+    padding: 5px 11px;
+    box-shadow: none;
+    border-color: $secondary;
+}
+
 pre {
     background: $white;
     border: 1px solid $secondary;
@@ -178,10 +188,16 @@ header {
 /*  Footer (@footer)
  *  ==========================================================================*/
 footer {
+    background: $grey;
+    font-size: 16px;
+    padding-top: 42px;
+    padding-bottom: 24px;
     margin-top: 42px;
+    box-shadow: 0 5px 3px -5px rgba(0, 0, 0, 0.12) inset;
     
     .license-area {
         text-align: center;
+        color: #777;
     }
 }
 
