@@ -34,17 +34,20 @@
   <% @problem_test_cases.each do |problem_test_case| %>
     <div class="problem-test-case">
       <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-4">
           <strong>Input</strong>
           <pre><code><%= problem_test_case.input %></code></pre>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-4">
           <strong>Output</strong>
           <pre><code><%= problem_test_case.output %></code></pre>
         </div>
         <div class="col-sm-2">
           <span style="visibility: hidden">.</span>
-          <%= link_to 'Edit', edit_problem_test_case_path(problem_test_case), :class => 'btn btn-primary btn-max' %><br />
+          <%= link_to 'Edit', edit_problem_test_case_path(problem_test_case), :class => 'btn btn-primary btn-max' %>
+        </div>
+        <div class="col-sm-2">
+          <span style="visibility: hidden">.</span>
           <%= link_to 'Destroy', problem_test_case, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-max' %>
         </div>
       </div>
