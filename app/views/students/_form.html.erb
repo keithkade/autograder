@@ -27,7 +27,17 @@
     <%= f.label :Password %><br>
     <%= f.text_field :Password, :class => 'form-control' %>
   </div>
-  <div class="form-group">
+  
+  <div class="student-courses-form">
+    <strong>Select Courses:</strong><br />
+    <% @courses.each do |course| %>
+      <div class="checkbox"><label>
+        <%= check_box_tag "course-checkbox-#{course.id}", "", @rels[course.id] %> <%= course.name %>
+      </label></div>
+    <% end %>
+  </div>
+  
+  <div class="form-group hide">
     <%= f.label :Class %><br>
     <%= f.text_field :Class, :class => 'form-control' %>
   </div>

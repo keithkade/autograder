@@ -5,7 +5,7 @@ class Course < ActiveRecord::Base
     end
     
     def users
-        tuples = CourseUserRelation.where(:user => id)
+        tuples = CourseUserRelation.where(:course => id)
         Student.where(:id => tuples.map(&:user))
     end
 end

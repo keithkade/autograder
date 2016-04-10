@@ -10,5 +10,13 @@
   <li><strong>Id: <%= @student.ID %></strong></li>
   <li><strong>Username: <%= @student.UserName %></strong></li>
   <li><strong>Password: <%= @student.Password %></strong></li>
-  <li><strong>Class: <%= @student.Class %></strong></li>
 </ul>
+
+<div class="student-courses">
+  <h1>Courses</h1>
+  <ul>
+    <% @courses.each do |course| %>
+      <li><%= course.name %></li>
+    <% end %>
+  </ul>
+</div>

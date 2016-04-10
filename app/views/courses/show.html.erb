@@ -11,6 +11,15 @@
   <p>In the future you will be able to add problems and students to the course.</p>
 </div>
 
+<div class="course-students">
+  <h1>Enrolled Students</h1>
+  <ul>
+    <% @students.each do |student| %>
+      <li><%= link_to "#{student.Name}", student_path(student) %></li>
+    <% end %>
+  </ul>
+</div>
+
 <div id="course-problems" class="course-problems">
   <%= link_to 'Create New Problem', new_problem_path(:courseid => @myid), :class => 'btn btn-primary' %>
 </div>
