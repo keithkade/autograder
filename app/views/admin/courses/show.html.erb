@@ -3,8 +3,8 @@
 <% end %>
 
 <% content_for :options do %>
-  <%= link_to 'Edit', edit_course_path(@course), :class => 'btn btn-primary' %> 
-  <%= link_to 'Back', courses_path, :class => 'btn btn-default' %>
+  <%= link_to 'Edit', edit_admin_course_path(@course), :class => 'btn btn-primary' %>
+  <%= link_to 'Back', admin_courses_path, :class => 'btn btn-default' %>
 <% end %>
 
 <div class="alert alert-warning">
@@ -15,11 +15,11 @@
   <h1>Enrolled Students</h1>
   <ul>
     <% @students.each do |student| %>
-      <li><%= link_to "#{student.Name}", student_path(student) %></li>
+      <li><%= link_to "#{student.Name}", admin_student_path(student) %></li>
     <% end %>
   </ul>
 </div>
 
 <div id="course-problems" class="course-problems">
-  <%= link_to 'Create New Problem', new_problem_path(:courseid => @myid), :class => 'btn btn-primary' %>
+  <%= link_to 'Create New Problem', new_admin_problem_path(:courseid => @myid), :class => 'btn btn-primary' %>
 </div>
