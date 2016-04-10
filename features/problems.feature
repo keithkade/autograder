@@ -58,7 +58,7 @@ Scenario: I want to edit a test case for a problem
   Then I should be on the problem page for "Existing Problem"
   And I should see "Edited Input"
   And I should see "Edited Output"
-  
+
 Scenario: I want to remove a test case for a problem
   Given I already have the problem "Existing Problem"
   And the problem "Existing Problem" has a "Existing test case" test case

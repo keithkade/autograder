@@ -23,7 +23,7 @@ class CourseUserRelation < ActiveRecord::Base
     
   # ANYTIME a course is destroyed, call this also
     def self.destroy_by_course(courseid)
-        rels = CourseUsermRelation.where(:course => courseid)
+        rels = CourseUserRelation.where(:course => courseid)
         rels.each do |rel|
             rel.destroy
         end

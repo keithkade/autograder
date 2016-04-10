@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  Creating Problem
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Cancel', admin_problems_path, :class => 'btn btn-danger' %>
+<% end %>
+
+<%= render 'form' %>
