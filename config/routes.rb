@@ -1,13 +1,9 @@
 Rails.application.routes.draw do
   
-  resources :course_user_relations
-  resources :course_problem_relations
   root 'login#new'
   
   get 'student/home'
     
-
-
   # Example resource route within a namespace:
   namespace :admin do
     # Directs /admin/products/* to Admin::ProductsController
