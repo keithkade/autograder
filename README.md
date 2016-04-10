@@ -6,6 +6,7 @@ WE ARE USING RUBY VERSION: 2.2.3
 
 response encoding
 
+```
 {
   status: "success/fail"
   err: "compile error: yadadada"
@@ -23,3 +24,4 @@ response encoding
     ...
   ]
 }
+```
