@@ -19,7 +19,7 @@
         <td><%= problem_test_case.input %></td>
         <td><%= problem_test_case.output %></td>
         <td><%= link_to 'Show', problem_test_case %></td>
-        <td><%= link_to 'Edit', edit_problem_test_case_path(problem_test_case) %></td>
+        <td><%= link_to 'Edit', edit_admin_problem_test_case_path(problem_test_case) %></td>
         <td><%= link_to 'Destroy', problem_test_case, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Problem test case', new_problem_test_case_path %>
+<%= link_to 'New Problem test case', new_admin_problem_test_case_path %>
