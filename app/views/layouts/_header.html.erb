@@ -6,3 +6,26 @@
       <%= link_to 'Logout', logout_path,  method: :delete, class: 'logout-button' %>
   <% end %>
 </div>
+
+<% if logged_in_admin? or logged_in_student? %>
+<nav class="top-bar-wrap navbar navbar-default" role="navigation">
+    <div class="container top-bar">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-target">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-top-target">
+            <% if logged_in_admin? %>
+              <%= render 'layouts/admin_nav' %>
+            <% end %>
+            <% if logged_in_student? %>
+              <%= render 'layouts/student_nav' %>
+            <% end %>
+        </div>
+    </div>
+</nav>
+<% end %>
