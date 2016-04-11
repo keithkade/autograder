@@ -1,6 +1,13 @@
 <div class="container header">
   <div class="site-title pull-left">
-    <h1><a href="/"><span>Autograder</span></a></h1>
+    
+    <h1>
+    <% if logged_in_admin? %>
+      <a href="/admin/courses"><span>Autograder</span></a></h1>
+    <% end %>
+    <% if logged_in_student? %>
+      <a href="/home"><span>Autograder</span></a></h1>
+    <% end %>
   </div>
   <% if !current_page?('/login') && !current_page?('/') %>
       <%= link_to 'Logout', logout_path,  method: :delete, class: 'logout-button' %>
