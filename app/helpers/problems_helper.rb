@@ -1,16 +1,12 @@
 module ProblemsHelper
-  def eval_code(code, problemID, studentID)
+  def eval_code(code, problemID)
     open('useCode.java', 'w') do |f|
       f.puts code
     end
       
-    
     problem = Problem.find(problemID)
-    case problem.language
-    when 'java'
-      return eval_java_code(code)
-    end 
-    return nil
+    my_json = eval_java_problem(code, problem)
+    return my_json
   end
     
   private
@@ -35,7 +31,7 @@ module ProblemsHelper
 
   def eval_java_problem(code, problem)
     my_json = {}
-    compileOut, compileError, compileStatus = Open3.capture3("java useCode")     
+    compileOut, compileError, compileStatus = Open3.capture3("javac useCode.java")     
     
     if(not compileStatus.success?) 
       my_json[:status] = 'fail'
@@ -50,7 +46,7 @@ module ProblemsHelper
         result_hash[:title] = 'temp_title'
         result_hash[:input] = testcase.input
         
-        runtimeOut, runtimeError, runtimeStatus = run_java_testcase(testcase.input, testcase.output)
+        runtimeOut, runtimeError, runtimeStatus = eval_java_testcase(testcase.input, testcase.output)
         if(not runtimeStatus.success?) 
           result_hash[:result] = 'fail'
           result_hash[:err] = runtimeError
@@ -62,7 +58,7 @@ module ProblemsHelper
     end
   end
   
-  def run_java_testcase(input, expected)
+  def eval_java_testcase(input, expected)
     open('input.txt', 'w') do |f|
       f.puts input
     end
@@ -75,7 +71,7 @@ module ProblemsHelper
     return runtimeOut, runtimeError, runtimeStatus
   end
     
-  def eval_ruby_case(code)
+  def eval_ruby_problem(code)
     return nil,nil
   end
 end

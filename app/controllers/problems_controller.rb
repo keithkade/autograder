@@ -56,8 +56,14 @@ class ProblemsController < ApplicationController
         err: "compile error: yadadada",
         results: []
       }
-    end
-    render json: response, status: 200
+    end  
+    result = eval_code(params[:code], params[:id])
+    Submission.create!(:code => params[:code], :studentID => session[:user_id], :problemID => params[:id], :result => result)
+  
+    render json: result, status: 200
+    
+    eval_code(params[:code], params[:id])
+    Submission.create!(:code => params[:code], :studentID => session[:user_id], :problemID => params[:id], :result => response)
   end
 
   private
