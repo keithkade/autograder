@@ -24,6 +24,7 @@
 //= require src/ext-whitespace
 //= require src/ext-language_tools
 //= require src/ext-error_marker
+//= require scr/snippets/java
 //= require problems_submit
 //= require common
 //= require jquery
