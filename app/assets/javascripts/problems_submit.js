@@ -28,6 +28,7 @@ function SubmitCode(code, containerId){
     $.get('/problems/evaluate', { code: code, 
                                     id: id, 
                         startTimestamp: pageLoadTime.getTime(),
+                        currentTimestamp: new Date().getTime(),
                                 }, 
     function(response) {
         console.log(response);
