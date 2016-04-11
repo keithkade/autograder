@@ -23,8 +23,41 @@ class ProblemsController < ApplicationController
 
   # GET /problems/1/evaluate ??
   def evaluate
-    test = {value: "test"}
-    render json: test, status: 200
+    if params[:code] == 'good code'
+      logger.info("GOT GOOD CODE")
+      response = {
+        status: "success",
+        err: "",
+        results: [
+            {
+                title: "test case #0",
+                result: "success",
+                err: "runtimeError: yadadada",
+                input: "test case input 0"
+            },
+            {
+                title: "test case #1",
+                result: "fail",
+                err: "",
+                input: "test case input 1"
+            },
+            {
+                title: "test case #2",
+                result: "fail",
+                err: "runtimeError: yadadada",
+                input: "test case input 2"
+            }
+        ]
+      }
+    else
+      logger.info("GOT BAD CODE")
+      response = {
+        status: "fail",
+        err: "compile error: yadadada",
+        results: []
+      }
+    end
+    render json: response, status: 200
   end
 
   private

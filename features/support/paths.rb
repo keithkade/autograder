@@ -13,6 +13,11 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
+    when /^the student problem page for "(.*)"$/
+      title = $1
+      problem = Problem.all.find_by(title: title)
+      "/problems/#{problem.id}"
+
     when /^the admin courses\s?page$/
       '/admin/courses'
 

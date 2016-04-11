@@ -13,6 +13,10 @@ Given /^the problem "(.*)" has a "(.*)" test case$/ do |problem, testcase|
     testCase.save
 end
 
+Given /^I fill in the ace editor with "(.*)"$/ do |code|
+    page.execute_script("editor.setValue('" + code + "')")
+end
+
 Then /^"(.*)" should have field skeleton with value "(.*)"$/ do |title, value|
     problem = Problem.all.find_by(title: title)
     problem.skeleton.should eq(value)

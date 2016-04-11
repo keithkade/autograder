@@ -7,12 +7,34 @@
  * this is harder to fix in rails than it should be
 */
 
-function SubmitCode(code){
+function CreateElement(tagname, content){
+    var elem = document.createElement(tagname);
+    elem.innerHTML = content;
+    return elem;
+}
+
+/** give a list of html elements, delete all their children */ 
+function DeleteChildren() {
+    for (var i = 0; i < arguments.length; i++) {
+        var element = arguments[i];
+        while (element.firstChild){
+            element.removeChild(element.firstChild);
+        }
+    }
+}
+
+function SubmitCode(code, id){
     //TODO load spinner
-    //TODO xmlhttprequest
     $.get('/problems/evaluate', { code: code }, function(data) {
-        var response = data.value;
-        alert('server responded with ' + response);
+        
+        //TODO render response
+        var responseContainer = document.getElementById(id);
+        DeleteChildren(responseContainer);
+        
+        var status = CreateElement('div', 'Code Submitted');
+        responseContainer.appendChild(status);
+        
+        var response = CreateElement('div', JSON.stringify(data));
+        responseContainer.appendChild(response);
     });
-    //TODO render response
 }
