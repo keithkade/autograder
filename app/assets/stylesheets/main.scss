@@ -13,6 +13,7 @@ $primaryVeryLight: #E1E0FF;
 $secondary: #44c6b7;
 
 $white: #FFF;
+$lightGrey: #EEE;
 $grey: #DDD;
 
 //$info: #5BC0DE;
@@ -249,4 +250,11 @@ main {
 
 .hide {
     display: none !important;
+}
+
+tr.clickable-row {
+    cursor: pointer;
+}
+tr.clickable-row:hover {
+    background: $lightGrey;
 }
