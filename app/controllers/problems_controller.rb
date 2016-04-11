@@ -21,7 +21,7 @@ class ProblemsController < ApplicationController
     @myid = params[:id]
   end
 
-  # GET /problems/1/evaluate ??
+  # GET /problems/evaluate ??
   def evaluate
     if params[:code] == 'good code'
       logger.info("GOT GOOD CODE")

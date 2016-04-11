@@ -28,7 +28,18 @@
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.session.setMode("ace/mode/java");
+    editor.setOptions({
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      autoScrollEditorIntoView: true,
+      highlightSelectedWord: true,
+      highlightActiveLine: true
+    });
 </script>
 
 <button class="btn btn-default" onclick="SubmitCode(editor.getValue(), 'submission-results')">Submit Code</button>
 <div id="submission-results"></div>
+
+<script>
+    var pageLoadTime = new Date();
+</script>
