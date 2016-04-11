@@ -2,12 +2,8 @@
   List of Courses
 <% end %>
 
-<% content_for :options do %>
+<% content_for :options_top do %>
   <%= link_to 'New Course', new_admin_course_path, :class => 'btn btn-primary' %>
-  <%= link_to 'View Problems', '/admin/problems', :class => 'btn btn-info' %>
-  <%= link_to 'Manage Students', '/admin/students', :class => 'btn btn-info' %>
-  <%= link_to 'View Student Submissions','/admin/submissions'%>
-  
 <% end %>
 
 <table class="table">
@@ -22,7 +18,7 @@
   <tbody>
     <% @courses.each do |course| %>
       <tr class="clickable-row" data-href="<%= admin_course_path(course) %>">
-        <td><%= course.name %></td>
+        <td class="clickable-row-main-cell"><%= course.name %></td>
         <td><%= course.users.length %></td>
         <td><%= course.problems.length %></td>
       </tr>

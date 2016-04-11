@@ -16,8 +16,9 @@
     <%= f.text_field :name , :placeholder => "Name", :class => 'form-control' %>
   </div>
 
-  <div class="actions">
+  <div class="form-actions">
     <%= f.submit :class => 'btn btn-primary' %>
+    <%= yield(:actions) %>
   </div>
 
 <% end %>
