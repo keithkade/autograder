@@ -21,7 +21,11 @@ class ProblemsController < ApplicationController
     @myid = params[:id]
   end
 
-
+  # GET /problems/1/evaluate ??
+  def evaluate
+    test = {value: "test"}
+    render json: test, status: 200
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

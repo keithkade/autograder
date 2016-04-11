@@ -1,22 +1,11 @@
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Editor</title>
-  <style type="text/css" media="screen">
-  </style>
-</head>
-
 <% content_for :title do %>
   <%= @problem.title %>
 <% end %>
 
 <% content_for :options do %>
-  <%= link_to 'Submit Code', problems_path, :class => 'btn btn-default' %> <%= link_to 'Back to Problem List', problems_path, :class => 'btn btn-default' %>
+    <%= link_to 'Back to Problem List', problems_path, :class => 'btn btn-default' %>
 <% end %>
 
-<!--<button onclick="alert(editor.getValue());">click me</button>-->
-
-<!--<h1>Problem Summary</h1>-->
 <div class="problem-summary">
   <%= @problem.summary %>
 </div>
@@ -35,9 +24,10 @@
 <div id="editor" style="height: 500px; width: 1000px"><pre><code><%= @problem.skeleton %></code></pre>
 </div>
 
-<script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.session.setMode("ace/mode/java");
 </script>
+
+<button class="btn btn-default" onclick="SubmitCode(editor.getValue())">Submit Code</button>

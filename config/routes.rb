@@ -18,7 +18,11 @@ Rails.application.routes.draw do
     resources :submissions
   end
 
-  resources :problems
+  resources :problems do
+    collection do
+      get 'evaluate'
+    end
+  end
 
   get 'home' => 'home#index'
 
