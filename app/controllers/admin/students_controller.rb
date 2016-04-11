@@ -11,6 +11,7 @@ class Admin::StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @courses = @student.courses
+    @submissions = Submission.all
   end
 
   # GET /students/new

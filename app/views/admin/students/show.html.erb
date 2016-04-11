@@ -21,3 +21,18 @@
     <% end %>
   </ul>
 </div>
+
+
+<div class="submissions">
+<% @submissions.each do |submission| %>
+      <tr>
+        <td><%= submission.studentID %></td>
+        <td><%= submission.problemID %></td>
+        <td><%= submission.timeOnPage %></td>
+        <td><%= submission.result %></td>
+        <td><%= link_to 'Show', admin_submission_path(submission) %></td>
+        <td><%= link_to 'Grade', edit_admin_submission_path(submission) %></td>
+        <td><%= link_to 'Destroy', admin_submission_path(submission), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+</div>
