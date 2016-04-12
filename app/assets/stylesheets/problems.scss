@@ -1,7 +1,9 @@
 // Place all the styles related to the problems controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-main .problem-summary {
+
+main .problem-summary,
+main .problem-due-date {
     font-size: 18px;
 }
 
@@ -15,15 +17,28 @@ main .problem-test-case {
     line-height: 1.42857;
 }
 
+#editor {
+    height: 512px;
+    margin-bottom: 18px;
+}
+
 #submission-results {
+    margin-top: 14px;
+
     .submission-status {
-        border-bottom: 2px solid grey;
+        border-bottom: 2px solid #b1b1b1;
+    }
+    
+    .success {
+        background-color: rgba(0, 255, 0, 0.1);
+    }
+    
+    .fail {
+        background-color: rgba(255, 0, 0, 0.1);        
     }
 }
 
-.load-container {
-    margin-top: 10px;
-    
+.load-container {    
     span {
         font-size: 16px;
         position: relative;

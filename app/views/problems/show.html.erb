@@ -6,23 +6,32 @@
     <%= link_to 'Back to Problem List', problems_path, :class => 'btn btn-default' %>
 <% end %>
 
+<div class="problem-due-date">
+  <p><strong>Due:</strong> <span class="text-danger">Not Implemented</span></p>
+</div>
+
 <div class="problem-summary">
   <%= @problem.summary %>
 </div>
 
-<h1>Input Description</h1>
-<div class="problem-input-description">
-  <%= @problem.input_description %>
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Input Description</h1>
+    <div class="problem-input-description">
+      <%= @problem.input_description %>
+    </div>
+  </div>
+  
+  <div class="col-sm-6">
+    <h1>Output Description</h1>
+    <div class="problem-output-description">
+      <%= @problem.output_description %>
+    </div>
+  </div>
 </div>
 
-<h1>Output Description</h1>
-<div class="problem-output-description">
-  <%= @problem.output_description %>
-</div>
-
-<h1>Code Skeleton</h1>
-<div id="editor" style="height: 500px; width: 1000px"><pre><code><%= @problem.skeleton %></code></pre>
-</div>
+<h1>Your Code</h1>
+<div id="editor"><pre><code><%= @problem.skeleton %></code></pre></div>
 
 <script>
     var editor = ace.edit("editor");
@@ -37,7 +46,7 @@
     });
 </script>
 
-<button class="btn btn-default" onclick="SubmitCode(editor.getValue(), 'submission-results')">Submit Code</button>
+<button class="btn btn-primary btn-max btn-large" onclick="SubmitCode(editor.getValue(), 'submission-results')">Submit Code</button>
 <div id="submission-results"></div>
 
 <script>

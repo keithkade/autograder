@@ -9,8 +9,10 @@ class ProblemsController < ApplicationController
   def index
     @student = Student.find(session[:user_id])
     courses = @student.courses
-    for course in courses 
-      @problems = course.problems
+    @problems = []
+    for course in courses
+    # Prevents duplicates of problems from appearing.
+      @problems.concat(Array(course.problems).keep_if { |prob| not @problems.map { |prob2| prob2.id }.include?(prob.id) })
     end
   end
 
@@ -21,43 +23,12 @@ class ProblemsController < ApplicationController
     @myid = params[:id]
   end
 
-  # GET /problems/evaluate ??
+  # GET /problems/1/evaluate
   def evaluate
-    if params[:code] == 'good code'
-      logger.info("GOT GOOD CODE")
-      response = {
-        status: "success",
-        err: "",
-        results: [
-            {
-                title: "test case #0",
-                result: "success",
-                err: "runtimeError: yadadada",
-                input: "test case input 0"
-            },
-            {
-                title: "test case #1",
-                result: "fail",
-                err: "",
-                input: "test case input 1"
-            },
-            {
-                title: "test case #2",
-                result: "fail",
-                err: "runtimeError: yadadada",
-                input: "test case input 2"
-            }
-        ]
-      }
-    else
-      logger.info("GOT BAD CODE")
-      response = {
-        status: "fail",
-        err: "compile error: yadadada",
-        results: []
-      }
-    end
-    render json: response, status: 200
+    result = eval_code(params[:code], params[:id])
+    submission = Submission.create!(:code => params[:code], :studentID => session[:user_id], :problemID => params[:id], :result => result)
+    submission.save
+    render json: result, status: 200
   end
 
   private

@@ -11,6 +11,7 @@ class LoginController < ApplicationController
         log_out_admin
       end
       log_in_student(user.id)
+      flash[:notice] = "Welcome #{user.Name}!"
       redirect_to '/home'
     elsif params['user'] == Rails.application.secrets.admin_username && params['password'] == Rails.application.secrets.admin_password
       if logged_in_student?

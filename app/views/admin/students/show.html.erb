@@ -3,26 +3,55 @@
 <% end %>
 
 <% content_for :options do %>
+  <%= link_to 'Students List', admin_students_path, :class => 'btn btn-default' %>
   <%= link_to 'Edit', edit_admin_student_path(@student), :class => 'btn btn-primary' %>
-  <%= link_to 'Back', admin_students_path, :class => 'btn btn-default' %>
+  <%= link_to 'Delete', admin_student_path(@student), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
 <% end %>
 
-<ul>
-  <li><strong>Id: <%= @student.ID %></strong></li>
-  <li><strong>Username: <%= @student.UserName %></strong></li>
-  <li><strong>Password: <%= @student.Password %></strong></li>
-</ul>
-
-<div class="student-courses">
-  <h1>Courses</h1>
-  <ul>
-    <% @courses.each do |course| %>
-      <li><%= course.name %></li>
-    <% end %>
-  </ul>
+<div class="row">
+  <div class="col-sm-6 student-basic-info">
+    <table class="table">
+      <thead>
+        <tr>
+          <th colspan="2">Basic Information</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ID:</strong></td>
+          <td><%= @student.ID %></td>
+        </tr>
+        <tr>
+          <td><strong>Username:</strong></td>
+          <td><%= @student.UserName %></td>
+        </tr>
+        <tr>
+          <td><strong>Password:</strong></td>
+          <td><%= @student.Password %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="col-sm-6 student-courses">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Classes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @courses.each do |course| %>
+          <tr class="clickable-row" data-href="<%= admin_course_path(course) %>">
+            <td class="clickable-row-main-cell"><%= course.name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-
+<h1>Submissions</h1>
 <div class="submissions">
 <% @submissions.each do |submission| %>
       <tr>

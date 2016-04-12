@@ -8,37 +8,38 @@
 <% end %>
 
 <% content_for :options do %>
-  <%= link_to 'Edit This Problem', edit_admin_problem_path(@problem), :class => 'btn btn-primary' %>
-  <%= link_to 'Back to Problem List', admin_problems_path, :class => 'btn btn-default' %>
+  <%= link_to 'Problem List', admin_problems_path, :class => 'btn btn-default' %>
+  <%= link_to 'Edit', edit_admin_problem_path(@problem), :class => 'btn btn-primary' %>
+  <%= link_to 'Delete', admin_problem_path(@problem), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
 <% end %>
 
-<!--<h1>Problem Summary</h1>-->
+<div class="problem-due-date">
+  <p><strong>Due:</strong> <span class="text-danger">Not Implemented</span></p>
+</div>
+
 <div class="problem-summary">
   <%= @problem.summary %>
 </div>
 
-<h1>Input Description</h1>
-<div class="problem-input-description">
-  <%= @problem.input_description %>
-</div>
-
-<h1>Output Description</h1>
-<div class="problem-output-description">
-  <%= @problem.output_description %>
+<div class="row">
+  <div class="col-sm-6">
+    <h1>Input Description</h1>
+    <div class="problem-input-description">
+      <%= @problem.input_description %>
+    </div>
+  </div>
+  
+  <div class="col-sm-6">
+    <h1>Output Description</h1>
+    <div class="problem-output-description">
+      <%= @problem.output_description %>
+    </div>
+  </div>
 </div>
 
 <h1>Code Skeleton</h1>
 <div class="problem-code-skeleton">
   <pre><code><%= @problem.skeleton %></code></pre>
-</div>
-
-<div class="problem-courses">
-  <h1>Courses</h1>
-  <ul>
-    <% @courses.each do |course| %>
-      <li><%= course.name %></li>
-    <% end %>
-  </ul>
 </div>
 
 <h1>Test Cases</h1>
@@ -63,9 +64,27 @@
         </div>
         <div class="col-sm-2">
           <span style="visibility: hidden">.</span>
-          <%= link_to 'Destroy', admin_problem_test_case_path(problem_test_case), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-max' %>
+          <%= link_to 'Remove', admin_problem_test_case_path(problem_test_case), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-max' %>
         </div>
       </div>
     </div>
   <% end %>
+</div>
+
+<div class="problem-courses">
+  <h1>Courses</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr class="clickable-row" data-href="<%= admin_course_path(course) %>">
+          <td class="clickable-row-main-cell"><%= course.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

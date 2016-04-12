@@ -26,11 +26,15 @@
             <% end %>
           </div>
           
-          <div class="page-title page-header"><span><%= yield(:title) %></span></div>
+          <% if content_for?(:title) %>
+            <div class="page-title page-header"><span><%= yield(:title) %></span></div>
+          <% end %>
           
-          <div class="page-options-top">
-            <%= yield(:options_top) %>
-          </div>
+          <% if content_for?(:options_top) %>
+            <div class="page-options-top">
+              <%= yield(:options_top) %>
+            </div>
+          <% end %>
           
           <%= yield %>
           

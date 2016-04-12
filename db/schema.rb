@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20160412005643) do
     t.text     "input_description"
     t.text     "output_description"
     t.datetime "due_date"
+    t.text     "language"
   end
 
   create_table "students", force: :cascade do |t|

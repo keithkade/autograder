@@ -1,21 +1,20 @@
-<% content_for :title do %><%@student.Name%><% end %>
-
-<% content_for :options do %>
-<% end %>
+<% content_for :title do %><%= @student.Name %><% end %>
 
 <table class="problems-list-table table">
   <thead>
     <tr>
-      <th><%@student.Name%></th>
-      <th colspan="3"></th>
+      <th>Problem</th>
+      <th>Due Date</th>
+      <th>Classes</th>
     </tr>
   </thead>
 
   <tbody>
     <% @problems.each do |problem| %>
-      <tr>
-        <td><%= problem.title %></td>
-        <td><%= link_to 'View', problem, :class => 'btn btn-default' %></td>
+      <tr class="clickable-row" data-href="<%= problem_path(problem) %>">
+        <td class="clickable-row-main-cell"><%= problem.title %></td>
+        <td><span class="text-danger">Not Implemented</span></td>
+        <td><%= problem.courses.map { |course| course.name }.join(", ") %></td>
       </tr>
     <% end %>
   </tbody>
