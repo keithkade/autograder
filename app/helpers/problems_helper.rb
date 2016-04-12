@@ -1,77 +1,102 @@
 module ProblemsHelper
+  
   def eval_code(code, problemID)
-    open('useCode.java', 'w') do |f|
+    compile_languages = ['java']
+  
+    problem = Problem.find(problemID)
+    
+    case problem.language
+    when 'java'
+      command = 'useCode.java'
+    when 'python'
+      command = 'useCode.py'
+    end
+    open(command, 'w') do |f|
       f.puts code
     end
-      
-    problem = Problem.find(problemID)
-    my_json = eval_java_problem(code, problem)
+    
+    if compile_languages.include?(problem.language)
+      my_json = compile_problem(code, problem)
+    else
+      my_json = {}
+      my_json[:status] = 'success'
+      my_json[:err] = ''
+    end
+    
+    if my_json[:status] == 'success'
+      my_json[:results] = execute_problem(code, problem)
+    end
+    
+    clean_files
     return my_json
   end
     
   private
   def clean_files
-    File.delete('input.java') if File.exist?('input.java')
-    File.delete('expected.class') if File.exist?('expected.class')
-    File.delete('output.java') if File.exist?('output.java')
+    File.delete('input.txt') if File.exist?('input.txt')
+    File.delete('expected.txt') if File.exist?('expected.txt')
+    File.delete('output.txt') if File.exist?('output.txt')
     File.delete('useCode.java') if File.exist?('useCode.java')
     File.delete('useCode.class') if File.exist?('useCode.class')
-  end
-  
-  def check_correctness(runtimeOut)
-    # TODO Figure out what to do about system.out or file
-    if File.exist?('output.txt')
-      return FileUtils.compare_file('expected.txt', 'output.txt')
-    else
-      file = File.open('expected.txt')
-      text = file.read
-      return runtimeOut == text
-    end
+    File.delete('useCode.py') if File.exist?('useCode.py')
   end
 
-  def eval_java_problem(code, problem)
-    my_json = {}
-    compileOut, compileError, compileStatus = Open3.capture3("javac useCode.java")     
+  def check_correctness(expected)
+    output_file = File.open('output.txt')
+    output = output_file.read
+    return expected == output
+  end
+
+  def compile_problem(code, problem)
+    case problem.language
+    when 'java'
+      command = 'javac useCode.java'
+    end
     
-    if(not compileStatus.success?) 
-      my_json[:status] = 'fail'
-      my_json[:err] = compileError
-      my_json[:results] = []
-    else
+    compileOut, compileError, compileStatus = Open3.capture3(command) 
+    my_json = {}
+    if(compileStatus.success?)
       my_json[:status] = 'success'
       my_json[:err] = ''
-      results_array = []
-      ProblemTestCase.where(problemid: problem.id).each do |testcase|
-        result_hash = {}
-        result_hash[:title] = 'temp_title'
-        result_hash[:input] = testcase.input
-        
-        runtimeOut, runtimeError, runtimeStatus = eval_java_testcase(testcase.input, testcase.output)
-        if(not runtimeStatus.success?) 
-          result_hash[:result] = 'fail'
-          result_hash[:err] = runtimeError
-        else
-          check_correctness ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
-        end
-      end
-      my_json[:results] = results_array
+    else
+      my_json[:status] = 'fail'
+      my_json[:err] = compileError
     end
+    return my_json
   end
   
-  def eval_java_testcase(input, expected)
-    open('input.txt', 'w') do |f|
-      f.puts input
-    end
-        
-    open('expected.txt', 'w') do |f|
-      f.puts expected
+  def execute_problem(code, problem)
+    case problem.language
+    when 'java'
+      command = 'java useCode'
+    when 'python'
+      command = 'python useCode.py'
     end
     
-    runtimeOut, runtimeError, runtimeStatus = Open3.capture3("java useCode")     
-    return runtimeOut, runtimeError, runtimeStatus
-  end
-    
-  def eval_ruby_problem(code)
-    return nil,nil
+    results_array = []  
+    ProblemTestCase.where(problemid: problem.id).each do |testcase|
+      open('input.txt', 'w') do |f|
+        f.puts testcase.input
+      end
+      open('expected.txt', 'w') do |f|
+        f.puts testcase.output
+      end
+      
+      runtimeOut, runtimeError, runtimeStatus = Open3.capture3(command)
+      
+      result_hash = {}
+      result_hash[:title] = 'stuff'
+      result_hash[:input] = testcase.input
+      result_hash[:output] = runtimeOut   
+      
+      if(runtimeStatus.success?) 
+        FileUtils.compare_file('expected.txt', 'output.txt') ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
+      else
+        result_hash[:result] = 'fail'
+        result_hash[:err] = runtimeError
+      end
+      results_array.push(result_hash)
+    end
+    return results_array
   end
 end
