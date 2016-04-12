@@ -22,7 +22,7 @@ class ProblemsController < ApplicationController
     @myid = params[:id]
   end
 
-  # GET /problems/evaluate ??
+  # GET /problems/1/evaluate
   def evaluate
     result = eval_code(params[:code], params[:id])
     Submission.create!(:code => params[:code], :studentID => session[:user_id], :problemID => params[:id], :result => result)
