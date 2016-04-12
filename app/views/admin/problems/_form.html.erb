@@ -40,6 +40,11 @@
     <%= f.text_area :skeleton, :rows => 9, :class => 'form-control' %>
   </div>
   
+  <div class="Due Date">
+    <%= f.label :due_date %>
+    <%= datetime_select :problem, :due_date %>
+  </div>
+  
   <div class="problem-courses-form">
     <strong>Select Courses which have this problem:</strong><br />
     <% @courses.each do |course| %>
