@@ -10,6 +10,8 @@ module ProblemsHelper
       command = 'useCode.java'
     when 'python'
       command = 'useCode.py'
+    else
+      return {:status => 'fail', :err => 'problem has to language set', :results => []}
     end
     open(command, 'w') do |f|
       f.puts code
