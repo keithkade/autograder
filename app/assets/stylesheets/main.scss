@@ -178,9 +178,9 @@ header {
         z-index: 2;
     }
     
-    .site-title h1 a {  color: #FFF; }
+    .site-title h1 a {  color: $white; }
     .site-title h1 a:hover {
-        
+        color: $primaryLight;
     }
     
     .logout-button {
@@ -192,8 +192,8 @@ header {
     }
 
     .logout-button:hover {
-        background-color: $white;
-        color: $primaryVeryDark;
+        border-color: $primaryLight;
+        color: $primaryLight;
     }
 }
 
