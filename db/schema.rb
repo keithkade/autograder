@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20160412184731) do
     t.text     "summary"
     t.text     "input_description"
     t.text     "output_description"
+    t.text     "language"
     t.datetime "due_date"
   end
 
