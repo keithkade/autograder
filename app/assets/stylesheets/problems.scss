@@ -17,7 +17,15 @@ main .problem-test-case {
 
 #submission-results {
     .submission-status {
-        border-bottom: 2px solid grey;
+        border-bottom: 2px solid #b1b1b1;
+    }
+    
+    .success {
+        background-color: rgba(0, 255, 0, 0.1);
+    }
+    
+    .fail {
+        background-color: rgba(255, 0, 0, 0.1);        
     }
 }
 

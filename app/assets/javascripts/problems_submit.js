@@ -45,9 +45,17 @@ function SubmitCode(code, containerId){
             var cases = response.results;
             for (var i = 0; i < cases.length; i++) {
                 var row = tbl.insertRow(i);
-                row.insertCell(0).appendChild(document.createTextNode(cases[i].title));
-                row.insertCell(1).appendChild(document.createTextNode(cases[i].result));
+                row.className = cases[i].result;
+            
+                //display a checkmark or a x depeneding on success/failure
+                row.insertCell(0).innerHTML = (cases[i].result == "success") ? '&#10003' : '&#10007';
+
+                row.insertCell(1).appendChild(document.createTextNode(cases[i].title));
+
                 row.insertCell(2).appendChild(document.createTextNode(cases[i].input));
+                
+                //since we color the whole row, just make the cell contain the empty string
+                if (!cases[i].err) cases[i].err = "";
                 row.insertCell(3).appendChild(document.createTextNode(cases[i].err));
             }
             result.appendChild(tbl);
