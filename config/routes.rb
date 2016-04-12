@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   end
 
   resources :problems do
-    collection do
+    member do
       get 'evaluate'
     end
   end

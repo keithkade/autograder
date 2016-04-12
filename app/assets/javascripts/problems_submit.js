@@ -21,12 +21,7 @@ function SubmitCode(code, containerId){
     loadingContainer.appendChild(loadingLabel);
     responseContainer.appendChild(loadingContainer);
     
-    //this is dirty, but I couldn't figure out the rails-y way
-    var url = document.URL;
-    var id = url.substr(document.URL.lastIndexOf('/') + 1, url.length);
-        
-    $.get('/problems/evaluate', { code: code, 
-                                    id: id, 
+    $.get(document.URL + '/evaluate', { code: code, 
                         startTimestamp: pageLoadTime.getTime(),
                         currentTimestamp: new Date().getTime(),
                                 }, 
