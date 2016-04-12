@@ -65,7 +65,7 @@ function SubmitCode(code, containerId){
         responseContainer.appendChild(status);
         responseContainer.appendChild(result);
     });
-    
+
     
     function CreateElement(tagname, content, className){
         var elem = document.createElement(tagname);
