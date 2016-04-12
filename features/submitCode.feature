@@ -7,7 +7,7 @@ Feature: Submitting Code
     And I am on the student problem page for "Existing Problem"
     When I fill in the ace editor with "good code"
     And I press "Submit Code"
-    Then I should see "Code Submitted"
+    Then I should see "Code Succesfully Evaluated"
 
   @javascript
   Scenario: I want to see when my code has succeeded
