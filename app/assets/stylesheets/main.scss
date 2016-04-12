@@ -254,9 +254,18 @@ main {
         font-size: 28px
     }
     
+    .page-options-top {
+        text-align: center;
+        margin-bottom: 24px;
+    }
+    
     .page-options-bottom {
         margin-top: 42px;
         text-align: center;
+        
+        .btn {
+            min-width: 148px;
+        }
     }
 }
 
@@ -277,4 +286,8 @@ tr.clickable-row {
 }
 tr.clickable-row:hover {
     background: $lightGrey;
+    
+    td.clickable-row-main-cell {
+        color: $primaryDark;
+    }
 }

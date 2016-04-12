@@ -2,8 +2,8 @@
   Creating New Course
 <% end %>
 
-<%= render 'form' %>
-
-<% content_for :options do %>
+<% content_for :actions do %>
   <%= link_to 'Cancel', admin_courses_path, :class => 'btn btn-danger' %>
 <% end %>
+
+<%= render 'form' %>

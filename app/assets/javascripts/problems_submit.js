@@ -28,6 +28,7 @@ function SubmitCode(code, containerId){
     $.get('/problems/evaluate', { code: code, 
                                     id: id, 
                         startTimestamp: pageLoadTime.getTime(),
+                        currentTimestamp: new Date().getTime(),
                                 }, 
     function(response) {
         console.log(response);
@@ -40,7 +41,7 @@ function SubmitCode(code, containerId){
         if (response.status == "success") {
             status.innerHTML = "Code Succesfully Evaluated";
             
-            var tbl = CreateElement('table');
+            var tbl = CreateElement('table', '', 'table');
             var cases = response.results;
             for (var i = 0; i < cases.length; i++) {
                 var row = tbl.insertRow(i);

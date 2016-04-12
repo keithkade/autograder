@@ -2,8 +2,8 @@
   Editing <%= @course.name %>
 <% end %>
 
-<%= render 'form' %>
-
-<% content_for :options do %>
+<% content_for :actions do %>
   <%= link_to 'Cancel', admin_course_path(@course), :class => 'btn btn-danger' %>
 <% end %>
+
+<%= render 'form' %>
