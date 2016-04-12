@@ -11,7 +11,14 @@ class Admin::StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @courses = @student.courses
-    @submissions = Submission.all
+    @submissions = Submission.where(:studentid => @student.id)
+    @problemNames = Hash.new
+    @submissions.each do |submission|
+      problem = Problem.find_by_id(submission.problemid)
+      if not problem.nil?
+        @problemNames[submission.problemid] = problem.title
+      end
+    end
   end
 
   # GET /students/new

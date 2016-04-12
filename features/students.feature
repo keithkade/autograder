@@ -16,20 +16,25 @@ Feature: Students
     Given I am logged in as Admin
     And I have a student named "Existing Student"
     And I am on the students page
-    When I follow "Destroy"
-    Then I should not see "Existing Student"
+    When I tableclickstudent "Existing Student"
+    Then I should be on the student page for "Existing Student"
+    When I follow "Delete"
+    Then I should be on the student page
+    And I should not see "Existing Student"
     
   Scenario: I want to view a student
     Given I am logged in as Admin
     And I have a student named "Existing Student"
     And I am on the students page
-    When I follow "Show"
+    When I tableclickstudent "Existing Student"
     Then I should be on the student page for "Existing Student"
     
   Scenario: I want to edit a student
     Given I am logged in as Admin
     And I have a student named "Existing Student"
     And I am on the students page
+    When I tableclickstudent "Existing Student"
+    Then I should be on the student page for "Existing Student"
     When I follow "Edit"
     And I fill in "Name" with "New Name"
     And I press "Update Student"

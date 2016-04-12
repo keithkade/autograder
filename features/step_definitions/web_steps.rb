@@ -57,6 +57,24 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^(?:|I )tableclickcourse "([^"]*)"$/ do |table|
+  course = Course.all.find_by(name: table)
+  path = "/admin/courses/#{course.id}"
+  visit(path)
+end
+
+When /^(?:|I )tableclickstudent "([^"]*)"$/ do |table|
+  student = Student.all.find_by(Name: table)
+  path = "/admin/students/#{student.id}"
+  visit(path)
+end
+
+When /^(?:|I )tableclickproblem "([^"]*)"$/ do |table|
+  problem = Problem.all.find_by(title: table)
+  path = "/admin/problems/#{problem.id}"
+  visit(path)
+end
+
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end

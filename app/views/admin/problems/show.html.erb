@@ -2,6 +2,11 @@
   <%= @problem.title %>
 <% end %>
 
+<h1>Due Date</h1>
+<% content_for :due_date do %>
+  <%= @problem.due_date %>
+<% end %>
+
 <% content_for :options do %>
   <%= link_to 'Problem List', admin_problems_path, :class => 'btn btn-default' %>
   <%= link_to 'Edit', edit_admin_problem_path(@problem), :class => 'btn btn-primary' %>
@@ -55,7 +60,7 @@
         </div>
         <div class="col-sm-2">
           <span style="visibility: hidden">.</span>
-          <%= link_to 'Edit', edit_admin_problem_test_case_path(problem_test_case), :class => 'btn btn-primary btn-max' %>
+          <%= link_to 'Edit test case', edit_admin_problem_test_case_path(problem_test_case), :class => 'btn btn-primary btn-max' %>
         </div>
         <div class="col-sm-2">
           <span style="visibility: hidden">.</span>

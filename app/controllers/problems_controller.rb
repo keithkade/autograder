@@ -26,7 +26,7 @@ class ProblemsController < ApplicationController
   # GET /problems/1/evaluate
   def evaluate
     result = eval_code(params[:code], params[:id])
-    submission = Submission.create!(:code => params[:code], :studentID => session[:user_id], :problemID => params[:id], :result => result)
+    submission = Submission.create!(:code => params[:code], :studentid => session[:user_id], :problemid => params[:id], :result => result)
     submission.save
     render json: result, status: 200
   end
