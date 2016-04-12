@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(version: 20160410194720) do
     t.text     "summary"
     t.text     "input_description"
     t.text     "output_description"
-    t.text     "language"
   end
 
   create_table "students", force: :cascade do |t|

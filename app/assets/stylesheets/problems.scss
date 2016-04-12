@@ -1,7 +1,9 @@
 // Place all the styles related to the problems controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-main .problem-summary {
+
+main .problem-summary,
+main .problem-due-date {
     font-size: 18px;
 }
 
@@ -13,6 +15,11 @@ main .problem-test-case {
     font-family: Menlo, Monaco,Consolas, "Courier New", monospace;
     font-size: 14px;
     line-height: 1.42857;
+}
+
+#editor {
+    height: 512px;
+    margin-bottom: 18px;
 }
 
 #submission-results {

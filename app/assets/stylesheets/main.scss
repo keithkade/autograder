@@ -64,6 +64,9 @@ a:hover, a:active, a:focus {
     width: 100%;
     margin-bottom: 6px;
 }
+.btn.btn-large {
+    font-size: 1.5em;
+}
 .btn.btn-primary,
 .btn.btn-info,
 .btn.btn-danger,
@@ -189,6 +192,8 @@ header {
         padding: 5px;
         border: 2px solid $white;
         margin: 10px 0 0 0;
+        z-index: 2;
+        position: relative;
     }
 
     .logout-button:hover {
@@ -204,12 +209,14 @@ nav.top-bar-wrap {
     border: none;
     color: $white;
     position: absolute;
-    top: 8px;
+    top: 8px; right: 0;
     font-size: 16px;
     z-index: 1;
+    width: 100%;
     
     .top-bar {
         .navbar-nav {  float: right; }
+        .navbar-collapse {  padding-right: 104px; }
         a {  color: $white; }
         a:hover,
         a:focus {  color : $primaryLight; }
@@ -219,7 +226,7 @@ nav.top-bar-wrap {
 /*  Footer (@footer)
  *  ==========================================================================*/
 footer {
-    background: $grey;
+    background: $lightGrey;
     font-size: 16px;
     padding-top: 42px;
     padding-bottom: 24px;

@@ -10,8 +10,9 @@ class ProblemsController < ApplicationController
     @student = Student.find(session[:user_id])
     courses = @student.courses
     @problems = []
-    for course in courses 
-      @problems.concat course.problems
+    for course in courses
+    # Prevents duplicates of problems from appearing.
+      @problems.concat(Array(course.problems).keep_if { |prob| not @problems.map { |prob2| prob2.id }.include?(prob.id) })
     end
   end
 
@@ -25,7 +26,8 @@ class ProblemsController < ApplicationController
   # GET /problems/evaluate ??
   def evaluate
     result = eval_code(params[:code], params[:id])
-    Submission.create!(:code => params[:code], :studentID => session[:user_id], :problemID => params[:id], :result => result)
+    submission = Submission.create!(:code => params[:code], :studentID => session[:user_id], :problemID => params[:id], :result => result)
+    submission.save
     render json: result, status: 200
   end
 
