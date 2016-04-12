@@ -16,6 +16,8 @@ main .problem-test-case {
 }
 
 #submission-results {
+    margin-top: 14px;
+
     .submission-status {
         border-bottom: 2px solid #b1b1b1;
     }
@@ -29,9 +31,7 @@ main .problem-test-case {
     }
 }
 
-.load-container {
-    margin-top: 10px;
-    
+.load-container {    
     span {
         font-size: 16px;
         position: relative;
