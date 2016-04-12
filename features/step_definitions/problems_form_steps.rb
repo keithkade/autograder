@@ -1,3 +1,9 @@
+Then /^I have a problem named "(.*)"$/ do |name|
+    problem = Problem.new
+    problem.title = name
+    problem.save
+end
+
 Given /^I already have the python io problem and am on that page$/ do
     problem = Problem.new
     problem.title = 'io practice python'
