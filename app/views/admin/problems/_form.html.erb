@@ -14,6 +14,20 @@
   <div class="hidden-fields">
     <%= hidden_field_tag :courseid, params[:courseid] %>
   </div>
+  
+  <div class="form-group">
+    <%= f.label :due_date %>
+    <%= datetime_select :problem, :due_date %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :language %>
+    <select class="form-control">
+      <% Problem.languages.each do |language| %>
+        <option><%= language.capitalize %></option>
+      <% end %>
+    </select>
+  </div>
 
   <div class="form-group">
     <%= f.label :title %>
@@ -38,11 +52,6 @@
   <div class="form-group">
     <%= f.label :skeleton %>
     <%= f.text_area :skeleton, :rows => 9, :class => 'form-control' %>
-  </div>
-  
-  <div class="Due Date">
-    <%= f.label :due_date %>
-    <%= datetime_select :problem, :due_date %>
   </div>
   
   <div class="problem-courses-form">

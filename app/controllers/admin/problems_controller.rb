@@ -93,7 +93,7 @@ class Admin::ProblemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
-      params.require(:problem).permit(:title, :summary, :input_description, :output_description, :skeleton, :due_date)
+      params.require(:problem).permit(:title, :summary, :input_description, :output_description, :skeleton, :due_date, :language)
     end
     
     def relate_with_courses
