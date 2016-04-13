@@ -37,7 +37,7 @@ describe ProblemsHelper, :type => :helper do
       expect(result[:results][0][:err]).to eq(nil)
     end
     
-    it 'should fail compile with bad java code' do
+    it 'should fail compile with bad code' do
       code = "import java.io.*;\n"+
             "public class useCode {\n"+
             " public static void main(String args[]) throws IOException{\n"+
@@ -63,7 +63,7 @@ describe ProblemsHelper, :type => :helper do
       expect(result[:results]).to eq(nil)
     end
     
-    it 'should pass compile and fail testcase with good, but wrong, java code' do
+    it 'should pass compile and fail testcase with good, but wrong, code' do
       code = "import java.io.*;\n"+
             "public class useCode {\n"+
             " public static void main(String args[]) throws IOException{\n"+
@@ -90,8 +90,10 @@ describe ProblemsHelper, :type => :helper do
       expect(result[:results][0][:result]).to eq('fail')
       expect(result[:results][0][:err]).to eq(nil)
     end
-    
-    it 'should succeed with good python code' do
+  end
+  
+  describe "Running with python code" do
+    it 'should succeed with good code' do
       code ="with open('output.txt', 'w') as f1:\n"+
             "  for line in open('input.txt'):\n"+
             "    f1.write(line)"
@@ -103,7 +105,7 @@ describe ProblemsHelper, :type => :helper do
       expect(result[:results][0][:err]).to eq(nil)
     end
     
-    it 'should fail compile with bad python code' do
+    it 'should fail compile with bad code' do
       code ="with open('output.txt', 'w') as f1:\n"+
             "  for line in open('input.txt'):\n"+
             "f1.write(line)"
@@ -115,7 +117,7 @@ describe ProblemsHelper, :type => :helper do
       expect(result[:results][0][:err]).to_not eq(nil)
     end
     
-    it 'should pass compile and fail testcase with good, but wrong, python code' do
+    it 'should pass compile and fail testcase with good, but wrong, code' do
       code ="with open('output.txt', 'w') as f1:\n"+
             "  for line in open('input.txt'):\n"+
             "    f1.write(line)\n"+
