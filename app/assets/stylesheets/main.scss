@@ -22,6 +22,10 @@ $success: #5CB85C;
 $warning: #F0AD4E;
 $danger: #D9534F;
 
+$successLight: #D6EFCB;
+$warningLight: #F9F4D6;
+$dangerLight: #EFCECE;
+
 $font: 'Open Sans';
 $fontFallback: sans-serif;
 $fancyFont: 'Shadows Into Light Two';
@@ -310,3 +314,6 @@ tr.success {
 tr.fail {
     background-color: rgba(255, 0, 0, 0.1);        
 }
+
+tr.clickable-row.success:hover {  background: $successLight; }
+tr.clickable-row.fail:hover  {  background: $dangerLight;  }
