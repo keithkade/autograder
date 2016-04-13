@@ -1,12 +1,14 @@
 Then /^I have a problem named "(.*)"$/ do |name|
     problem = Problem.new
     problem.title = name
+    problem.due_date =  DateTime.parse('1 May 2016 11:59:59 PM')
     problem.save
 end
 
 Given /^I already have the python io problem and am on that page$/ do
     problem = Problem.new
     problem.title = 'io practice python'
+    problem.due_date =  DateTime.parse('1 May 2016 11:59:59 PM')
     problem.save
 
     problem = Problem.all.find_by(title: 'io practice python')
