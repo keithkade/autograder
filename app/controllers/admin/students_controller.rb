@@ -28,7 +28,7 @@ class Admin::StudentsController < ApplicationController
       end
 
       #count up and display how many test cases succeeded
-      result = JSON.parse submission.result
+      result = submission.result
       successes = 0
       cases = 0
       if result['status'] == 'success'
@@ -121,7 +121,7 @@ class Admin::StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:Name, :ID, :UserName, :Password, :Class)
+      params.require(:student).permit(:FirstName, :ID, :UserName, :Password, :LastName)
     end
     
     def relate_with_courses
