@@ -7,7 +7,7 @@
   <%= link_to 'To Problem', admin_problem_path(@problem), :class => 'btn btn-default' %>
 <% end %>
 
-<p>This is a submission of <strong><%= @student.Name %></strong> for problem <strong><%= @problem.title %></strong> on <strong><%= @submission.timeSubmitted.strftime("%d %b, %I:%M %p") %></strong></p>
+<p>This is a submission of <strong><%= @student.Name %></strong> for problem <strong><%= @problem.title %></strong> on <strong><%= @submission.time_submitted.strftime("%d %b, %I:%M %p") %></strong></p>
 
 <% if @submission.status %>
   <div class="alert alert-success">
