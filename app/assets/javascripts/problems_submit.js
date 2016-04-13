@@ -7,8 +7,6 @@
  * this is harder to fix in rails than it should be
 */
 
-
-
 function SubmitCode(code, containerId){
     var responseContainer = document.getElementById(containerId); 
     DeleteChildren(responseContainer);

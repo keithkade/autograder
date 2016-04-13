@@ -306,5 +306,14 @@ tr.clickable-row.success:hover,
 tr.clickable-row.danger:hover {
     td {  background: none; }
 }
+
+tr.success {
+    background-color: rgba(0, 255, 0, 0.1);
+}
+
+tr.fail {
+    background-color: rgba(255, 0, 0, 0.1);        
+}
+
 tr.clickable-row.success:hover {  background: $successLight; }
-tr.clickable-row.danger:hover  {  background: $dangerLight;  }
+tr.clickable-row.fail:hover  {  background: $dangerLight;  }
