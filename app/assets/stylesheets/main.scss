@@ -22,6 +22,10 @@ $success: #5CB85C;
 $warning: #F0AD4E;
 $danger: #D9534F;
 
+$successLight: #D6EFCB;
+$warningLight: #F9F4D6;
+$dangerLight: #EFCECE;
+
 $font: 'Open Sans';
 $fontFallback: sans-serif;
 $fancyFont: 'Shadows Into Light Two';
@@ -302,3 +306,5 @@ tr.clickable-row.success:hover,
 tr.clickable-row.danger:hover {
     td {  background: none; }
 }
+tr.clickable-row.success:hover {  background: $successLight; }
+tr.clickable-row.danger:hover  {  background: $dangerLight;  }
