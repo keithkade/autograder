@@ -1,4 +1,4 @@
-<%= form_for(@submission) do |f| %>
+<%= form_for [:admin, @submission] do |f| %>
   <% if @submission.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :studentID %><br>
-    <%= f.text_field :studentID %>
+    <%= f.label :studentid %><br>
+    <%= f.number_field :studentid %>
   </div>
   <div class="field">
     <%= f.label :problemID %><br>
-    <%= f.text_field :problemID %>
+    <%= f.number_field :problemid %>
   </div>
   <div class="field">
     <%= f.label :code %><br>
@@ -28,12 +28,16 @@
     <%= f.datetime_select :timeOnPage %>
   </div>
   <div class="field">
-    <%= f.label :response %><br>
-    <%= f.text_area :response %>
+    <%= f.label :timeSubmitted %><br>
+    <%= f.datetime_select :timeSubmitted %>
   </div>
   <div class="field">
     <%= f.label :result %><br>
-    <%= f.text_field :result %>
+    <%= f.text_area :result %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.check_box :status %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -10,6 +10,8 @@ class Admin::SubmissionsController < ApplicationController
   # GET /submissions/1
   # GET /submissions/1.json
   def show
+    @student = Student.find_by_id(@submission.studentid)
+    @problem = Problem.find_by_id(@submission.problemid)
   end
 
   # GET /submissions/new
@@ -28,7 +30,7 @@ class Admin::SubmissionsController < ApplicationController
 
     respond_to do |format|
       if @submission.save
-        format.html { redirect_to @submission, notice: 'Submission was successfully created.' }
+        format.html { redirect_to admin_submission_path(@submission), notice: 'Submission was successfully created.' }
         format.json { render :show, status: :created, location: @submission }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class Admin::SubmissionsController < ApplicationController
   def update
     respond_to do |format|
       if @submission.update(submission_params)
-        format.html { redirect_to @submission, notice: 'Submission was successfully updated.' }
+        format.html { redirect_to admin_submission_path(@submission), notice: 'Submission was successfully updated.' }
         format.json { render :show, status: :ok, location: @submission }
       else
         format.html { render :edit }
@@ -56,7 +58,7 @@ class Admin::SubmissionsController < ApplicationController
   def destroy
     @submission.destroy
     respond_to do |format|
-      format.html { redirect_to submissions_url, notice: 'Submission was successfully destroyed.' }
+      format.html { redirect_to admin_submissions_url, notice: 'Submission was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +71,6 @@ class Admin::SubmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:studentID, :problemID, :code, :timeOnPage, :response, :result)
+      params.require(:submission).permit(:studentid, :problemid, :code, :timeOnPage, :timeSubmitted, :result, :status)
     end
 end

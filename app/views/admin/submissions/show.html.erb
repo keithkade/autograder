@@ -1,38 +1,22 @@
 <% content_for :title do %>
-  Submission
+  Submission Details
 <% end %>
 
-<p id="notice"><%= notice %></p>
+<% content_for :options do %>
+  <%= link_to 'To Student', admin_student_path(@student), :class => 'btn btn-default' %>
+  <%= link_to 'To Problem', admin_problem_path(@problem), :class => 'btn btn-default' %>
+<% end %>
 
-<p>
-  <strong>Studentid:</strong>
-  <%= @submission.studentID %>
-</p>
+<p>This is a submission of <strong><%= @student.Name %></strong> for problem <strong><%= @problem.title %></strong> on <strong><%= @submission.timeSubmitted.strftime("%d %b, %I:%M %p") %></strong></p>
 
-<p>
-  <strong>Problemid:</strong>
-  <%= @submission.problemID %>
-</p>
+<% if @submission.status %>
+  <div class="alert alert-success">
+    <p>This submission passed!</p>
+  </div>
+<% else %>
+  <div class="alert alert-danger">
+    <p>This submission failed.</p>
+  </div>
+<% end %>
 
-<p>
-  <strong>Code:</strong>
-  <%= @submission.code %>
-</p>
-
-<p>
-  <strong>Timeonpage:</strong>
-  <%= @submission.timeOnPage %>
-</p>
-
-<p>
-  <strong>Response:</strong>
-  <%= @submission.response %>
-</p>
-
-<p>
-  <strong>Result:</strong>
-  <%= @submission.result %>
-</p>
-
-<%= link_to 'Edit', edit_admin_submission_path(@submission) %> |
-<%= link_to 'Back', admin_submissions_path %>
+<pre><code><%= @submission.code %></code></pre>

@@ -298,3 +298,7 @@ tr.clickable-row:hover {
         color: $primaryDark;
     }
 }
+tr.clickable-row.success:hover,
+tr.clickable-row.danger:hover {
+    td {  background: none; }
+}

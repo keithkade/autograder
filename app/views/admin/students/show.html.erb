@@ -55,14 +55,17 @@
 <table class="table submissions">
   <thead>
     <tr>
+      <th>Passed?</th>
       <th>Problem</th>
-      <th>Time Taken</th>
-      <th></th>
+      <th>Time Submitted</th>
     </tr>
   </thead>
   <tbody>
     <% @submissions.each do |submission| %>
-      <tr class="clickable-row" data-href="<%= admin_submission_path(submission) %>">
+      <tr class="clickable-row <% if submission.status %>success<% else %>danger<% end %>" data-href="<%= admin_submission_path(submission) %>">
+        <td>
+          <% if submission.status %><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><% else %><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><% end %>
+        </td>
         <td>
           <% if @problemNames.include?(submission.problemid) %>
             <%= @problemNames[submission.problemid] %>
@@ -70,8 +73,7 @@
             <strong><span class="text-danger">INVALID PROBLEM</span></strong>
           <% end %>
         </td>
-        <td><%= submission.timeOnPage %></td>
-        <td>RESULT</td>
+        <td><%= submission.timeSubmitted.strftime("%d %b, %I:%M %p") %></td>
       </tr>
     <% end %>
   </tbody>
