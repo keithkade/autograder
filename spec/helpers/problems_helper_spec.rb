@@ -60,7 +60,7 @@ describe ProblemsHelper, :type => :helper do
       result = eval_code(code, 1)
       expect(result[:status]).to eq('fail')
       expect(result[:err]).to_not eq('')
-      expect(result[:results]).to eq([])
+      expect(result[:results]).to eq(nil)
     end
     
     it 'should pass compile and fail testcase with good, but wrong, java code' do
