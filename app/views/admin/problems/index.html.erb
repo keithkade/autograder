@@ -17,8 +17,8 @@
     <% @problems.each do |problem| %>
       <tr class="clickable-row" data-href="<%= admin_problem_path(problem) %>">
         <td class="clickable-row-main-cell"><%= problem.title %></td>
-        <td><strong><span class="text-danger">Not implemented</span></strong></td>
-          <td><%= problem.courses.map { |course| course.name }.join(", ") %></td>
+        <td><span class="due-date"><%= problem.due_date.strftime("%d %b, %I:%M %p") %></span></td>
+        <td><%= problem.courses.map { |course| course.name }.join(", ") %></td>
       </tr>
     <% end %>
   </tbody>
