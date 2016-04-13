@@ -42,13 +42,7 @@ module ProblemsHelper
     File.delete('useCode.class') if File.exist?('useCode.class')
     File.delete('useCode.py') if File.exist?('useCode.py')
   end
-
-  def check_correctness(expected)
-    output_file = File.open('output.txt')
-    output = output_file.read
-    return expected == output
-  end
-
+  
   def compile_problem(code, problem)
     case problem.language
     when 'java'
