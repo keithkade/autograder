@@ -21,10 +21,10 @@ students = [{:Name => 'Dillon', :ID => 2222, :UserName => 'dman', :Password => '
            {:Name => 'Jeff Dean', :ID => 0, :UserName => 'the one', :Password => ''},
     ]
     
-problems = [{:title => 'Hello World', :summary => 'Will write hello world', :input_description => 'none', :output_description => 'print Hello World!', :skeleton => 'n\a', :language => 'java'},
-            {:title => 'IO Practice Java', :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'java'},
-            {:title => 'Multiple by 10', :summary => 'Will multiply input by 10', :input_description => 'numbers seperated by spaces', :output_description => 'numbers multiplied by 10 seperated by spaces', :skeleton => 'n\a', :language => 'java'},
-            {:title => 'IO Practice Python', :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'python'},
+problems = [{:title => 'Hello World', :due_date => DateTime.parse('1 May 2016 11:59:59 PM'), :summary => 'Will write hello world', :input_description => 'none', :output_description => 'print Hello World!', :skeleton => 'n\a', :language => 'java'},
+            {:title => 'IO Practice Java', :due_date => DateTime.parse('2 May 2016 11:59:59 PM'), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'java'},
+            {:title => 'Multiple by 10', :due_date => DateTime.parse('3 May 2016 11:59:59 PM'), :summary => 'Will multiply input by 10', :input_description => 'numbers seperated by spaces', :output_description => 'numbers multiplied by 10 seperated by spaces', :skeleton => 'n\a', :language => 'java'},
+            {:title => 'IO Practice Python', :due_date => DateTime.parse('4 May 2016 11:59:59 PM'), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'python'},
     ]
 
 problem_tests = [{:problemid => 1, :input => '', :output => ''},
