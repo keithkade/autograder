@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'open3'
 
 describe ProblemsHelper, :type => :helper do
-  before :each do
+  before :all do
     Problem.create!(title:'IO Java', language:'java')
     ProblemTestCase.create!(problemid:1, input:'testingbecauseican', output:'testingbecauseican')
     Problem.create!(title:'IO Python', language:'python')
@@ -59,7 +59,7 @@ describe ProblemsHelper, :type => :helper do
         
       result = eval_code(code, 1)
       expect(result[:status]).to eq('fail')
-      expect(result[:err]).to eq('')
+      expect(result[:err]).to_not eq('')
       expect(result[:results][0]).to eq([])
     end
     
