@@ -22,9 +22,12 @@ $success: #5CB85C;
 $warning: #F0AD4E;
 $danger: #D9534F;
 
-$successLight: #D6EFCB;
+$successVeryLight: rgba(0, 255, 0, 0.1);
+$failVeryLight: rgba(255, 0, 0, 0.1);
+
+$successLight: #cbe2c1;
 $warningLight: #F9F4D6;
-$dangerLight: #EFCECE;
+$failLight: #EFCECE;
 
 $font: 'Open Sans';
 $fontFallback: sans-serif;
@@ -307,13 +310,9 @@ tr.clickable-row.danger:hover {
     td {  background: none; }
 }
 
-tr.success {
-    background-color: rgba(0, 255, 0, 0.1);
-}
+tr.success { background-color: $successVeryLight; }
 
-tr.fail {
-    background-color: rgba(255, 0, 0, 0.1);        
-}
+tr.fail { background-color: $failVeryLight; }
 
 tr.clickable-row.success:hover {  background: $successLight; }
-tr.clickable-row.fail:hover  {  background: $dangerLight;  }
+tr.clickable-row.fail:hover  {  background: $failLight;  }
