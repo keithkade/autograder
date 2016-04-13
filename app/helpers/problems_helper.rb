@@ -13,7 +13,7 @@ module ProblemsHelper
     else
       return {:status => 'fail', :err => 'problem has to language set', :results => []}
     end
-    open(command, 'w') do |f|
+    File.open(command, 'w') do |f|
       f.puts code
     end
     
@@ -77,10 +77,10 @@ module ProblemsHelper
     
     results_array = []  
     ProblemTestCase.where(problemid: problem.id).each do |testcase|
-      open('input.txt', 'w') do |f|
+      File.open('input.txt', 'w') do |f|
         f.puts testcase.input
       end
-      open('expected.txt', 'w') do |f|
+      File.open('expected.txt', 'w') do |f|
         f.puts testcase.output
       end
       

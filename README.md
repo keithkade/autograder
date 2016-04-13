@@ -56,7 +56,7 @@ public class useCode {
 
 IO Practice Python
 ```
-with open('output.txt', 'a') as f1:
+with open('output.txt', 'w') as f1:
   for line in open('input.txt'):
     f1.write(line)
 ```
