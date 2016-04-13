@@ -1,3 +1,6 @@
+require 'json'
+require 'pp'
+
 class Admin::StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
@@ -13,10 +16,34 @@ class Admin::StudentsController < ApplicationController
     @courses = @student.courses
     @submissions = Submission.where(:student_id => @student.id)
     @problemNames = Hash.new
+
+    @testCaseResults = []
+
     @submissions.each do |submission|
+
+      #TODO write test for these
       problem = Problem.find_by_id(submission.problem_id)
       if not problem.nil?
         @problemNames[submission.problem_id] = problem.title
+      end
+
+      #count up and display how many test cases succeeded
+      result = JSON.parse submission.result
+      successes = 0
+      cases = 0
+      if result['status'] == 'success'
+        result['results'].each do |test_case|
+          if test_case['result'] == "success"
+            successes += 1
+          end
+          cases += 1
+        end
+      end
+
+      if cases > 0
+        @testCaseResults.push(successes.to_s + '/' + cases.to_s)
+      else
+        @testCaseResults.push('Compile Error')
       end
     end
   end
