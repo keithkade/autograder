@@ -46,7 +46,6 @@ module ProblemsHelper
     when 'java'
       command = 'javac ' + folder + '/useCode.java'
     end
-    pp command
     compileOut, compileError, compileStatus = Open3.capture3(command) 
     my_json = {}
     if(compileStatus.success?)
@@ -76,7 +75,6 @@ module ProblemsHelper
         f.puts testcase.output
       end
       
-      pp command
       runtimeOut, runtimeError, runtimeStatus = Open3.capture3(command)
       
       result_hash = {}
