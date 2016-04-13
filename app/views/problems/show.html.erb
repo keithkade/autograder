@@ -49,6 +49,9 @@
 <button class="btn btn-primary btn-max btn-large" onclick="SubmitCode(editor.getValue(), 'submission-results')">Submit Code</button>
 <div id="submission-results"></div>
 
+
+<%= link_to 'View your previous submissions', submissions_problem_path(@problem)%>
+
 <!--
 <h1>Your Previous Submissions</h1>
 <div class="panel panel-default">

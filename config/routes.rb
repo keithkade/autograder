@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :problems do
     member do
       get 'evaluate'
+      get 'submissions'
     end
   end
 
@@ -30,6 +31,11 @@ Rails.application.routes.draw do
   post   'login'   => 'login#create'
   delete 'logout'  => 'login#destroy'
 
+  #resources :submissions
+  
+  
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
