@@ -20,7 +20,7 @@ function SubmitCode(code, containerId){
     loadingContainer.appendChild(spin);
     loadingContainer.appendChild(loadingLabel);
     responseContainer.appendChild(loadingContainer);
-    
+
     $.get(document.URL + '/evaluate', { code: code, 
                         startTimestamp: pageLoadTime.getTime(),
                         currentTimestamp: new Date().getTime(),
