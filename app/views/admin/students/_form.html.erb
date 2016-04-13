@@ -12,8 +12,12 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :Name %><br>
-    <%= f.text_field :Name, :class => 'form-control' %>
+    <%= f.label :FirstName %><br>
+    <%= f.text_field :FirstName, :class => 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :LastName %><br>
+    <%= f.text_field :LastName, :class => 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :ID %><br>
@@ -37,10 +41,6 @@
     <% end %>
   </div>
   
-  <div class="form-group hide">
-    <%= f.label :Class %><br>
-    <%= f.text_field :Class, :class => 'form-control' %>
-  </div>
   <div class="form-actions">
     <%= f.submit :class => 'btn btn-primary' %>
     <%= yield(:actions) %>
