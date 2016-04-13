@@ -1,5 +1,6 @@
 class ProblemsController < ApplicationController
   require 'open3'
+  require 'pp'
   include ProblemsHelper
   
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
