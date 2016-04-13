@@ -30,6 +30,10 @@ class ProblemsController < ApplicationController
     submission.save
     render json: result, status: 200
   end
+  
+  def submission
+    @submissions = Submission.where(:problem_id => @problem.id).where(:student_id => session[:user_id])
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
