@@ -10,8 +10,8 @@ class Admin::SubmissionsController < ApplicationController
   # GET /submissions/1
   # GET /submissions/1.json
   def show
-    @student = Student.find_by_id(@submission.studentid)
-    @problem = Problem.find_by_id(@submission.problemid)
+    @student = Student.find_by_id(@submission.student_id)
+    @problem = Problem.find_by_id(@submission.problem_id)
   end
 
   # GET /submissions/new
@@ -71,6 +71,6 @@ class Admin::SubmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:studentid, :problemid, :code, :timeOnPage, :timeSubmitted, :result, :status)
+      params.require(:submission).permit(:student_id, :problem_id, :code, :page_loaded_at, :time_submitted, :result, :status)
     end
 end
