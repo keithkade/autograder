@@ -7,7 +7,7 @@
 <% end %>
 
 <div class="problem-due-date">
-  <p><strong>Due:</strong> <span class="text-danger">Not Implemented</span></p>
+  <p><strong>Due:</strong> <span class="due-date"><%= @problem.due_date.strftime("%d %b, %I:%M %p") %></span></p>
 </div>
 
 <div class="problem-summary">
