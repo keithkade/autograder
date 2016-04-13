@@ -1,5 +1,7 @@
 class ProblemsController < ApplicationController
   require 'open3'
+  require 'pp'
+
   include ProblemsHelper
   
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
@@ -26,7 +28,26 @@ class ProblemsController < ApplicationController
   # GET /problems/1/evaluate
   def evaluate
     result = eval_code(params[:code], params[:id])
-    submission = Submission.create!(:code => params[:code], :studentid => session[:user_id], :problemid => params[:id], :result => result)
+
+    status = true
+    if result[:status] == 'fail'
+      status = false
+    elsif result[:status] == 'success'
+      result[:results].each do |test_case|
+        if test_case[:result] == "fail"
+          status = false
+        end
+      end
+    end
+
+    submission = Submission.create!(:code => params[:code],
+                                    :time_submitted => DateTime.strptime(params[:time_submitted],'%s'),
+                                    :page_loaded_at => DateTime.strptime(params[:page_loaded_at],'%s'),
+                                    :student_id => session[:user_id],
+                                    :problem_id => params[:id],
+                                    :result => JSON(result),
+                                    :status => status)
+
     submission.save
     render json: result, status: 200
   end

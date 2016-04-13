@@ -2,23 +2,25 @@ module ProblemsHelper
   
   def eval_code(code, problemID)
     compile_languages = ['java']
-  
-    problem = Problem.find(problemID)
     
+    rand_folder_name = "temp_" + SecureRandom.hex
+    FileUtils.mkdir(rand_folder_name)
+    system('cd ' + rand_folder_name)
+    problem = Problem.find(problemID)
     case problem.language
     when 'java'
-      command = 'useCode.java'
+      file = rand_folder_name + '/useCode.java'
     when 'python'
-      command = 'useCode.py'
+      file = rand_folder_name + '/useCode.py'
     else
       return {:status => 'fail', :err => 'problem has to language set', :results => []}
     end
-    File.open(command, 'w') do |f|
+    File.open(file, 'w') do |f|
       f.puts code
     end
     
     if compile_languages.include?(problem.language)
-      my_json = compile_problem(code, problem)
+      my_json = compile_problem(code, problem, rand_folder_name)
     else
       my_json = {}
       my_json[:status] = 'success'
@@ -26,29 +28,24 @@ module ProblemsHelper
     end
     
     if my_json[:status] == 'success'
-      my_json[:results] = execute_problem(code, problem)
+      my_json[:results] = execute_problem(code, problem, rand_folder_name)
     end
     
-    clean_files
+    clean_files(rand_folder_name)
+    system('cd ..')
     return my_json
   end
     
   private
-  def clean_files
-    File.delete('input.txt') if File.exist?('input.txt')
-    File.delete('expected.txt') if File.exist?('expected.txt')
-    File.delete('output.txt') if File.exist?('output.txt')
-    File.delete('useCode.java') if File.exist?('useCode.java')
-    File.delete('useCode.class') if File.exist?('useCode.class')
-    File.delete('useCode.py') if File.exist?('useCode.py')
+  def clean_files(folder)
+    FileUtils.remove_dir(folder) if File.directory?(folder)
   end
   
-  def compile_problem(code, problem)
+  def compile_problem(code, problem, folder)
     case problem.language
     when 'java'
-      command = 'javac useCode.java'
+      command = 'javac ' + folder + '/useCode.java'
     end
-    
     compileOut, compileError, compileStatus = Open3.capture3(command) 
     my_json = {}
     if(compileStatus.success?)
@@ -61,20 +58,20 @@ module ProblemsHelper
     return my_json
   end
   
-  def execute_problem(code, problem)
+  def execute_problem(code, problem, folder)
     case problem.language
     when 'java'
-      command = 'java useCode'
+      command = '( cd ' + folder + '; java useCode)'
     when 'python'
-      command = 'python useCode.py'
+      command = '( cd ' + folder + '; python useCode.py)'
     end
     
     results_array = []  
     ProblemTestCase.where(problemid: problem.id).each do |testcase|
-      File.open('input.txt', 'w') do |f|
+      File.open(folder + '/input.txt', 'w') do |f|
         f.puts testcase.input
       end
-      File.open('expected.txt', 'w') do |f|
+      File.open(folder + '/expected.txt', 'w') do |f|
         f.puts testcase.output
       end
       
@@ -86,7 +83,7 @@ module ProblemsHelper
       result_hash[:output] = runtimeOut   
       
       if(runtimeStatus.success?) 
-        FileUtils.compare_file('expected.txt', 'output.txt') ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
+        FileUtils.compare_file(folder + '/expected.txt', folder + '/output.txt') ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
       else
         result_hash[:result] = 'fail'
         result_hash[:err] = runtimeError

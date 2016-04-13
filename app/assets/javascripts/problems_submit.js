@@ -7,8 +7,6 @@
  * this is harder to fix in rails than it should be
 */
 
-
-
 function SubmitCode(code, containerId){
     var responseContainer = document.getElementById(containerId); 
     DeleteChildren(responseContainer);
@@ -22,9 +20,9 @@ function SubmitCode(code, containerId){
     responseContainer.appendChild(loadingContainer);
 
     $.get(document.URL + '/evaluate', { code: code, 
-                        startTimestamp: pageLoadTime.getTime(),
-                        currentTimestamp: new Date().getTime(),
-                                }, 
+                                        time_submitted: Math.trunc(pageLoadTime.getTime()/1000),
+                                        page_loaded_at: Math.trunc(new Date().getTime()/1000) 
+                                      }, 
     function(response) {
         console.log(response);
 

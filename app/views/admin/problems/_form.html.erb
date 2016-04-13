@@ -24,7 +24,7 @@
     <%= f.label :language %>
     <select class="form-control">
       <% Problem.languages.each do |language| %>
-        <option><%= language.capitalize %></option>
+        <option<% if language == @problem.language %> selected="selected"<% end %>><%= language.capitalize %></option>
       <% end %>
     </select>
   </div>
