@@ -52,8 +52,8 @@ class ProblemsController < ApplicationController
     render json: result, status: 200
   end
   
-  def submission
-    @submissions = Submission.where(:problem_id => @problem.id).where(:student_id => session[:user_id])
+  def submissions
+    @submissions = Submission.where(:problem_id => params[:id]).where(:student_id => session[:user_id])
   end
 
   private

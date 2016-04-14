@@ -1,1 +1,7 @@
 <h1>Your Previous Submissions</h1>
+
+<ul>
+    <% @submissions.each do |submission| %>
+        <li><% if submission.status %>Pass<% else %>Fail<% end %></li>
+    <% end %>
+</ul>
