@@ -27,21 +27,8 @@ class Admin::StudentsController < ApplicationController
         @problemNames[submission.problem_id] = problem.title
       end
 
-      #count up and display how many test cases succeeded
-      result = submission.result
-      successes = 0
-      cases = 0
-      if result['status'] == 'success'
-        result['results'].each do |test_case|
-          if test_case['result'] == "success"
-            successes += 1
-          end
-          cases += 1
-        end
-      end
-
-      if cases > 0
-        @testCaseResults.push(successes.to_s + '/' + cases.to_s)
+      if submission.success_cases > 0
+        @testCaseResults.push(submission.success_cases.to_s + '/' + submission.total_cases.to_s)
       else
         @testCaseResults.push('Compile Error')
       end
