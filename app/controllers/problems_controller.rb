@@ -45,7 +45,7 @@ class ProblemsController < ApplicationController
                                     :page_loaded_at => DateTime.strptime(params[:page_loaded_at],'%s'),
                                     :student_id => session[:user_id],
                                     :problem_id => params[:id],
-                                    :result => JSON(result),
+                                    :result => result.to_json,
                                     :status => status)
 
     submission.save
