@@ -53,7 +53,11 @@ class ProblemsController < ApplicationController
   end
   
   def submissions
-    @submissions = Submission.where(:problem_id => params[:id]).where(:student_id => session[:user_id])
+    set_problem
+    @submissions = Submission.order('time_submitted DESC')
+                             .where(:problem_id => params[:id])
+                             .where(:student_id => session[:user_id])
+                             
   end
 
   private
