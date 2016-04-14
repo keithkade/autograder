@@ -7,7 +7,13 @@
  * this is harder to fix in rails than it should be
 */
 
+function ShowSubmissionModal(id) {
+    $('#' + id).modal('show');
+}
+
 function SubmitCode(code, containerId){
+    ShowSubmissionModal('submission-results-modal');
+    
     var responseContainer = document.getElementById(containerId); 
     DeleteChildren(responseContainer);
 
@@ -31,17 +37,34 @@ function SubmitCode(code, containerId){
         var status = CreateElement('div', '', 'submission-status');
         var result = CreateElement('div');
         var tbl = CreateElement('table', '', 'table');
+        var tblHeader = tbl.createTHead();
+        var headerRow = tblHeader.insertRow(0);
+        var appendTH = function(header, txt) {
+            var th = document.createElement('th');
+            th.innerHTML = txt;
+            header.appendChild(th);
+        };
+        
+        var tblBody = document.createElement('tbody');
+        tbl.appendChild(tblBody);
         
         if (response.status == "success") {
             status.innerHTML = "Code Succesfully Evaluated";
+            status.classList.add("alert");
+            appendTH(headerRow, "");
+            appendTH(headerRow, "Test Case");
+            appendTH(headerRow, "Input");
+            appendTH(headerRow, "Details");
             
+            var allPassed = true;
             var cases = response.results;
             for (var i = 0; i < cases.length; i++) {
-                var row = tbl.insertRow(i);
+                var row = tblBody.insertRow(i);
                 row.className = cases[i].result;
             
                 //display a checkmark or a x depeneding on success/failure
                 row.insertCell(0).innerHTML = (cases[i].result == "success") ? '&#10003' : '&#10007';
+                allPassed = allPassed && cases[i].result == "success";
 
                 row.insertCell(1).appendChild(document.createTextNode(cases[i].title));
 
@@ -51,10 +74,20 @@ function SubmitCode(code, containerId){
                 if (!cases[i].err) cases[i].err = "";
                 row.insertCell(3).appendChild(document.createTextNode(cases[i].err));
             }
+            if(allPassed)
+                status.classList.add("alert-success");
+            else {
+                status.innerHTML += ", but not all cases passed";
+                status.classList.add("alert-warning");
+            }
         }
         else if (response.status == "fail") {
             status.innerHTML = "Compile Error"; 
-            var errorRow = tbl.insertRow(0);
+            status.classList.add("alert");
+            status.classList.add("alert-danger");
+            appendTH(headerRow, "Error");
+            
+            var errorRow = tblBody.insertRow(0);
             errorRow.className = "fail";
             errorRow.insertCell(0).appendChild(document.createTextNode(response.err));
         }
