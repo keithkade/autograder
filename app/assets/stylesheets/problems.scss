@@ -2,6 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$loaderDiameter: 100px;
+//$loaderRadius: 50px; // For some reason this won't work in a calc statement
+
 main .problem-summary,
 main .problem-due-date {
     font-size: 18px;
@@ -33,9 +36,11 @@ main .problem-test-case {
 
 }
 
-.load-container {    
-    min-height: 10em;
-    text-align: center;
+.submit-container {
+    min-height: $loaderDiameter;
+}
+
+.load-container {
     span {
         font-size: 16px;
         position: relative;
@@ -50,7 +55,7 @@ main .problem-test-case {
     float: left;
     font-size: 10px;
     position: relative;
-    left: calc(50% - 10em);
+    left: calc(50% - 50px);
     text-indent: -9999em;
     border-top: 1.1em solid rgba(0, 0, 0, 0.2);
     border-right: 1.1em solid rgba(0, 0, 0, 0.2);
@@ -65,8 +70,8 @@ main .problem-test-case {
 .loader,
 .loader:after {
   border-radius: 50%;
-  width: 10em;
-  height: 10em;
+  width: $loaderDiameter;
+  height: $loaderDiameter;
 }
 @-webkit-keyframes load8 {
   0% {

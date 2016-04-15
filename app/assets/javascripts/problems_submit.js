@@ -7,16 +7,21 @@
  * this is harder to fix in rails than it should be
 */
 
+var LOADER_ID = 'loader-area';
+var SUBMIT_BUTTON_ID = 'submit-btn';
+var MODAL_ID = 'submission-results-modal';
+
+function CopyModalContentsToPage() {
+  $('#submission-results-after').html($('#submission-results').html());
+}
+
 function ShowSubmissionModal(id) {
     $('#' + id).modal('show');
 }
 
-function SubmitCode(code, containerId){
-    ShowSubmissionModal('submission-results-modal');
-    
-    var responseContainer = document.getElementById(containerId); 
-    DeleteChildren(responseContainer);
-
+function ShowLoader(id) {
+    $('#' + id).append('<div class="loader">Loading...</div>');
+/*
     var loadingContainer = CreateElement('div', '', 'load-container');
     var spin = CreateElement('div', 'Loading...', 'loader');
     var loadingLabel = CreateElement('span', 'Evaluating...');
@@ -24,6 +29,28 @@ function SubmitCode(code, containerId){
     loadingContainer.appendChild(spin);
     loadingContainer.appendChild(loadingLabel);
     responseContainer.appendChild(loadingContainer);
+/*  */
+}
+
+function HideLoader(id) {
+    $('#' + id).empty();
+}
+
+function ShowSubmitButton(id) {
+    $('#' + id).removeClass('hide');
+}
+
+function HideSubmitButton(id) {
+    $('#' + id).addClass('hide');
+}
+
+function SubmitCode(code, containerId){
+    var responseContainer = document.getElementById(containerId); 
+    DeleteChildren(responseContainer);
+    DeleteChildren(document.getElementById('submission-results-after'));
+
+    HideSubmitButton(SUBMIT_BUTTON_ID);
+    ShowLoader(LOADER_ID);
 
     $.get(document.URL + '/evaluate', { code: code, 
                                         time_submitted: Math.trunc(pageLoadTime.getTime()/1000),
@@ -31,7 +58,11 @@ function SubmitCode(code, containerId){
                                       }, 
     function(response) {
         console.log(response);
+        
+        var problemPassed = false;
 
+        HideLoader(LOADER_ID);
+        ShowSubmitButton(SUBMIT_BUTTON_ID);
         DeleteChildren(responseContainer);
 
         var status = CreateElement('div', '', 'submission-status');
@@ -74,8 +105,10 @@ function SubmitCode(code, containerId){
                 if (!cases[i].err) cases[i].err = "";
                 row.insertCell(3).appendChild(document.createTextNode(cases[i].err));
             }
-            if(allPassed)
+            if(allPassed) {
                 status.classList.add("alert-success");
+                problemPassed = true;
+            }
             else {
                 status.innerHTML += ", but not all cases passed";
                 status.classList.add("alert-warning");
@@ -95,6 +128,12 @@ function SubmitCode(code, containerId){
         
         responseContainer.appendChild(status);
         responseContainer.appendChild(result);
+        
+    //  We only show modal on success
+        if (problemPassed) 
+            ShowSubmissionModal(MODAL_ID);
+        else
+            CopyModalContentsToPage();
     });
 
     
