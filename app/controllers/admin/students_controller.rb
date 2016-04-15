@@ -14,7 +14,7 @@ class Admin::StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @courses = @student.courses
-    @submissions = Submission.where(:student_id => @student.id)
+    @submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
     @problemNames = Hash.new
 
     @testCaseResults = []
@@ -27,7 +27,7 @@ class Admin::StudentsController < ApplicationController
         @problemNames[submission.problem_id] = problem.title
       end
 
-      if submission.success_cases > 0
+      if submission.total_cases > 0
         @testCaseResults.push(submission.success_cases.to_s + '/' + submission.total_cases.to_s)
       else
         @testCaseResults.push('Compile Error')

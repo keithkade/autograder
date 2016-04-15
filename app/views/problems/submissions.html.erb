@@ -9,13 +9,11 @@
 <div class="panel-group" id="submissions-accordian" role="tablist" aria-multiselectable="true">
   <% @submissions.each_with_index do |submission, index| %>
     <div class="panel panel-<% if submission.status %>success<% else %>danger<% end %>">
-      <div class="panel-heading" role="tab">
+      <div class="panel-heading clickable-panel-heading" role="tab" data-toggle="collapse" data-parent="#submissions-accordian" href="#collapse-<%= index %>" aria-expanded="false" aria-controls="collapse-<%= index %>">
         <div class="row">
           <div class="col-xs-7">
             <h4 class="panel-title">
-              <a role="button" data-toggle="collapse" data-parent="#submissions-accordian" href="#collapse-<%= index %>" aria-expanded="false" aria-controls="collapse-<%= index %>">
-                Submitted <%= submission.time_submitted.strftime("%d %b, %I:%M %p") %>
-              </a>
+              Submitted <%= submission.time_submitted.strftime("%d %b, %I:%M %p") %>
             </h4>
           </div>
           <div class="col-xs-5" style="text-align: right;">
