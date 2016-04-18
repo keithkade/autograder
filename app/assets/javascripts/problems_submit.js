@@ -21,15 +21,6 @@ function ShowSubmissionModal(id) {
 
 function ShowLoader(id) {
     $('#' + id).append('<div class="loader">Loading...</div>');
-/*
-    var loadingContainer = CreateElement('div', '', 'load-container');
-    var spin = CreateElement('div', 'Loading...', 'loader');
-    var loadingLabel = CreateElement('span', 'Evaluating...');
-
-    loadingContainer.appendChild(spin);
-    loadingContainer.appendChild(loadingLabel);
-    responseContainer.appendChild(loadingContainer);
-/*  */
 }
 
 function HideLoader(id) {

@@ -185,6 +185,11 @@ pre::after {
     background-color: $successLight;
 }
 
+.panel-submission-time {
+  display: inline-block;
+  width: 260px;
+}
+
 /*  Header (@header)
  *  ==========================================================================*/
 header {

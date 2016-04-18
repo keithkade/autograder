@@ -8,54 +8,54 @@
 
 <div class="panel-group" id="submissions-accordian" role="tablist" aria-multiselectable="true">
   <% @submissions.each_with_index do |submission, index| %>
-    <div class="panel panel-<% if submission.status %>success<% else %>danger<% end %>">
-      <div class="panel-heading clickable-panel-heading" role="tab" data-toggle="collapse" data-parent="#submissions-accordian" href="#collapse-<%= index %>" aria-expanded="false" aria-controls="collapse-<%= index %>">
-        <div class="row">
-          <div class="col-xs-7">
-            <h4 class="panel-title">
-              Submitted <%= submission.time_submitted.strftime("%d %b, %I:%M %p") %>
-            </h4>
-          </div>
-          <div class="col-xs-5" style="text-align: right;">
-            <h4 class="panel-title">
-              <span><%= submission.success_cases %> / <%= submission.total_cases %> Passed</span>
-            </h4>
-          </div>
-        </div>
-      </div>
-      <div id="collapse-<%= index %>" class="panel-collapse collapse" role="tabpanel">
-        <div class="panel-body">
-          <% if submission.results_obj['status'] == "success" %>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Test Case</th>
-                  <th>Input</th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% submission.results_obj['results'].each do |result| %>
-                  <tr class="<%= result['result'] %>">
-                    <td>
-                      <% if result['result'] == "success" %>&#10003;<% else %>&#10007;<% end %>
-                    </td>
-                    <td><%= result['title'] %></td>
-                    <td><%= result['input'] %></td>
-                    <td><%= result['err'] %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          <% else %>
-            <div class="alert alert-danger">
-              <%= submission.results_obj['err'] %>
+      <div class="panel panel-<% if submission.status %>success<% else %>danger<% end %>">
+        <div class="panel-heading clickable-panel-heading" role="tab" data-toggle="collapse" data-parent="#submissions-accordian" href="#collapse-<%= index %>" aria-expanded="false" aria-controls="collapse-<%= index %>">
+          <div class="row">
+            <div class="col-xs-7">
+              <h4 class="panel-title">
+                Submitted <%= submission.time_submitted.strftime("%d %b, %I:%M %p") %>
+              </h4>
             </div>
-          <% end %>
-          <pre><code><%= submission.code %></code></pre>
+            <div class="col-xs-5" style="text-align: right;">
+              <h4 class="panel-title">
+                <span><%= submission.success_cases %> / <%= submission.total_cases %> Passed</span>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div id="collapse-<%= index %>" class="panel-collapse collapse" role="tabpanel">
+          <div class="panel-body">
+            <% if submission.results_obj['status'] == "success" %>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th></th>
+                    <th>Test Case</th>
+                    <th>Input</th>
+                    <th>Details</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% submission.results_obj['results'].each do |result| %>
+                      <tr class="<%= result['result'] %>">
+                        <td>
+                          <% if result['result'] == "success" %>&#10003;<% else %>&#10007;<% end %>
+                        </td>
+                        <td><%= result['title'] %></td>
+                        <td><%= result['input'] %></td>
+                        <td><%= result['err'] %></td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+            <% else %>
+                <div class="alert alert-danger">
+                  <%= submission.results_obj['err'] %>
+                </div>
+            <% end %>
+            <pre><code><%= submission.code %></code></pre>
+          </div>
         </div>
       </div>
-    </div>
   <% end %>
 </div>
