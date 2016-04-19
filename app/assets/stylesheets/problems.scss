@@ -93,3 +93,21 @@ main .problem-test-case {
     transform: rotate(360deg);
   }
 }
+
+.ace-banner {
+    width: 100%;
+    h1 {
+        display: inline-block;
+        margin-right: 14px;
+    }
+
+    #shortcut {
+        display: inline-block;
+        font-size: 12px;
+    }
+    
+    button {
+        float: right;
+        margin-top: 54px;
+    }
+}

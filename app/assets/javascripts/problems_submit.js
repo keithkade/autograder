@@ -1,5 +1,5 @@
 /* jshint browser:true, devel:true */
-/* global $, pageLoadTime */
+/* global $, ace */
 
 /**
  * Created by kade on 4/10/16.
@@ -7,6 +7,30 @@
  * this is harder to fix in rails than it should be
 */
 
+var pageLoadTime = new Date();
+
+$(document).ready(function() {
+    
+    //set up ace
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/" + document.getElementById('editor').getAttribute('data-lang'));
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        highlightSelectedWord: true,
+        highlightActiveLine: true,
+    });
+    
+    //Show ace shortcuts on 
+    ace.config.loadModule("ace/ext/keybinding_menu", function(module) {
+        module.init(editor);
+    });
+    
+    //popup on succesful submit
+    $('#submission-results-modal').on('hide.bs.modal', function(e) { CopyModalContentsToPage(); });
+});
+                  
 var LOADER_ID = 'loader-area';
 var SUBMIT_BUTTON_ID = 'submit-btn';
 var MODAL_ID = 'submission-results-modal';
@@ -33,6 +57,23 @@ function ShowSubmitButton(id) {
 
 function HideSubmitButton(id) {
     $('#' + id).addClass('hide');
+}
+
+function CreateElement(tagname, content, className){
+    var elem = document.createElement(tagname);
+    if (content) elem.innerHTML = content;
+    if (className) elem.className = className;
+    return elem;
+}
+
+/** give a list of html elements, delete all their children */ 
+function DeleteChildren() {
+    for (var i = 0; i < arguments.length; i++) {
+        var element = arguments[i];
+        while (element.firstChild){
+            element.removeChild(element.firstChild);
+        }
+    }
 }
 
 function SubmitCode(code, containerId){
@@ -126,22 +167,4 @@ function SubmitCode(code, containerId){
         else
             CopyModalContentsToPage();
     });
-
-    
-    function CreateElement(tagname, content, className){
-        var elem = document.createElement(tagname);
-        if (content) elem.innerHTML = content;
-        if (className) elem.className = className;
-        return elem;
-    }
-
-    /** give a list of html elements, delete all their children */ 
-    function DeleteChildren() {
-        for (var i = 0; i < arguments.length; i++) {
-            var element = arguments[i];
-            while (element.firstChild){
-                element.removeChild(element.firstChild);
-            }
-        }
-    }
 }

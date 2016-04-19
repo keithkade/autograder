@@ -31,21 +31,13 @@
   </div>
 </div>
 
-<h1>Your Code</h1>
-<div id="editor"><pre><code><%= @problem.skeleton %></code></pre></div>
-
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/twilight");
-    editor.session.setMode("ace/mode/java");
-    editor.setOptions({
-      enableBasicAutocompletion: true,
-      enableSnippets: true,
-      autoScrollEditorIntoView: true,
-      highlightSelectedWord: true,
-      highlightActiveLine: true
-    });
-</script>
+<div class="ace-banner">
+    <h1>Your Code</h1>
+    <span id="shortcut">Show shortcuts: Cmd-Alt-H (Mac) Ctrl-Alt-H (Windows)</span>
+    <button>Save</button>
+    <button>Load</button>
+</div>
+<div id="editor" data-lang="<%= @problem.language %>"><pre><code><%= @problem.skeleton %></code></pre></div>
 
 <div class="submit-container">
   <button id="submit-btn" class="btn btn-primary btn-max btn-large" onclick="SubmitCode(editor.getValue(), 'submission-results')">Submit Code</button>
@@ -70,8 +62,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $('#submission-results-modal').on('hide.bs.modal', function(e) { CopyModalContentsToPage(); });
-  var pageLoadTime = new Date();
-</script>
