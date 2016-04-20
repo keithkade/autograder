@@ -8,11 +8,12 @@
 */
 
 var pageLoadTime = new Date();
+var editor;
 
 $(document).ready(function() {
     
     //set up ace
-    var editor = ace.edit("editor");
+    editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.session.setMode("ace/mode/" + document.getElementById('editor').getAttribute('data-lang'));
     editor.setOptions({
