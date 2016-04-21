@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     resources :students
     resources :submissions
     resources :quizzes
+    resources :quiz_multiple_choice_questions
   end
 
   resources :problems do

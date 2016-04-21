@@ -1,0 +1,13 @@
+<form name="quiz_question_form">
+  <div class="form-group">
+    <label>Points Possible</label>
+    <input type="text" class="form-control" name="points" />
+  </div>
+  
+  <%= yield(:question_form) %>
+  
+  <div class="form-actions">
+    <button class="btn btn-primary" onclick="submit();">Submit</button>
+    <%= yield(:actions) %>
+  </div>
+</form>
