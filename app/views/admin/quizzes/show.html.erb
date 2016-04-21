@@ -1,0 +1,13 @@
+<% content_for :title do %>
+  <%= @quiz.title %>
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Quiz List', admin_quizzes_path, :class => 'btn btn-default' %>
+  <%= link_to 'Edit', edit_admin_quiz_path(@quiz), :class => 'btn btn-primary' %>
+  <%= link_to 'Delete', admin_quiz_path(@quiz), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<% end %>
+
+<div class="alert alert-warning">
+  <p>Nothing here right now.</p>
+</div>
