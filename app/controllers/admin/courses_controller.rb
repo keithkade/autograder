@@ -4,7 +4,10 @@ class Admin::CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+      #if params[:semester]=='Summer'
+        @courses = Course.all
+      @courses = params[:semester]
+    #end
   end
 
   # GET /courses/1

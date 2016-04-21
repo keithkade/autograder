@@ -6,6 +6,23 @@
   <%= link_to 'New Course', new_admin_course_path, :class => 'btn btn-primary' %>
 <% end %>
 
+<form>
+  <select name = semester>
+    <option value="Spring">Spring</option>
+    <option value="Summer">Summer</option>
+    <option value="Fall">Fall</option>
+    <option value="Winter">Winter</option>
+  </select>
+
+  Year:<br>
+  <input type="text" name="year"><br>
+  <%= submit_tag 'Refresh' %>
+  
+</form>
+
+
+
+
 <table class="table">
   <thead>
     <tr>
