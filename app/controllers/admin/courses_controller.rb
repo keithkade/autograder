@@ -6,7 +6,7 @@ class Admin::CoursesController < ApplicationController
   def index
       #if params[:semester]=='Summer'
         @courses = Course.all
-      @courses = params[:semester]
+      #@courses = params[:semester]
     #end
   end
 
