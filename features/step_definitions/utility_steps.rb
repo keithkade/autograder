@@ -15,10 +15,12 @@ Then /^I should not be logged in as Student/ do
   current_url.should_not == '/home'
 end
 
-Given /^I am in the student database$/ do
+Given /^I have the existing student dman$/ do
   student = Student.new
   student.UserName = "dman"
   student.Password = "password"
+  student.FirstName = "Dillon"
+  student.LastName = "Dishman"
   student.save
 end
 
@@ -26,6 +28,8 @@ Given /^I am logged in as Student/ do
   student = Student.new
   student.UserName = "dman"
   student.Password = "password"
+  student.FirstName = "Dillon"
+  student.LastName = "Dishman"
   student.save
   visit path_to("the login page")
   fill_in("Username", :with => "dman")

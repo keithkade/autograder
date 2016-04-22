@@ -22,12 +22,16 @@ $success: #5CB85C;
 $warning: #F0AD4E;
 $danger: #D9534F;
 
-$successVeryLight: rgba(0, 255, 0, 0.1);
-$failVeryLight: rgba(255, 0, 0, 0.1);
+$successVeryLight: #DFF0D8;
+$warningVeryLight: #FCF8E3;
+$dangerVeryLight: #F2DEDE;
 
-$successLight: #cbe2c1;
+$successLight: #CBE2C1;
 $warningLight: #F9F4D6;
-$failLight: #EFCECE;
+$dangerLight: #EFCECE;
+
+$failVeryLight: $dangerVeryLight;
+$failLight: $dangerLight;
 
 $font: 'Open Sans';
 $fontFallback: sans-serif;
@@ -171,6 +175,21 @@ pre::after {
     top: 14px; right: 24px;
 }
 
+.clickable-panel-heading {
+    cursor: pointer;
+}
+.panel-danger > .panel-heading.clickable-panel-heading:hover {
+    background-color: $dangerLight;
+}
+.panel-success > .panel-heading.clickable-panel-heading:hover {
+    background-color: $successLight;
+}
+
+.panel-submission-time {
+  display: inline-block;
+  width: 260px;
+}
+
 /*  Header (@header)
  *  ==========================================================================*/
 header {
@@ -271,6 +290,10 @@ main {
     .page-options-top {
         text-align: center;
         margin-bottom: 24px;
+        
+        form {
+            margin-top: 12px;
+        }
     }
     
     .page-options-bottom {

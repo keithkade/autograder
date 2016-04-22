@@ -9,7 +9,7 @@ Feature: Login
 
   Scenario: Login as student
     Given I am on the login page
-    And I am in the student database
+    And I have the existing student dman
     And I fill in "Username" with "dman"
     And I fill in "Password" with "password"
     When I press "Login"

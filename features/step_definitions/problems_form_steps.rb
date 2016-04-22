@@ -8,6 +8,7 @@ end
 Given /^I already have the python io problem and am on that page$/ do
     problem = Problem.new
     problem.title = 'io practice python'
+    problem.language = 'python'
     problem.due_date =  DateTime.parse('1 May 2016 11:59:59 PM')
     problem.save
 
@@ -35,7 +36,7 @@ Given /^I fill in the ace editor with a good python solution$/ do
 end
 
 Given /^I fill in the ace editor with a bad python solution$/ do
-  page.execute_script("editor.setValue(\"ayyyy lmao\")")
+    page.execute_script("editor.setValue(\"ayyyy lmao\")")
 end
 
 Then /^"(.*)" should have field skeleton with value "(.*)"$/ do |title, value|

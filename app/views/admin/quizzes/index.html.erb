@@ -1,0 +1,27 @@
+<% content_for :title do %>List of Quizzes<% end %>
+
+<% content_for :options_top do %>
+  <%= link_to 'New Quiz', new_admin_quiz_path, :class => 'btn btn-primary' %>
+<% end %>
+
+<table class="quizzes-list-table table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Course</th>
+      <th>Start</th>
+      <th>End</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @quizzes.each do |quiz| %>
+      <tr class="clickable-row" data-href="<%= admin_quiz_path(quiz) %>">
+        <td class="clickable-row-main-cell"><%= quiz.title %></td>
+        <td><%= quiz.course.name %></td>
+        <td><%= quiz.start_time.strftime("%d %b, %I:%M %p") %></td>
+        <td><%= quiz.end_time.strftime("%d %b, %I:%M %p") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

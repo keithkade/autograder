@@ -4,6 +4,7 @@
 
 <% content_for :options do %>
     <%= link_to 'Back to Problem List', problems_path, :class => 'btn btn-default' %>
+    <%= link_to 'Your Previous Submissions', submissions_problem_path(@problem), :class => 'btn btn-info' %>
 <% end %>
 
 <div class="problem-due-date">
@@ -30,38 +31,34 @@
   </div>
 </div>
 
-<h1>Your Code</h1>
-<div id="editor"><pre><code><%= @problem.skeleton %></code></pre></div>
+<div class="ace-banner">
+    <h1>Your Code</h1>
+    <span id="shortcut">Show shortcuts: Cmd-Alt-H (Mac) Ctrl-Alt-H (Windows)</span>
+    <button id="save-btn">Save</button>
+    <button id="load-btn">Load</button>
+</div>
+<div id="editor" data-lang="<%= @problem.language %>"><pre><code><%= @problem.skeleton %></code></pre></div>
 
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/twilight");
-    editor.session.setMode("ace/mode/java");
-    editor.setOptions({
-      enableBasicAutocompletion: true,
-      enableSnippets: true,
-      autoScrollEditorIntoView: true,
-      highlightSelectedWord: true,
-      highlightActiveLine: true
-    });
-</script>
+<div class="submit-container">
+  <button id="submit-btn" class="btn btn-primary btn-max btn-large" onclick="SubmitCode(editor.getValue(), 'submission-results')">Submit Code</button>
+  <div id="loader-area" class="load-container"></div>
+  <div id="submission-results-after"></div>
+</div>
 
-<button class="btn btn-primary btn-max btn-large" onclick="SubmitCode(editor.getValue(), 'submission-results')">Submit Code</button>
-<div id="submission-results"></div>
-
-
-<%= link_to 'View your previous submissions', submissions_problem_path(@problem)%>
-
-<!--
-<h1>Your Previous Submissions</h1>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4 class="panel-title">
-      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-    </h4>
+<div id="submission-results-modal" class="modal fade" role="dialog" aria-labelledby="submission-results-label">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Good Job!</h4>
+      </div>
+      <div class="modal-body">
+        <div id="submission-results"></div>
+      </div>
+      <div class="modal-footer">
+        <%= link_to 'Other Problems', problems_path, :class => 'btn btn-primary' %>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>
--->
-<script>
-    var pageLoadTime = new Date();
-</script>

@@ -6,6 +6,7 @@ describe Admin::StudentsController do
 
   before :each do
     controller.stub(:logged_in_admin?).and_return(true)
+    Student.stub(:find).and_return(student)
     Student.stub(:new).and_return(student)
   end
 

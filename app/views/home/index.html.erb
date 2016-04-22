@@ -1,6 +1,108 @@
-<h1>Home</h1>
-<p>This is the student home page</p>
+<% content_for :title do %>
+    Welcome <%= @student.Name %>
+<% end %>
 
+<div class="row">
+  <div class="col-sm-6 student-basic-info">
+    <table class="table">
+      <thead>
+      <tr>
+        <th colspan="2">Basic Information</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><strong>ID:</strong></td>
+        <td><%= @student.ID %></td>
+      </tr>
+      <tr>
+        <td><strong>Username:</strong></td>
+        <td><%= @student.UserName %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
+  <div class="col-sm-6 student-courses">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Due this week</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @problems.each do |problem| %>
+          <tr class="clickable-row" data-href="<%= problem_path(problem) %>">
+            <td class="clickable-row-main-cell"><%= problem.title %></td>
+            <td class="clickable-row-main-cell"><span class="due-date"><%= problem.due_date.strftime("%d %b, %I:%M %p") %></span></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-
+<!-- maybe_todo this could be made dry-er. very similar accordion shows up on /problems/submissions.html.erb -->
+<h1>Past Submissions</h1>
+<div class="panel-group" id="submissions-accordian" role="tablist" aria-multiselectable="true">
+  <% @submissions.each_with_index do |submission, index| %>
+      <div class="panel panel-<% if submission.status %>success<% else %>danger<% end %>">
+        <div class="panel-heading clickable-panel-heading" role="tab" data-toggle="collapse" data-parent="#submissions-accordian" href="#collapse-<%= index %>" aria-expanded="false" aria-controls="collapse-<%= index %>">
+          <div class="row">
+            <div class="col-xs-8">
+              <h4 class="panel-title">
+                <span class="panel-submission-time">
+                  Submitted <%= submission.time_submitted.strftime("%d %b, %I:%M %p") %>
+                </span>
+                <span style="display: inline-block">
+                  <% if @problemNames.include?(submission.problem_id) %>
+                      <%= @problemNames[submission.problem_id] %>
+                  <% else %>
+                      <strong><span class="text-danger">INVALID PROBLEM</span></strong>
+                  <% end %>
+                </span>
+              </h4>
+            </div>
+            <div class="col-xs-4" style="text-align: right;">
+              <h4 class="panel-title">
+                <span><%= submission.success_cases %> / <%= submission.total_cases %> Passed</span>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div id="collapse-<%= index %>" class="panel-collapse collapse" role="tabpanel">
+          <div class="panel-body">
+            <% if submission.results_obj['status'] == "success" %>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th></th>
+                    <th>Test Case</th>
+                    <th>Input</th>
+                    <th>Details</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% submission.results_obj['results'].each do |result| %>
+                      <tr class="<%= result['result'] %>">
+                        <td>
+                          <% if result['result'] == "success" %>&#10003;<% else %>&#10007;<% end %>
+                        </td>
+                        <td><%= result['title'] %></td>
+                        <td><%= result['input'] %></td>
+                        <td><%= result['err'] %></td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+            <% else %>
+                <div class="alert alert-danger">
+                  <%= submission.results_obj['err'] %>
+                </div>
+            <% end %>
+            <pre><code><%= submission.code %></code></pre>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>

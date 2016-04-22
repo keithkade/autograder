@@ -7,14 +7,30 @@ class Admin::StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+  # Remember which option was selected for course filtering
+    if params.include?(:courseid)
+      session[:students_list_courseid] = params[:courseid]
+    elsif session.include?(:students_list_courseid)
+      redirect_to admin_students_path(:courseid => session[:students_list_courseid])
+    else
+      redirect_to admin_students_path(:courseid => -1)
+    end
+  # @courseid is used in the view to set the default option in the select field
+    @courseid = params[:courseid].to_i
+    @courses = Course.order(:name)
+    @students = Student.order(:LastName)
+  # A negative courseid is used to select all students
+    if @courseid >= 0
+    # Literally: Keep if the courseid is in the students' list of courses
+      @students = Array(@students).keep_if { |student| student.courses.map { |course| course.id }.include?(@courseid) }
+    end
   end
 
   # GET /students/1
   # GET /students/1.json
   def show
     @courses = @student.courses
-    @submissions = Submission.where(:student_id => @student.id)
+    @submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
     @problemNames = Hash.new
 
     @testCaseResults = []
@@ -27,21 +43,8 @@ class Admin::StudentsController < ApplicationController
         @problemNames[submission.problem_id] = problem.title
       end
 
-      #count up and display how many test cases succeeded
-      result = submission.result
-      successes = 0
-      cases = 0
-      if result['status'] == 'success'
-        result['results'].each do |test_case|
-          if test_case['result'] == "success"
-            successes += 1
-          end
-          cases += 1
-        end
-      end
-
-      if cases > 0
-        @testCaseResults.push(successes.to_s + '/' + cases.to_s)
+      if submission.total_cases > 0
+        @testCaseResults.push(submission.success_cases.to_s + '/' + submission.total_cases.to_s)
       else
         @testCaseResults.push('Compile Error')
       end

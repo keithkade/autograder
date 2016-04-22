@@ -1,0 +1,49 @@
+<%= form_for([:admin, @quiz]) do |f| %>
+  <% if @quiz.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
+
+      <ul>
+      <% @quiz.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, :class => 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :course %>
+    <%= f.collection_select(:courseid, @courses, :id, :name, {}, {:class => 'form-control'}) %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :start_time %>
+    <%= f.datetime_select :start_time %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :end_time %>
+    <%= f.datetime_select :end_time %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :time_limit %>
+    <div class="input-group">
+      <%= f.number_field :time_limit, :min => 0, :class => 'form-control' %>
+      <div class="input-group-addon">
+        min
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-actions">
+    <%= f.submit :class => 'btn btn-primary' %>
+    <%= yield(:actions) %>
+  </div>
+  
+<% end %>

@@ -65,7 +65,7 @@
     <% @submissions.each.with_index do |submission, index| %>
       <tr class="clickable-row <% if submission.status %>success<% else %>fail<% end %>" data-href="<%= admin_submission_path(submission) %>">
         <td>
-          <% if submission.status %><span>&#10003</span><% else %><span>&#10007</span><% end %>
+          <% if submission.status %><span>&#10003;</span><% else %><span>&#10007;</span><% end %>
         </td>
         <td><%= @testCaseResults[index] %></td>
         <td>

@@ -51,9 +51,23 @@ class ProblemsController < ApplicationController
     submission.save
     render json: result, status: 200
   end
-  
-  def submission
-    @submissions = Submission.where(:problem_id => @problem.id).where(:student_id => session[:user_id])
+
+  # POST /problems/1/save
+  def save
+    render json: {'test':'saveTest'}, status: 200
+  end
+
+  # GET /problems/1/load
+  def load
+    render json: {'test':'loadTest'}, status: 200
+  end
+
+  def submissions
+    set_problem
+    @submissions = Submission.order('time_submitted DESC')
+                             .where(:problem_id => params[:id])
+                             .where(:student_id => session[:user_id])
+                             
   end
 
   private

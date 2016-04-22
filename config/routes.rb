@@ -16,12 +16,15 @@ Rails.application.routes.draw do
     resources :problem_test_cases
     resources :students
     resources :submissions
+    resources :quizzes
   end
 
   resources :problems do
     member do
       get 'evaluate'
       get 'submissions'
+      get 'load'
+      post 'save'
     end
   end
 

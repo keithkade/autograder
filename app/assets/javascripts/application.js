@@ -23,8 +23,10 @@
 //= require src/ext-spellcheck
 //= require src/ext-whitespace
 //= require src/ext-language_tools
+//= require src/ext-keybinding_menu
 //= require src/ext-error_marker
 //= require src/snippets/java
+//= require src/snippets/python
 //= require problems_submit
 //= require common
 //= require jquery
