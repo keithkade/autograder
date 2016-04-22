@@ -7,7 +7,23 @@ class Admin::StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+  # Remember which option was selected for course filtering
+    if params.include?(:courseid)
+      session[:students_list_courseid] = params[:courseid]
+    elsif session.include?(:students_list_courseid)
+      redirect_to admin_students_path(:courseid => session[:students_list_courseid])
+    else
+      redirect_to admin_students_path(:courseid => -1)
+    end
+  # @courseid is used in the view to set the default option in the select field
+    @courseid = params[:courseid].to_i
+    @courses = Course.order(:name)
+    @students = Student.order(:LastName)
+  # A negative courseid is used to select all students
+    if @courseid >= 0
+    # Literally: Keep if the courseid is in the students' list of courses
+      @students = Array(@students).keep_if { |student| student.courses.map { |course| course.id }.include?(@courseid) }
+    end
   end
 
   # GET /students/1
