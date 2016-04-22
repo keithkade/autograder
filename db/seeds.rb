@@ -5,8 +5,8 @@
 # rake db:drop db:create db:migrate db:seed
 #
 result = '{
-  status: "success"
-  err: nil
+  status: "success",
+  err: nil,
   results : [
     {
       title: "test case #0",
@@ -57,7 +57,7 @@ course_problem_relations = [{:course => 1, :problem => 1}, {:course => 2, :probl
                             {:course => 1, :problem => 4}, {:course => 2, :problem => 4}, {:course => 3, :problem => 4},
                             ]
 
-submission = [{:student_id => 6, :problem_id => 2, :code => 'I am Jeff Dean', :page_loaded_at => DateTime.parse('1 January 1970 12:00:00 AM'), :time_submitted => DateTime.parse('1 January 1970 12:00:01 AM'), :result => result, :status => true},
+submissions = [{:student_id => 6, :problem_id => 2, :code => 'I am Jeff Dean', :page_loaded_at => DateTime.parse('1 January 1970 12:00:00 AM'), :time_submitted => DateTime.parse('1 January 1970 12:00:01 AM'), :result => result, :status => true},
               ]
 
 courses.each do |course|

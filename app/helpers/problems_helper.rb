@@ -5,34 +5,36 @@ module ProblemsHelper
     
     rand_folder_name = "temp_" + SecureRandom.hex
     FileUtils.mkdir(rand_folder_name)
-    system('cd ' + rand_folder_name)
     problem = Problem.find(problemID)
-    case problem.language
-    when 'java'
-      file = rand_folder_name + '/useCode.java'
-    when 'python'
-      file = rand_folder_name + '/useCode.py'
-    else
-      return {:status => 'fail', :err => 'problem has to language set', :results => []}
-    end
-    File.open(file, 'w') do |f|
-      f.puts code
-    end
     
-    if compile_languages.include?(problem.language)
-      my_json = compile_problem(code, problem, rand_folder_name)
-    else
-      my_json = {}
-      my_json[:status] = 'success'
-      my_json[:err] = ''
+    begin
+      case problem.language
+      when 'java'
+        file = rand_folder_name + '/useCode.java'
+      when 'python'
+        file = rand_folder_name + '/useCode.py'
+      else
+        clean_files(rand_folder_name)
+        return {:status => 'fail', :err => 'problem has to language set', :results => []}
+      end
+      File.open(file, 'w') do |f|
+        f.puts code
+      end
+      
+      if compile_languages.include?(problem.language)
+        my_json = compile_problem(code, problem, rand_folder_name)
+      else
+        my_json = {}
+        my_json[:status] = 'success'
+        my_json[:err] = ''
+      end
+      
+      if my_json[:status] == 'success'
+        my_json[:results] = execute_problem(code, problem, rand_folder_name)
+      end
+    ensure
+      clean_files(rand_folder_name)
     end
-    
-    if my_json[:status] == 'success'
-      my_json[:results] = execute_problem(code, problem, rand_folder_name)
-    end
-    
-    clean_files(rand_folder_name)
-    system('cd ..')
     return my_json
   end
     
@@ -41,10 +43,18 @@ module ProblemsHelper
     FileUtils.remove_dir(folder) if File.directory?(folder)
   end
   
+  def get_os_command(folder, command)
+    if(RUBY_PLATFORM.downcase.include?("mswin") or RUBY_PLATFORM.downcase.include?("mingw"))
+      return 'cmd /c \"cd ' + folder + ' && ' + command + '\"'
+    else
+      return '(cd ' + folder + ' ; ' + command + ')'
+    end
+  end
+
   def compile_problem(code, problem, folder)
     case problem.language
     when 'java'
-      command = 'javac ' + folder + '/useCode.java'
+      command = get_os_command(folder, 'javac useCode.java')
     end
     compileOut, compileError, compileStatus = Open3.capture3(command) 
     my_json = {}
@@ -61,9 +71,9 @@ module ProblemsHelper
   def execute_problem(code, problem, folder)
     case problem.language
     when 'java'
-      command = '( cd ' + folder + '; java useCode)'
+      command = get_os_command(folder, 'java useCode')
     when 'python'
-      command = '( cd ' + folder + '; python useCode.py)'
+      command = get_os_command(folder, 'python useCode.py')
     end
     
     results_array = []  
@@ -82,7 +92,7 @@ module ProblemsHelper
       result_hash[:input] = testcase.input
       result_hash[:output] = runtimeOut   
       
-      if(runtimeStatus.success?) 
+      if(runtimeStatus.success? && File.exists?('output.txt')) 
         FileUtils.compare_file(folder + '/expected.txt', folder + '/output.txt') ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
       else
         result_hash[:result] = 'fail'
