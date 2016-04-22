@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Course do
     describe 'problems' do
         it 'should return an array of associated problems' do
-            @course = Course.create!(:name => "Course")
+            @course = Course.create!(:name => "Course", :id=>1)
             @rel1 = CourseProblemRelation.create!(:course => 1, :problem => 1)
             @rel2 = CourseProblemRelation.create!(:course => 2, :problem => 2)
             @rel3 = CourseProblemRelation.create!(:course => 1, :problem => 3)
