@@ -5,12 +5,12 @@
 # rake db:drop db:create db:migrate db:seed
 #
 
-courses = [{:name => 'CSCE 111'},
-           {:name => 'CSCE 121'},
-           {:name => 'CSCE 222'},
-           {:name => 'CSCE 482'},
-           {:name => 'CSCE 431'},
-           {:name => 'CSCE 420'},
+courses = [{:name => 'CSCE 111', :semester => 'Fall', :year => 2016},
+           {:name => 'CSCE 121', :semester => 'Fall', :year => 2016},
+           {:name => 'CSCE 222', :semester => 'Spring', :year => 2017},
+           {:name => 'CSCE 482', :semester => 'Spring', :year => 2017},
+           {:name => 'CSCE 431', :semester => 'Summer', :year => 2018},
+           {:name => 'CSCE 420', :semester => 'Winter', :year => 2018},
            ]
 
 students = [{:FirstName => 'Dillon', :LastName => 'Dishman', :ID => 2222, :UserName => 'dman', :Password => 'password'},

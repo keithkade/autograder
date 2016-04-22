@@ -35,7 +35,7 @@
   <tbody>
     <% @courses.each do |course| %>
       <tr class="clickable-row" data-href="<%= admin_course_path(course) %>">
-        <td class="clickable-row-main-cell"><%= course.name %></td>
+        <td class="clickable-row-main-cell"><%= course.name %><%= course.semester %><%= course.year %></td>
         <td><%= course.users.length %></td>
         <td><%= course.problems.length %></td>
       </tr>

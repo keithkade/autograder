@@ -5,8 +5,12 @@ class Admin::CoursesController < ApplicationController
   # GET /courses.json
   def index
       #if params[:semester]=='Summer'
+        #@courses = Course.find_by semester: params[:semester], params[:year]
+        #@courses = params[:semester]
+       # @courses = Course.where(semester = params[:semester])
+       #@courses = Course.semester == params[:semester]
+       #@courses = Course.where(semester => 'Fall') #== params[:semester]
         @courses = Course.all
-      #@courses = params[:semester]
     #end
   end
 
