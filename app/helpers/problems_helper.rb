@@ -1,3 +1,5 @@
+require 'pp'
+
 module ProblemsHelper
   
   def eval_code(code, problemID)
@@ -43,18 +45,26 @@ module ProblemsHelper
     FileUtils.remove_dir(folder) if File.directory?(folder)
   end
   
-  def get_os_command(folder, command)
+  def get_os_command(timeout, folder, command)
     if(RUBY_PLATFORM.downcase.include?("mswin") or RUBY_PLATFORM.downcase.include?("mingw"))
-      return 'cmd /c \"cd ' + folder + ' && ' + command + '\"'
+      if timeout == -1
+        return 'cmd /c \"cd ' + folder + ' && ' + command + '\"'
+      else
+        #difficult bat?
+      end
     else
-      return '(cd ' + folder + ' ; ' + command + ')'
+      if timeout == -1
+        return '(cd ' + folder + ' ; ' + command + ')'
+      else
+        return '(cd ' + folder + ' ; timeout ' + timeout.to_s + ' ' + command + ')'
+      end
     end
   end
 
   def compile_problem(code, problem, folder)
     case problem.language
     when 'java'
-      command = get_os_command(folder, 'javac useCode.java')
+      command = get_os_command(-1, folder, 'javac useCode.java')
     end
     compileOut, compileError, compileStatus = Open3.capture3(command) 
     my_json = {}
@@ -71,9 +81,9 @@ module ProblemsHelper
   def execute_problem(code, problem, folder)
     case problem.language
     when 'java'
-      command = get_os_command(folder, 'java useCode')
+      command = get_os_command(10, folder, 'java useCode')
     when 'python'
-      command = get_os_command(folder, 'python useCode.py')
+      command = get_os_command(10, folder, 'python useCode.py')
     end
     
     results_array = []  
@@ -92,7 +102,7 @@ module ProblemsHelper
       result_hash[:input] = testcase.input
       result_hash[:output] = runtimeOut   
       
-      if(runtimeStatus.success? && File.exists?('output.txt')) 
+      if(runtimeStatus.success? && File.exists?(folder + '/output.txt')) 
         FileUtils.compare_file(folder + '/expected.txt', folder + '/output.txt') ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
       else
         result_hash[:result] = 'fail'
