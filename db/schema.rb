@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20160421142119) do
     t.datetime "updated_at", null: false
     t.string   "LastName"
     t.string   "FirstName"
+    t.string   "Saves"
   end
 
   create_table "submissions", force: :cascade do |t|

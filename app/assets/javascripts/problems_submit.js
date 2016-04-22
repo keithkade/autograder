@@ -7,10 +7,19 @@
  * this is harder to fix in rails than it should be
 */
 
+var LOADER_ID = 'loader-area';
+var SUBMIT_BUTTON_ID = 'submit-btn';
+var MODAL_ID = 'submission-results-modal';
+
 var pageLoadTime = new Date();
 var editor;
 
 $(document).ready(function() {
+    
+    //this is a naive way to make sure this script doesn't run on all pages
+    if (!document.getElementById('editor')){
+        return;
+    }
     
     //set up ace
     editor = ace.edit("editor");
@@ -30,12 +39,12 @@ $(document).ready(function() {
     
     //popup on succesful submit
     $('#submission-results-modal').on('hide.bs.modal', function(e) { CopyModalContentsToPage(); });
+    
+    //handlers for saving and loading
+    $('#save-btn').click(SaveCode);
+    $('#load-btn').click(LoadCode);
 });
                   
-var LOADER_ID = 'loader-area';
-var SUBMIT_BUTTON_ID = 'submit-btn';
-var MODAL_ID = 'submission-results-modal';
-
 function CopyModalContentsToPage() {
   $('#submission-results-after').html($('#submission-results').html());
 }
@@ -168,4 +177,17 @@ function SubmitCode(code, containerId){
         else
             CopyModalContentsToPage();
     });
+}
+
+function SaveCode(){
+    //get code from editor
+    var code = editor.getValue();
+    //save it to server
+    $.post(document.URL + '/save', {}, function(response) {console.log(response);});
+}
+
+function LoadCode(){
+    //get it from server
+    $.get(document.URL + '/load', {}, function(response) {console.log(response);});
+    //put it in editor
 }
