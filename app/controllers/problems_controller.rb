@@ -51,7 +51,17 @@ class ProblemsController < ApplicationController
     submission.save
     render json: result, status: 200
   end
-  
+
+  # POST /problems/1/save
+  def save
+    render json: {'test':'saveTest'}, status: 200
+  end
+
+  # GET /problems/1/load
+  def load
+    render json: {'test':'loadTest'}, status: 200
+  end
+
   def submissions
     set_problem
     @submissions = Submission.order('time_submitted DESC')

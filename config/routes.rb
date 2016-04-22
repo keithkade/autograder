@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     member do
       get 'evaluate'
       get 'submissions'
+      get 'load'
+      post 'save'
     end
   end
 

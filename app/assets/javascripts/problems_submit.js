@@ -183,9 +183,11 @@ function SaveCode(){
     //get code from editor
     var code = editor.getValue();
     //save it to server
+    $.post(document.URL + '/save', {}, function(response) {console.log(response);});
 }
 
 function LoadCode(){
     //get it from server
+    $.get(document.URL + '/load', {}, function(response) {console.log(response);});
     //put it in editor
 }
