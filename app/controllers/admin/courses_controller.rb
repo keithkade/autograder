@@ -4,7 +4,16 @@ class Admin::CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    
+    if (params[:semester] == 'All' && params[:year] == '')
+      @courses = Course.all
+    elsif (params[:semester] != '' && params[:year] == '')
+      @courses = Course.where(semester: params[:semester])
+    elsif (params[:semester] == 'All' && params[:year] != '')
+      @courses = Course.where(year: params[:year])
+    else
+      @courses = Course.where(year: params[:year], semester: params[:semster])
+    end
   end
 
   # GET /courses/1
