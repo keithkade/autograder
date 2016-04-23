@@ -1,6 +1,9 @@
-<h1>Editing Quiz Multiple Choice Question</h1>
+<% content_for :title do %>
+  Editing a Multiple Choice Question
+<% end %>
 
-<%= render 'form' %>
+<% content_for :actions do %>
+  <%= link_to 'Cancel', admin_quiz_path(@quiz), :class => 'btn btn-danger' %>
+<% end %>
 
-<%= link_to 'Show', @quiz_multiple_choice_question %> |
-<%= link_to 'Back', quiz_multiple_choice_questions_path %>
+<%= render edit_quiz_question_layout, :question => @question, :form_layout => 'admin/quiz_multiple_choice_questions/form' %>

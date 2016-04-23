@@ -8,6 +8,66 @@
   <%= link_to 'Delete', admin_quiz_path(@quiz), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
 <% end %>
 
-<div class="alert alert-warning">
-  <p>Nothing here right now.</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th colspan="2">Basic Information</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Course:</strong></td>
+      <td><%= link_to "#{@course.name}", admin_course_path(@course) %></td>
+    </tr>
+    <tr>
+      <td><strong>Start Time:</strong></td>
+      <td><%= @quiz.start_time.strftime("%d %b, %I:%M %p") %></td>
+    </tr>
+    <tr>
+      <td><strong>End Time:</strong></td>
+      <td><%= @quiz.end_time.strftime("%d %b, %I:%M %p") %></td>
+    </tr>
+    <tr>
+      <td><strong>Time Limit:</strong></td>
+      <td><% if @quiz.time_limit == 0 %>No limit<% else %><%= @quiz.time_limit %> minutes<% end %></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1>Questions</h1>
+<div id="add-quiz-question-form" class="row">
+  <div class="col-sm-2">
+    <a href="<%= new_quiz_question_of_type_path(@initial_qtype, :quizid => @quiz.id, :qtype => @initial_qtype) %>" class="btn btn-primary btn-max">Add a Question</a>
+  </div>
+  <div class="col-sm-10">
+    <form>
+      <select id="add-quiz-question-type" class="form-control">
+        <% QuizQuestion.question_types.each do |qtype| %>
+          <option <% if @initial_qtype == qtype %>selected="selected" <% end %>value="<%= qtype %>"><%= qtype.gsub(/_/, " ").capitalize %></option>
+        <% end %>
+      </select>
+    </form>
+  </div>
 </div>
+<div class="quiz-questions"><form>
+  <% @questions.each_with_index do |question, i| %>
+    <div class="quiz-question">
+      <h2>
+        Question <%= i+1 %>
+        <span class="text-btn-group">
+          <%= link_to raw('<span class="glyphicon glyphicon-remove"></span>'), quiz_question_of_type_path(question.qtype, question), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-btn text-btn-danger' %>
+          <a class="text-btn text-btn-primary" href="<%= edit_quiz_question_of_type_path(question.qtype, question) %>"><span class="glyphicon glyphicon-pencil"></span></a>
+          <a class="text-btn text-btn-info"><span class="glyphicon glyphicon-chevron-up"></span></a>
+          <a class="text-btn text-btn-info"><span class="glyphicon glyphicon-chevron-down"></span></a>
+        </span>
+      </h2>
+      <p>Points: <%= question.points %></p>
+      <%= render question.take_question_layout, :question => question.question, :index => i %>
+      <div class="alert alert-success">
+        <strong>Correct answer:</strong><br />
+        <%= render question.answer_layout, :question => question.question %>
+      </div>
+      <hr />
+    </div>
+  <% end %>
+</form></div>

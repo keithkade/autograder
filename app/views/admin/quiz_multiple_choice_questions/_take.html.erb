@@ -1,0 +1,37 @@
+<div class="multiple-choice-question">
+  <div class="question-text">
+    <%= question.question %>
+  </div>
+  <div class="answer-choices">
+    <div class="radio">
+      <label>
+        <input type="radio" name="question_<%= index %>" value="A">
+        <strong>A. </strong><%= question.answer_A %>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="question_<%= index %>" value="B">
+        <strong>B. </strong><%= question.answer_B %>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="question_<%= index %>" value="C">
+        <strong>C. </strong><%= question.answer_C %>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="question_<%= index %>" value="D">
+        <strong>D. </strong><%= question.answer_D %>
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="question_<%= index %>" value="E">
+        <strong>E. </strong><%= question.answer_E %>
+      </label>
+    </div>
+  </div>
+</div>

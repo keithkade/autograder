@@ -1,3 +1,12 @@
 // Place all the styles related to the QuizMultipleChoiceQuestions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#edit-answer-choices .text-btn-group {
+    text-align: right;
+    
+    .text-btn {
+        padding-top: 7px;
+        font-size: .72em;
+    }
+}

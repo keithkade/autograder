@@ -14,11 +14,15 @@ class Admin::QuizMultipleChoiceQuestionsController < ApplicationController
 
   # GET /quiz_multiple_choice_questions/new
   def new
-    @quiz_multiple_choice_question = QuizMultipleChoiceQuestion.new
+    @question = QuizMultipleChoiceQuestion.new
+    @quiz = Quiz.find_by_id(params[:quizid])
   end
 
   # GET /quiz_multiple_choice_questions/1/edit
   def edit
+    @question = @quiz_multiple_choice_question
+    @question_link = QuizQuestion.find_by_id(@question.questionid)
+    @quiz = Quiz.find_by_id(@question_link.quizid)
   end
 
   # POST /quiz_multiple_choice_questions
@@ -28,7 +32,11 @@ class Admin::QuizMultipleChoiceQuestionsController < ApplicationController
 
     respond_to do |format|
       if @quiz_multiple_choice_question.save
-        format.html { redirect_to @quiz_multiple_choice_question, notice: 'Quiz multiple choice question was successfully created.' }
+        @question_link = QuizQuestion.create!(:qtype => params[:qtype], :qid => @quiz_multiple_choice_question.id, :quizid => params[:quizid], :points => params[:points])
+        @question_link.save
+        @quiz_multiple_choice_question.update(:questionid => @question_link.id)
+        @quiz = Quiz.find_by_id(params[:quizid])
+        format.html { redirect_to admin_quiz_path(@quiz), notice: 'Quiz multiple choice question was successfully created.' }
         format.json { render :show, status: :created, location: @quiz_multiple_choice_question }
       else
         format.html { render :new }
@@ -42,7 +50,10 @@ class Admin::QuizMultipleChoiceQuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @quiz_multiple_choice_question.update(quiz_multiple_choice_question_params)
-        format.html { redirect_to @quiz_multiple_choice_question, notice: 'Quiz multiple choice question was successfully updated.' }
+        @question_link = QuizQuestion.find_by_id(@quiz_multiple_choice_question.questionid)
+        @question_link.update(:points => params[:points])
+        @quiz = Quiz.find_by_id(@question_link.quizid)
+        format.html { redirect_to admin_quiz_path(@quiz), notice: 'Quiz multiple choice question was successfully updated.' }
         format.json { render :show, status: :ok, location: @quiz_multiple_choice_question }
       else
         format.html { render :edit }
@@ -54,9 +65,12 @@ class Admin::QuizMultipleChoiceQuestionsController < ApplicationController
   # DELETE /quiz_multiple_choice_questions/1
   # DELETE /quiz_multiple_choice_questions/1.json
   def destroy
+    @question_link = QuizQuestion.find_by_id(@quiz_multiple_choice_question.questionid)
+    @quiz = Quiz.find_by_id(@question_link.quizid)
+    @question_link.destroy
     @quiz_multiple_choice_question.destroy
     respond_to do |format|
-      format.html { redirect_to quiz_multiple_choice_questions_url, notice: 'Quiz multiple choice question was successfully destroyed.' }
+      format.html { redirect_to admin_quiz_path(@quiz), notice: 'Quiz multiple choice question was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +83,6 @@ class Admin::QuizMultipleChoiceQuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quiz_multiple_choice_question_params
-      params.require(:quiz_multiple_choice_question).permit(:question, :answers, :correct_answer)
+      params.require(:quiz_multiple_choice_question).permit(:question, :answer_A, :answer_B, :answer_C, :answer_D, :answer_E, :correct_answer)
     end
 end

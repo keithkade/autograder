@@ -10,6 +10,9 @@ class Admin::QuizzesController < ApplicationController
   # GET /quizzes/1
   # GET /quizzes/1.json
   def show
+    @course = Course.find_by_id(@quiz.courseid)
+    @questions = QuizQuestion.where(:quizid => @quiz.id)
+    @initial_qtype = QuizQuestion.question_types[0]
   end
 
   # GET /quizzes/new

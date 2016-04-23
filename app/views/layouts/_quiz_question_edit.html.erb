@@ -1,13 +1,19 @@
-<form name="quiz_question_form">
+<%= form_for [:admin, question] do |f| %>
+  <div class="hidden-fields hide">
+    <input type="text" name="qtype" value="<%= params[:qtype] %>" />
+    <input type="number" name="quizid" value="<%= params[:quizid] %>" />
+  </div>
+  
   <div class="form-group">
     <label>Points Possible</label>
     <input type="text" class="form-control" name="points" />
   </div>
   
-  <%= yield(:question_form) %>
+  <%= render form_layout, :f => f %>
   
   <div class="form-actions">
-    <button class="btn btn-primary" onclick="submit();">Submit</button>
+    <%= f.submit :class => 'btn btn-primary' %>
     <%= yield(:actions) %>
   </div>
-</form>
+
+<% end %>

@@ -339,3 +339,15 @@ tr.fail { background-color: $failVeryLight; }
 
 tr.clickable-row.success:hover {  background: $successLight; }
 tr.clickable-row.fail:hover  {  background: $failLight;  }
+
+.text-btn {
+    border: none;
+    background: none;
+    color: #CCC;
+}
+.text-btn.text-btn-default:hover {  color: #676767;  }
+.text-btn.text-btn-primary:hover {  color: $primary; }
+.text-btn.text-btn-info:hover    {  color: $info;    }
+.text-btn.text-btn-success:hover {  color: $success; }
+.text-btn.text-btn-warning:hover {  color: $warning; }
+.text-btn.text-btn-danger:hover  {  color: $danger;  }
