@@ -180,14 +180,16 @@ function SubmitCode(code, containerId){
 }
 
 function SaveCode(){
-    //get code from editor
     var code = editor.getValue();
-    //save it to server
-    $.post(document.URL + '/save', {}, function(response) {console.log(response);});
+    $.post(document.URL + '/save', {code: code}, function(response) {
+        $('#save-success').fadeIn().delay(800).fadeOut();
+        console.log(response.status);
+    });
 }
 
 function LoadCode(){
-    //get it from server
-    $.get(document.URL + '/load', {}, function(response) {console.log(response);});
-    //put it in editor
+    $.get(document.URL + '/load', {}, function(response) {
+        console.log(response);
+        editor.setValue(response.code);
+    });
 }

@@ -4,7 +4,7 @@ class ProblemsController < ApplicationController
 
   include ProblemsHelper
   
-  before_action :set_problem, only: [:show, :edit, :update, :destroy]
+  before_action :set_problem, only: [:show, :edit, :update, :destroy, :load]
 
   # GET /problems
   # GET /problems.json
@@ -54,12 +54,30 @@ class ProblemsController < ApplicationController
 
   # POST /problems/1/save
   def save
-    render json: {'test':'saveTest'}, status: 200
+    student = Student.find(session[:user_id])
+    saves = student.Saves
+    if not saves
+      student.Saves = {params[:id] => params[:code]}.to_json
+    else
+      savesHash = JSON.parse(student.Saves)
+      savesHash[params[:id]] = params[:code]
+      student.Saves = savesHash.to_json
+    end
+    student.save
+
+    render json: {'status':'Save Successful'}, status: 200
   end
 
   # GET /problems/1/load
   def load
-    render json: {'test':'loadTest'}, status: 200
+    code = @problem.skeleton
+    if Student.find(session[:user_id]).Saves
+      saves = JSON.parse(Student.find(session[:user_id]).Saves)
+      if saves.key?(params[:id])
+        code = saves[params[:id]]
+        end
+    end
+    render json: {'code': code}, status: 200
   end
 
   def submissions

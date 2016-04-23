@@ -96,6 +96,8 @@ main .problem-test-case {
 
 .ace-banner {
     width: 100%;
+    position: relative;
+    
     h1 {
         display: inline-block;
         margin-right: 14px;
@@ -109,5 +111,13 @@ main .problem-test-case {
     button {
         float: right;
         margin-top: 54px;
+    }
+    
+    #save-success {
+        position: absolute;
+        top: 20px;
+        right: 0;
+        color: #5CB85C;
+        display: none;
     }
 }
