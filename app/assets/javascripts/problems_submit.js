@@ -164,7 +164,7 @@ function SubmitCode(code, containerId){
             
             var errorRow = tblBody.insertRow(0);
             errorRow.className = "fail";
-            errorRow.insertCell(0).appendChild(document.createTextNode(response.err));
+            errorRow.insertCell(0).innerHTML = "<pre><code>" + response.err + "</code></pre>";
         }
         result.appendChild(tbl);
         
