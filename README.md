@@ -47,8 +47,9 @@ public class useCode {
 
 IO Practice Python
 ```
-with open('output.txt', 'w') as f1:
-  for line in open('input.txt'):
-    f1.write(line)
+from __future__ import print_function
+
+text = raw_input()
+print(text, end="")
 ```
 

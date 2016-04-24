@@ -13,7 +13,8 @@ module ProblemsHelper
     begin
       case problem.language
       when 'java'
-        file = rand_folder_name + '/useCode.java'
+        name = determine_java_file_name(code)
+        file = rand_folder_name + '/' + name + '.java'
       when 'python'
         file = rand_folder_name + '/useCode.py'
       else
@@ -46,6 +47,16 @@ module ProblemsHelper
     FileUtils.remove_dir(folder) if File.directory?(folder)
   end
   
+  def determine_java_file_name(code)
+    if /public class ([A-Za-z][0-9A-Za-z_]+) {/.match(code)
+      return /public class ([A-Za-z][0-9A-Za-z_]+) {/.match(code)[1]
+    elsif /class ([A-Za-z][0-9A-Za-z_]+) {((?!class)[\s\S])+ public static (void|int) main\(/.match(code)
+      return /class ([A-Za-z][0-9A-Za-z_]+) {((?!class)[\s\S])+ public static (void|int) main\(/.match(code)[1]
+    else
+      return nil
+    end
+  end
+  
   def get_os_command(timeout, folder, command)
     if OS.windows?
       if timeout == -1
@@ -71,7 +82,8 @@ module ProblemsHelper
   def compile_problem(code, problem, folder)
     case problem.language
     when 'java'
-      command = get_os_command(-1, folder, 'javac useCode.java')
+      name = determine_java_file_name(code)
+      command = get_os_command(-1, folder, 'javac ' + name + '.java')
     end
     compileOut, compileError, compileStatus = Open3.capture3(command) 
     my_json = {}
@@ -86,19 +98,22 @@ module ProblemsHelper
   end
   
   def execute_problem(code, problem, folder)
+    my_append = SecureRandom.hex(6)
+    
     case problem.language
     when 'java'
-      command = get_os_command(10, folder, 'java useCode < input.txt > output.txt')
+      name = determine_java_file_name(code)
+      command = get_os_command(10, folder, 'java ' + name + ' < input_' + my_append + '.txt > output_' + my_append + '.txt')
     when 'python'
-      command = get_os_command(10, folder, 'python useCode.py')
+      command = get_os_command(10, folder, 'python useCode.py < input_' + my_append + '.txt > output_' + my_append + '.txt')
     end
     
     results_array = []  
     ProblemTestCase.where(problemid: problem.id).each do |testcase|
-      File.open(folder + '/input.txt', 'w') do |f|
+      File.open(folder + '/input_' + my_append + '.txt', 'w') do |f|
         f.print testcase.input
       end
-      File.open(folder + '/expected.txt', 'w') do |f|
+      File.open(folder + '/expected_' + my_append + '.txt', 'w') do |f|
         f.print testcase.output
       end
       
@@ -108,9 +123,9 @@ module ProblemsHelper
       result_hash[:title] = testcase.title
       result_hash[:input] = testcase.input   
       
-      if(runtimeStatus.success? && File.exists?(folder + '/output.txt')) 
-        FileUtils.compare_file(folder + '/expected.txt', folder + '/output.txt') ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
-        result_hash[:output] = File.read(folder + '/output.txt');
+      if(runtimeStatus.success? && File.exists?(folder + '/output_' + my_append + '.txt')) 
+        FileUtils.compare_file(folder + '/expected_' + my_append + '.txt', folder + '/output_' + my_append + '.txt') ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
+        result_hash[:output] = File.read(folder + '/output_' + my_append + '.txt');
       else
         result_hash[:result] = 'fail'
         result_hash[:err] = runtimeError
