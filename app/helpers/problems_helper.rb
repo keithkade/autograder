@@ -106,14 +106,15 @@ module ProblemsHelper
       
       result_hash = {}
       result_hash[:title] = testcase.title
-      result_hash[:input] = testcase.input
-      result_hash[:output] = runtimeOut   
+      result_hash[:input] = testcase.input   
       
       if(runtimeStatus.success? && File.exists?(folder + '/output.txt')) 
         FileUtils.compare_file(folder + '/expected.txt', folder + '/output.txt') ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
+        result_hash[:output] = File.read(folder + '/output.txt');
       else
         result_hash[:result] = 'fail'
         result_hash[:err] = runtimeError
+        result_hash[:output] = ''
       end
       results_array.push(result_hash)
     end
