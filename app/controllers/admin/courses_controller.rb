@@ -5,15 +5,19 @@ class Admin::CoursesController < ApplicationController
   # GET /courses.json
   def index
     
-    if (params[:semester] == 'All' && params[:year] == '')
+    if not params.include?(:semester)
+      #show current classes (from today's year)
+      @courses = Course.where(year: Time.now.year)
+    
+    elsif (params[:semester] == 'All' && params[:year] == '')
       @courses = Course.all
     elsif (params[:semester] != '' && params[:year] == '')
       @courses = Course.where(semester: params[:semester])
     elsif (params[:semester] == 'All' && params[:year] != '')
       @courses = Course.where(year: params[:year])
-    else
-      @courses = Course.where(year: params[:year], semester: params[:semster])
-    end
+    elsif
+      @courses = Course.where(year: params[:year], semester: params[:semester])
+    end  
   end
 
   # GET /courses/1

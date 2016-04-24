@@ -4,17 +4,36 @@
 # rake db:reset 
 # rake db:drop db:create db:migrate db:seed
 #
-result = '{
-  status: "success",
-  err: nil,
-  results : [
-    {
-      title: "test case #0",
-      result: "success",
-      err: nil,
-      input: "testingbecauseican"
-    },
-  ]
+result = {}
+result[:status] = "success"
+result[:err] = nil
+results = []
+results_one = {}
+results_one[:title] = "test case #0"
+results_one[:result] = "success"
+results_one[:err] = "nil"
+results_one[:input] = "testingbecauseican"
+results.push(results_one)
+result[:results] = results
+
+java_skeleton = 'import java.io.*;
+public class useCode {
+  public static void main(String args[]) throws IOException{
+    FileInputStream in = null;
+    FileOutputStream out = null;
+    try {
+      in = new FileInputStream("input.txt");
+      out = new FileOutputStream("output.txt");
+      int c;
+      while ((c = in.read()) != -1) {
+        out.write(c);
+      }
+    }
+    finally {
+      if (in != null) {in.close();}
+      if (out != null) {out.close();}
+    }
+  }
 }'
 
 
@@ -36,8 +55,8 @@ students = [{:FirstName => 'Dillon', :LastName => 'Dishman', :ID => 2222, :UserN
     
 problems = [{:title => 'Hello World', :due_date => DateTime.parse('1 May 2016 11:59:59 PM'), :summary => 'Will write hello world', :input_description => 'none', :output_description => 'print Hello World!', :skeleton => 'n\a', :language => 'java'},
             {:title => 'IO Practice Java', :due_date => DateTime.parse('2 May 2016 11:59:59 PM'), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'java'},
-            {:title => 'Multiple by 10', :due_date => DateTime.parse('3 May 2016 11:59:59 PM'), :summary => 'Will multiply input by 10', :input_description => 'numbers seperated by spaces', :output_description => 'numbers multiplied by 10 seperated by spaces', :skeleton => 'n\a', :language => 'java'},
             {:title => 'IO Practice Python', :due_date => DateTime.parse('4 May 2016 11:59:59 PM'), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'python'},
+            {:title => 'Sort a List', :due_date => DateTime.parse('25 April 11:59:59 PM'), :summary => 'You will need to write a program that can take in a generic size list and sort it using any the of sorting algorithms we learned in class. Write the sorting method yourself, do not use library sorting methods.', :input_description => 'Unsorted ArrayList of Numbers', :output_description => 'Sorted Array List of Integers', :skeleton => java_skeleton, :language => 'java'}
             ]
 
 problem_tests = [{:problemid => 1, :input => '', :output => ''},
@@ -54,10 +73,10 @@ course_student_relations = [{:course => 1, :student => 1}, {:course => 2, :stude
 
 course_problem_relations = [{:course => 1, :problem => 1}, {:course => 2, :problem => 2}, {:course => 3, :problem => 2}, {:course => 4, :problem => 2}, {:course => 5, :problem => 2}, {:course => 6, :problem => 2},
                             {:course => 1, :problem => 2}, {:course => 2, :problem => 3}, {:course => 3, :problem => 3}, {:course => 4, :problem => 4}, {:course => 5, :problem => 4}, {:course => 6, :problem => 4},
-                            {:course => 1, :problem => 4}, {:course => 2, :problem => 4}, {:course => 3, :problem => 4},
+                            {:course => 1, :problem => 3}, {:course => 2, :problem => 4}, {:course => 3, :problem => 4},
                             ]
 
-submissions = [{:student_id => 6, :problem_id => 2, :code => 'I am Jeff Dean', :page_loaded_at => DateTime.parse('1 January 1970 12:00:00 AM'), :time_submitted => DateTime.parse('1 January 1970 12:00:01 AM'), :result => result, :status => true},
+submissions = [{:student_id => 6, :problem_id => 2, :code => 'I am Jeff Dean', :page_loaded_at => DateTime.parse('1 January 1970 12:00:00 AM'), :time_submitted => DateTime.parse('1 January 1970 12:00:01 AM'), :result => result.to_json, :status => true},
               ]
 
 courses.each do |course|

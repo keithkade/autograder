@@ -1,4 +1,5 @@
 require 'pp'
+require 'os'
 
 module ProblemsHelper
   
@@ -46,13 +47,19 @@ module ProblemsHelper
   end
   
   def get_os_command(timeout, folder, command)
-    if(RUBY_PLATFORM.downcase.include?("mswin") or RUBY_PLATFORM.downcase.include?("mingw"))
+    if OS.windows?
       if timeout == -1
         return 'cmd /c \"cd ' + folder + ' && ' + command + '\"'
       else
         #difficult bat?
       end
-    else
+    elsif OS.mac?
+      if timeout == -1
+        return '(cd ' + folder + ' ; ' + command + ')'
+      else
+        return '(cd ' + folder + ' ; gtimeout ' + timeout.to_s + ' ' + command + ')'
+      end
+    else 
       if timeout == -1
         return '(cd ' + folder + ' ; ' + command + ')'
       else

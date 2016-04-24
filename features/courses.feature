@@ -35,3 +35,6 @@ Feature: Courses
     And I fill in "Name" with "New Name"
     And I press "Update Course"
     Then I should be on the course page for "New Name"
+
+    
+    
