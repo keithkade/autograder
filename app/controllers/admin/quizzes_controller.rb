@@ -59,6 +59,12 @@ class Admin::QuizzesController < ApplicationController
   # DELETE /quizzes/1
   # DELETE /quizzes/1.json
   def destroy
+  # Must destroy all associated questions also
+    @questions = @quiz.questions
+    @questions.each do |question|
+      question.question.destroy
+      question.destroy
+    end
     @quiz.destroy
     respond_to do |format|
       format.html { redirect_to admin_quizzes_url, notice: 'Quiz was successfully destroyed.' }
