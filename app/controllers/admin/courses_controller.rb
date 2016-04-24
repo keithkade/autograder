@@ -1,4 +1,7 @@
 class Admin::CoursesController < ApplicationController
+  require 'fileutils'
+  include StudentGradeHelper
+
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   # GET /courses
@@ -80,6 +83,19 @@ class Admin::CoursesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # POST /courses/1/download
+  def download
+    students = Course.find(params[:courseid]).users
+    File.open("roster.csv", 'w') do |file|
+      for student in students do
+        getGrade(student.id)
+        file.write(student.LastName + ',' + student.FirstName + ',' + student.Problems_grade + "\n")
+      end
+    end
+    send_file(File.join(Rails.root, "roster.csv"))
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
