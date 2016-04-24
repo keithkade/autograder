@@ -99,7 +99,6 @@ function SubmitCode(code, containerId){
                                         page_loaded_at: Math.trunc(new Date().getTime()/1000) 
                                       }, 
     function(response) {
-        console.log(response);
         
         var problemPassed = false;
 
@@ -126,7 +125,8 @@ function SubmitCode(code, containerId){
             status.classList.add("alert");
             appendTH(headerRow, "");
             appendTH(headerRow, "Test Case");
-            appendTH(headerRow, "Input");
+            appendTH(headerRow, "Test Input");
+            appendTH(headerRow, "Your Output");
             appendTH(headerRow, "Details");
             
             var allPassed = true;
@@ -141,11 +141,13 @@ function SubmitCode(code, containerId){
 
                 row.insertCell(1).appendChild(document.createTextNode(cases[i].title));
 
-                row.insertCell(2).appendChild(document.createTextNode(cases[i].input));
+                row.insertCell(2).innerHTML = "<pre><code>" + cases[i].input + "</code></pre>"; 
+                
+                row.insertCell(3).innerHTML = "<pre><code>" + cases[i].output + "</code></pre>";
                 
                 //since we color the whole row, just make the cell contain the empty string
                 if (!cases[i].err) cases[i].err = "";
-                row.insertCell(3).appendChild(document.createTextNode(cases[i].err));
+                row.insertCell(4).appendChild(document.createTextNode(cases[i].err));
             }
             if(allPassed) {
                 status.classList.add("alert-success");
@@ -183,13 +185,11 @@ function SaveCode(){
     var code = editor.getValue();
     $.post(document.URL + '/save', {code: code}, function(response) {
         $('#save-success').fadeIn().delay(800).fadeOut();
-        console.log(response.status);
     });
 }
 
 function LoadCode(){
     $.get(document.URL + '/load', {}, function(response) {
-        console.log(response);
         editor.setValue(response.code);
     });
 }
