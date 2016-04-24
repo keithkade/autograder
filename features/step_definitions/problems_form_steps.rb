@@ -31,8 +31,8 @@ Given /^the problem "(.*)" has a "(.*)" test case$/ do |problem, testcase|
     testCase.save
 end
 
-Given /^I fill in the ace editor with a good python solution$/ do
-    page.execute_script("editor.setValue('with open('output.txt', 'a') as f1:\n for line in open('input.txt'):\n  f1.write(line)')")
+Given /^I fill in the ace editor with an ok python solution$/ do
+    page.execute_script("editor.setValue(\"x=1\")")
 end
 
 Given /^I fill in the ace editor with a bad python solution$/ do

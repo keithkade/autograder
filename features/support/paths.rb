@@ -27,6 +27,9 @@ module NavigationHelpers
     when /^the problems\s?page$/
       '/admin/problems'
 
+    when /^the student problems\s?page$/
+      'problems'
+
     when /^the problem page for "(.*)"$/
       title = $1
       problem = Problem.all.find_by(title: title)
