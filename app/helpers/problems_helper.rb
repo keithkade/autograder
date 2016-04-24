@@ -21,7 +21,7 @@ module ProblemsHelper
         return {:status => 'fail', :err => 'problem has to language set', :results => []}
       end
       File.open(file, 'w') do |f|
-        f.puts code
+        f.print code
       end
       
       if compile_languages.include?(problem.language)
@@ -88,7 +88,7 @@ module ProblemsHelper
   def execute_problem(code, problem, folder)
     case problem.language
     when 'java'
-      command = get_os_command(10, folder, 'java useCode')
+      command = get_os_command(10, folder, 'java useCode < input.txt > output.txt')
     when 'python'
       command = get_os_command(10, folder, 'python useCode.py')
     end
@@ -96,16 +96,16 @@ module ProblemsHelper
     results_array = []  
     ProblemTestCase.where(problemid: problem.id).each do |testcase|
       File.open(folder + '/input.txt', 'w') do |f|
-        f.puts testcase.input
+        f.print testcase.input
       end
       File.open(folder + '/expected.txt', 'w') do |f|
-        f.puts testcase.output
+        f.print testcase.output
       end
       
       runtimeOut, runtimeError, runtimeStatus = Open3.capture3(command)
       
       result_hash = {}
-      result_hash[:title] = 'stuff'
+      result_hash[:title] = testcase.title
       result_hash[:input] = testcase.input
       result_hash[:output] = runtimeOut   
       
