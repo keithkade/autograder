@@ -6,7 +6,9 @@ class Admin::CoursesController < ApplicationController
   def index
     
     if not params.include?(:semester)
+      #show current classes (from today's year)
       @courses = Course.where(year: Time.now.year)
+    
     elsif (params[:semester] == 'All' && params[:year] == '')
       @courses = Course.all
     elsif (params[:semester] != '' && params[:year] == '')
