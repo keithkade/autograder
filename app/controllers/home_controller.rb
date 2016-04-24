@@ -3,14 +3,8 @@ class HomeController < ApplicationController
   def index
     @student = Student.find(session[:user_id])
 
-    courses = @student.courses
-    all_problems = []
+    all_problems = @student.problems
     @problems = []
-
-    for course in courses
-      # Prevents duplicates of problems from appearing.
-      all_problems.concat(Array(course.problems).keep_if { |prob| not all_problems.map { |prob2| prob2.id }.include?(prob.id) })
-    end
 
     #get the problems due this week
     dates = (Date.today..Date.today + 7.days)

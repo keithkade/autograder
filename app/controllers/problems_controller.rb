@@ -10,12 +10,7 @@ class ProblemsController < ApplicationController
   # GET /problems.json
   def index
     @student = Student.find(session[:user_id])
-    courses = @student.courses
-    @problems = []
-    for course in courses
-    # Prevents duplicates of problems from appearing.
-      @problems.concat(Array(course.problems).keep_if { |prob| not @problems.map { |prob2| prob2.id }.include?(prob.id) })
-    end
+    @problems = @student.problems
   end
 
   # GET /problems/1
