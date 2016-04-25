@@ -334,7 +334,8 @@ tr.clickable-row.danger:hover {
 }
 
 tr.success { background-color: $successVeryLight; }
-
+tr.danger { background-color: $dangerVeryLight; }
+tr.warning {  background-color: $warningVeryLight; }
 tr.fail { background-color: $failVeryLight; }
 
 tr.clickable-row.success:hover {  background: $successLight; }

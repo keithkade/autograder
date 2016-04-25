@@ -1,0 +1,55 @@
+<% content_for :title do %>List of Quizzes<% end %>
+
+<table class="quizzes-list-table table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Course</th>
+      <th>Quiz Closes</th>
+      <th>Time Limit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @quizzes_to_take.each do |quiz| %>
+      <tr class="clickable-row" data-href="<%= quiz_path(quiz) %>">
+        <td class="clickable-row-main-cell"><%= quiz.title %></td>
+        <td><%= quiz.course.name %></td>
+        <td><%= quiz.end_time.strftime("%d %b, %I:%M %p") %></td>
+        <td><% if quiz.time_limit == 0 %>No limit<% else %><%= quiz.time_limit %> minutes<% end %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h1>Quizzes Already Taken</h1>
+<table class="quizzes-list-table table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Course</th>
+      <th>Submitted</th>
+      <th>Grade</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @quizzes_submitted_or_missed.each do |quiz| %>
+      <% if @submissions.include?(quiz.id) %>
+        <tr class="clickable-row" data-href="<%= quiz_submission_path(@submissions[quiz.id]) %>">
+          <td class="clickable-row-main-cell"><%= quiz.title %></td>
+          <td><%= quiz.course.name %></td>
+          <td><%= @submissions[quiz.id].created_at.strftime("%d %b, %I:%M %p") %></td>
+          <td>????</td>
+        </tr>
+      <% else %>
+        <tr class="clickable-row">
+          <td class="clickable-row-main-cell"><%= quiz.title %></td>
+          <td><%= quiz.course.name %></td>
+          <td>Not Submitted</td>
+          <td>0 %</td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

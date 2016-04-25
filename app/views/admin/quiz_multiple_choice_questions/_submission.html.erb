@@ -1,0 +1,12 @@
+<div class="multiple-choice-question">
+  <div class="question-text">
+    <%= question.question %>
+  </div>
+  <div class="answer-choices">
+    <p class="alert <% if question.correct_answer == 'A' %>alert-success<% elsif given_answer == 'A' %>alert-danger<% end %>"><strong>A. </strong> <%= question.answer_A %></p>
+    <p class="alert <% if question.correct_answer == 'B' %>alert-success<% elsif given_answer == 'B' %>alert-danger<% end %>"><strong>B. </strong> <%= question.answer_B %></p>
+    <p class="alert <% if question.correct_answer == 'C' %>alert-success<% elsif given_answer == 'C' %>alert-danger<% end %>"><strong>C. </strong> <%= question.answer_C %></p>
+    <p class="alert <% if question.correct_answer == 'D' %>alert-success<% elsif given_answer == 'D' %>alert-danger<% end %>"><strong>D. </strong> <%= question.answer_D %></p>
+    <p class="alert <% if question.correct_answer == 'E' %>alert-success<% elsif given_answer == 'E' %>alert-danger<% end %>"><strong>E. </strong> <%= question.answer_E %></p>
+  </div>
+</div>

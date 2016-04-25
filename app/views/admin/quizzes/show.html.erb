@@ -34,6 +34,39 @@
   </tbody>
 </table>
 
+<% if Time.now >= @quiz.start_time %>
+<h1>Submissions</h1>
+<table class="table quiz-submissions">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Time Submitted</th>
+      <th>Time Taken</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+      <% if @student_submission.include?(student.id) %>
+        <tr class="clickable-row <%= @student_submission_status[student.id] %>" data-href="<%= admin_quiz_submission_path(@student_submission[student.id]) %>">
+          <td class="clickable-row-main-cell"><%= student.Name %></td>
+          <td><%= @student_submission[student.id].created_at.strftime("%d %b, %I:%M %p") %></td>
+          <td><%= @student_submission[student.id].time_taken %></td>
+          <td>???</td>
+        </tr>
+      <% else %>
+        <tr class="<%= @student_submission_status[student.id] %>">
+          <td class="clickable-row-main-cell"><%= student.Name %></td>
+          <td></td>
+          <td></td>
+          <td>Missing</td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
 <h1>Questions</h1>
 <div id="add-quiz-question-form" class="row">
   <div class="col-sm-2">

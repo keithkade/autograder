@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Studentid:</strong>
+  <%= @quiz_submission.studentid %>
+</p>
+
+<p>
+  <strong>Quizid:</strong>
+  <%= @quiz_submission.quizid %>
+</p>
+
+<p>
+  <strong>Time taken:</strong>
+  <%= @quiz_submission.time_taken %>
+</p>
+
+<%= link_to 'Edit', edit_quiz_submission_path(@quiz_submission) %> |
+<%= link_to 'Back', quiz_submissions_path %>

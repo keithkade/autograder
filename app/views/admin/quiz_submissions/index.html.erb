@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Quiz Submissions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Studentid</th>
+      <th>Quizid</th>
+      <th>Time taken</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @quiz_submissions.each do |quiz_submission| %>
+      <tr>
+        <td><%= quiz_submission.studentid %></td>
+        <td><%= quiz_submission.quizid %></td>
+        <td><%= quiz_submission.time_taken %></td>
+        <td><%= link_to 'Show', quiz_submission %></td>
+        <td><%= link_to 'Edit', edit_quiz_submission_path(quiz_submission) %></td>
+        <td><%= link_to 'Destroy', quiz_submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Quiz submission', new_quiz_submission_path %>

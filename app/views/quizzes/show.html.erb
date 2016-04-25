@@ -1,0 +1,13 @@
+<% content_for :title do %>
+  <%= @quiz.title %>
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Quiz List', quizzes_path, :class => 'btn btn-default' %>
+  <%= link_to 'Take Quiz', new_quiz_submission_path(:quizid => @quiz.id), :class => 'btn btn-primary' %>
+<% end %>
+
+<div class="quiz-instructions alert alert-info">
+  <p><% if @quiz.time_limit == 0 %>This quiz has no time limit.<% else %>You have <%= @quiz.time_limit %> minutes to take this quiz.<% end %>  Once you start the quiz, you will not be allowed to leave until the quiz is submitted.  If you do, your quiz will be submitted as is.</p>
+  <p>When you are ready, hit the "Take Quiz" button below.</p>
+</div>

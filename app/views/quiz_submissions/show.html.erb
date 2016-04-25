@@ -1,0 +1,19 @@
+<% content_for :title do %>
+  Submission for <%= @quiz.title %>
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Quiz List', quizzes_path, :class => 'btn btn-default' %>
+<% end %>
+
+<p><strong>Submitted:</strong> <%= @quiz_submission.created_at.strftime("%d %b, %I:%M %p") %></p>
+<div class="alert alert-success">
+  <p><strong>Grade:</strong> ????</p>
+</div>
+
+<div class="quiz-questions-list">
+  <% @questions.each_with_index do |question, i| %>
+    <h1>Question <%= i + 1 %></h1>
+    <%= render question.submission_layout, :question => question.question, :given_answer => @answers[question.id].answer %>
+  <% end %>
+</div>

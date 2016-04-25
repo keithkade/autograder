@@ -17,6 +17,10 @@ class QuizQuestion < ActiveRecord::Base
         "admin/quiz_#{self.qtype}_questions/answer"
     end
     
+    def submission_layout
+        "admin/quiz_#{self.qtype}_questions/submission"
+    end
+    
     def self.question_types
         ["multiple_choice"]
     end
