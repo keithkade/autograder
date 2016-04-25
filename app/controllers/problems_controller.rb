@@ -42,7 +42,7 @@ class ProblemsController < ApplicationController
                                     :problem_id => params[:id],
                                     :result => result.to_json,
                                     :status => status)
-    
+
     submission.save
     render json: result, status: 200
   end
