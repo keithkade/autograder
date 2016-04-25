@@ -4,18 +4,13 @@ class ProblemsController < ApplicationController
 
   include ProblemsHelper
   
-  before_action :set_problem, only: [:show, :edit, :update, :destroy]
+  before_action :set_problem, only: [:show, :edit, :update, :destroy, :load]
 
   # GET /problems
   # GET /problems.json
   def index
     @student = Student.find(session[:user_id])
-    courses = @student.courses
-    @problems = []
-    for course in courses
-    # Prevents duplicates of problems from appearing.
-      @problems.concat(Array(course.problems).keep_if { |prob| not @problems.map { |prob2| prob2.id }.include?(prob.id) })
-    end
+    @problems = @student.problems
   end
 
   # GET /problems/1
@@ -51,7 +46,35 @@ class ProblemsController < ApplicationController
     submission.save
     render json: result, status: 200
   end
-  
+
+  # POST /problems/1/save
+  def save
+    student = Student.find(session[:user_id])
+    saves = student.Saves
+    if not saves
+      student.Saves = {params[:id] => params[:code]}.to_json
+    else
+      savesHash = JSON.parse(student.Saves)
+      savesHash[params[:id]] = params[:code]
+      student.Saves = savesHash.to_json
+    end
+    student.save
+
+    render json: {'status':'Save Successful'}, status: 200
+  end
+
+  # GET /problems/1/load
+  def load
+    code = @problem.skeleton
+    if Student.find(session[:user_id]).Saves
+      saves = JSON.parse(Student.find(session[:user_id]).Saves)
+      if saves.key?(params[:id])
+        code = saves[params[:id]]
+        end
+    end
+    render json: {'code': code}, status: 200
+  end
+
   def submissions
     set_problem
     @submissions = Submission.order('time_submitted DESC')

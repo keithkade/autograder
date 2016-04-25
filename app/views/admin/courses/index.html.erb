@@ -6,6 +6,24 @@
   <%= link_to 'New Course', new_admin_course_path, :class => 'btn btn-primary' %>
 <% end %>
 
+<form>
+  <select name = semester>
+    <option value="Spring">Spring</option>
+    <option value="Summer">Summer</option>
+    <option value="Fall">Fall</option>
+    <option value="Winter">Winter</option>
+    <option value="All">All</option>
+  </select>
+
+  Year:<br>
+  <input type="text" name="year"><br>
+  <%= submit_tag 'Refresh' %>
+  
+</form>
+
+
+
+
 <table class="table">
   <thead>
     <tr>
@@ -16,9 +34,10 @@
   </thead>
   
   <tbody>
+    
     <% @courses.each do |course| %>
       <tr class="clickable-row" data-href="<%= admin_course_path(course) %>">
-        <td class="clickable-row-main-cell"><%= course.name %></td>
+        <td class="clickable-row-main-cell"><%= course.name %><%= course.semester %><%= course.year %></td>
         <td><%= course.users.length %></td>
         <td><%= course.problems.length %></td>
       </tr>

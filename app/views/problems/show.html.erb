@@ -34,8 +34,9 @@
 <div class="ace-banner">
     <h1>Your Code</h1>
     <span id="shortcut">Show shortcuts: Cmd-Alt-H (Mac) Ctrl-Alt-H (Windows)</span>
-    <button class="btn btn-default">Save</button>
-    <button class="btn btn-default">Load</button>
+    <span id="save-success">Save Successful</span>
+    <button id="save-btn" class="btn btn-default">Save</button>
+    <button id="load-btn" class="btn btn-default">Load</button>
 </div>
 <div id="editor" data-lang="<%= @problem.language %>"><pre><code><%= @problem.skeleton %></code></pre></div>
 

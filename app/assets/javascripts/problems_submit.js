@@ -7,10 +7,19 @@
  * this is harder to fix in rails than it should be
 */
 
+var LOADER_ID = 'loader-area';
+var SUBMIT_BUTTON_ID = 'submit-btn';
+var MODAL_ID = 'submission-results-modal';
+
 var pageLoadTime = new Date();
 var editor;
 
 $(document).ready(function() {
+    
+    //this is a naive way to make sure this script doesn't run on all pages
+    if (!document.getElementById('editor')){
+        return;
+    }
     
     //set up ace
     editor = ace.edit("editor");
@@ -30,12 +39,12 @@ $(document).ready(function() {
     
     //popup on succesful submit
     $('#submission-results-modal').on('hide.bs.modal', function(e) { CopyModalContentsToPage(); });
+    
+    //handlers for saving and loading
+    $('#save-btn').click(SaveCode);
+    $('#load-btn').click(LoadCode);
 });
                   
-var LOADER_ID = 'loader-area';
-var SUBMIT_BUTTON_ID = 'submit-btn';
-var MODAL_ID = 'submission-results-modal';
-
 function CopyModalContentsToPage() {
   $('#submission-results-after').html($('#submission-results').html());
 }
@@ -90,7 +99,6 @@ function SubmitCode(code, containerId){
                                         page_loaded_at: Math.trunc(new Date().getTime()/1000) 
                                       }, 
     function(response) {
-        console.log(response);
         
         var problemPassed = false;
 
@@ -117,7 +125,8 @@ function SubmitCode(code, containerId){
             status.classList.add("alert");
             appendTH(headerRow, "");
             appendTH(headerRow, "Test Case");
-            appendTH(headerRow, "Input");
+            appendTH(headerRow, "Test Input");
+            appendTH(headerRow, "Your Output");
             appendTH(headerRow, "Details");
             
             var allPassed = true;
@@ -132,11 +141,13 @@ function SubmitCode(code, containerId){
 
                 row.insertCell(1).appendChild(document.createTextNode(cases[i].title));
 
-                row.insertCell(2).appendChild(document.createTextNode(cases[i].input));
+                row.insertCell(2).innerHTML = "<pre><code>" + cases[i].input + "</code></pre>"; 
+                
+                row.insertCell(3).innerHTML = "<pre><code>" + cases[i].output + "</code></pre>";
                 
                 //since we color the whole row, just make the cell contain the empty string
                 if (!cases[i].err) cases[i].err = "";
-                row.insertCell(3).appendChild(document.createTextNode(cases[i].err));
+                row.insertCell(4).appendChild(document.createTextNode(cases[i].err));
             }
             if(allPassed) {
                 status.classList.add("alert-success");
@@ -155,7 +166,7 @@ function SubmitCode(code, containerId){
             
             var errorRow = tblBody.insertRow(0);
             errorRow.className = "fail";
-            errorRow.insertCell(0).appendChild(document.createTextNode(response.err));
+            errorRow.insertCell(0).innerHTML = "<pre><code>" + response.err + "</code></pre>";
         }
         result.appendChild(tbl);
         
@@ -167,5 +178,18 @@ function SubmitCode(code, containerId){
             ShowSubmissionModal(MODAL_ID);
         else
             CopyModalContentsToPage();
+    });
+}
+
+function SaveCode(){
+    var code = editor.getValue();
+    $.post(document.URL + '/save', {code: code}, function(response) {
+        $('#save-success').fadeIn().delay(800).fadeOut();
+    });
+}
+
+function LoadCode(){
+    $.get(document.URL + '/load', {}, function(response) {
+        editor.setValue(response.code);
     });
 }

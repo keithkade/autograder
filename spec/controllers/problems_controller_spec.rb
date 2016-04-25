@@ -6,6 +6,7 @@ describe Admin::ProblemsController do
 
   before :each do
     controller.stub(:logged_in_admin?).and_return(true)
+    Problem.stub(:find).and_return(problem)
     Problem.stub(:new).and_return(problem)
   end
 
