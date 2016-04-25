@@ -96,8 +96,8 @@ function SubmitCode(code, containerId){
     ShowLoader(LOADER_ID);
 
     $.get(document.URL + '/evaluate', { code: code, 
-                                        time_submitted: Math.trunc(pageLoadTime.getTime()/1000),
-                                        page_loaded_at: Math.trunc(new Date().getTime()/1000) 
+                                        time_submitted: Math.trunc(new Date().getTime()/1000),
+                                        page_loaded_at: Math.trunc(pageLoadTime.getTime()/1000)
                                       }, 
     function(response) {
         
