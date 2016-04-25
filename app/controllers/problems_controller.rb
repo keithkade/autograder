@@ -60,7 +60,7 @@ class ProblemsController < ApplicationController
     end
     student.save
 
-    render json: {'status':'Save Successful'}, status: 200
+    render json: {'status' => 'Save Successful'}, status: 200
   end
 
   # GET /problems/1/load
@@ -72,7 +72,7 @@ class ProblemsController < ApplicationController
         code = saves[params[:id]]
         end
     end
-    render json: {'code': code}, status: 200
+    render json: {'code' => code}, status: 200
   end
 
   def submissions
