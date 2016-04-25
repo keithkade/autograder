@@ -15,6 +15,11 @@ var pageLoadTime = new Date();
 var editor;
 
 $(document).ready(function() {
+    Setup();
+});
+     
+function Setup() {
+    console.log("setting up");
     
     //this is a naive way to make sure this script doesn't run on all pages
     if (!document.getElementById('editor')){
@@ -39,12 +44,8 @@ $(document).ready(function() {
     
     //popup on succesful submit
     $('#submission-results-modal').on('hide.bs.modal', function(e) { CopyModalContentsToPage(); });
-    
-    //handlers for saving and loading
-    $('#save-btn').click(SaveCode);
-    $('#load-btn').click(LoadCode);
-});
-                  
+}
+
 function CopyModalContentsToPage() {
   $('#submission-results-after').html($('#submission-results').html());
 }
