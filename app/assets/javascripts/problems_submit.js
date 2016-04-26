@@ -14,10 +14,6 @@ var MODAL_ID = 'submission-results-modal';
 var pageLoadTime = new Date();
 var editor;
 
-$(document).ready(function() {
-    Setup();
-});
-     
 function Setup() {
     console.log("setting up");
     
