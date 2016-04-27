@@ -1,6 +1,5 @@
 class Admin::CoursesController < ApplicationController
   require 'fileutils'
-  include StudentGradeHelper
 
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
@@ -89,7 +88,7 @@ class Admin::CoursesController < ApplicationController
     students = Course.find(params[:courseid]).users
     File.open("roster.csv", 'w') do |file|
       for student in students do
-        getGrade(student.id)
+        student.problems_grade
         file.write(student.LastName + ',' + student.FirstName + ',' + student.Problems_grade + "\n")
       end
     end

@@ -51,7 +51,7 @@ module NavigationHelpers
 
     when /^the student page for "(.*)"$/
       name = $1
-      student = Student.all.find_by(Name: name)
+      student = Student.all.find_by(FirstName: name)
       "/admin/students/#{student.id}"
 
     else
