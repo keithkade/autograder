@@ -20,6 +20,7 @@ class Admin::StudentsController < ApplicationController
     @courses = Course.order(:name)
     @students = Student.order(:LastName)
     @students.each do |student|
+      student.problems_grade
       #getGrade(student.id)
     end
 

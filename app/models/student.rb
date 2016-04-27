@@ -54,7 +54,7 @@ class Student < ActiveRecord::Base
 	      end
 	    end
 	    student.Problems_grade = success.to_s + "/" + all.to_s
-	    student.save
+	    student.save!
 	end
 
 end
