@@ -25,7 +25,7 @@
   </thead>
   
   <tbody>
-    <% @students.sort_by(&:problemGrades).each do |student| %>
+    <% @students.sort_by(&:Problems_grade).reverse.each do |student| %>
       <tr class="clickable-row" data-href="<%= admin_student_path(student) %>">
         <td class="clickable-row-main-cell"><%= student.Name %></td>
         <td><%= student.ID %></td>
