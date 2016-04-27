@@ -1,19 +1,23 @@
 require 'pp'
 require 'os'
+require 'securerandom'
 
 module ProblemsHelper
   
   def eval_code(code, problemID)
     compile_languages = ['java']
     
-    rand_folder_name = "temp_" + SecureRandom.hex
+    rand_folder_name = 'temp_' + SecureRandom.hex
     FileUtils.mkdir(rand_folder_name)
     problem = Problem.find(problemID)
-    
+    pp "what's happening" + rand_folder_name
     begin
       case problem.language
       when 'java'
         name = determine_java_file_name(code)
+        if(name == nil)
+          return {:status => 'fail', :err => 'no main method detected', :results => []}
+        end
         file = rand_folder_name + '/' + name + '.java'
       when 'python'
         file = rand_folder_name + '/useCode.py'
