@@ -19,6 +19,10 @@ class Admin::StudentsController < ApplicationController
     @courseid = params[:courseid].to_i
     @courses = Course.order(:name)
     @students = Student.order(:LastName)
+    @students.each do |student|
+      #getGrade(student.id)
+    end
+
   # A negative courseid is used to select all students
     if @courseid >= 0
     # Literally: Keep if the courseid is in the students' list of courses
