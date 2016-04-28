@@ -180,7 +180,7 @@ function SubmitCode(code, containerId){
 
 function SaveCode(){
     var code = editor.getValue();
-    $.post(document.URL + '/save', {code: code}, function(response) {
+    $.post(document.URL + '/save', {code: code, pageLoadTime: Math.trunc(pageLoadTime.getTime()/1000)}, function(response) {
         $('#save-success').fadeIn().delay(800).fadeOut();
     });
 }
@@ -188,5 +188,6 @@ function SaveCode(){
 function LoadCode(){
     $.get(document.URL + '/load', {}, function(response) {
         editor.setValue(response.code);
+        pageLoadTime = new Date(response.pageLoadTime * 1000);
     });
 }

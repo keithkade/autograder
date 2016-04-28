@@ -52,10 +52,18 @@ class ProblemsController < ApplicationController
     student = Student.find(session[:user_id])
     saves = student.Saves
     if not saves
-      student.Saves = {params[:id] => params[:code]}.to_json
+      student.Saves = {
+          params[:id] => {
+              'code' => params[:code],
+              'pageLoadTime' => params[:pageLoadTime]
+          }
+      }.to_json
     else
       savesHash = JSON.parse(student.Saves)
-      savesHash[params[:id]] = params[:code]
+      savesHash[params[:id]] = {
+          'code' => params[:code],
+          'pageLoadTime' => params[:pageLoadTime]
+      }
       student.Saves = savesHash.to_json
     end
     student.save
@@ -66,13 +74,18 @@ class ProblemsController < ApplicationController
   # GET /problems/1/load
   def load
     code = @problem.skeleton
+    pageLoadTime = 0
     if Student.find(session[:user_id]).Saves
       saves = JSON.parse(Student.find(session[:user_id]).Saves)
+
       if saves.key?(params[:id])
-        code = saves[params[:id]]
-        end
+        save = saves[params[:id]]
+        code = save['code']
+        pageLoadTime = save['pageLoadTime']
+      end
     end
-    render json: {'code' => code}, status: 200
+
+    render json: {'code' => code, 'pageLoadTime' => pageLoadTime}, status: 200
   end
 
   def submissions
