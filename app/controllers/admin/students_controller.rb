@@ -8,6 +8,7 @@ class Admin::StudentsController < ApplicationController
   # GET /students.json
   def index
   # Remember which option was selected for course filtering
+  
     if params.include?(:courseid)
       session[:students_list_courseid] = params[:courseid]
     elsif session.include?(:students_list_courseid)
@@ -29,6 +30,17 @@ class Admin::StudentsController < ApplicationController
       @students = Array(@students).keep_if { |student| student.courses.map { |course| course.id }.include?(@courseid) }
     end
   end
+
+  def sort
+    if (@student.find{|student| student.problems_grade = nil})
+      flash[:notice] = "all students must have a grade assigned!"
+      redirect_to movies_path
+      else
+        @students.sort_by(&:Problems_grade).reverse.each do |student|
+      end
+    end
+  end
+
 
   # GET /students/1
   # GET /students/1.json
