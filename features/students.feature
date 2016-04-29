@@ -9,9 +9,8 @@ Feature: Students
     And I fill in "Id" with "00001"
     And I fill in "Username" with "New Student Username"
     And I fill in "Password" with "New Password"
-    And I fill in "Class" with "New class"
     And I press "Create Student"
-    Then I should be on the student page for "studentname"
+    Then I should be on the student page for "studentfirstname"
     
   Scenario: I want to delete a student
     Given I am logged in as Admin
@@ -39,4 +38,4 @@ Feature: Students
     When I follow "Edit"
     And I fill in "Firstname" with "New First Name"
     And I press "Update Student"
-    Then I should be on the student page for "New Name"
+    Then I should be on the student page for "New First Name"

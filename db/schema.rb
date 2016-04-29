@@ -116,10 +116,13 @@ ActiveRecord::Schema.define(version: 20160424130950) do
     t.string   "ID"
     t.string   "UserName"
     t.string   "Password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "LastName"
     t.string   "FirstName"
+    t.string   "Saves"
+    t.string   "Quizs_grade"
+    t.string   "Problems_grade"
   end
 
   create_table "submissions", force: :cascade do |t|

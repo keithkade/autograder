@@ -34,30 +34,22 @@ Answer to Seed Problems
 IO Practice Java
 ```
 import java.io.*;
+import java.util.*;
 public class useCode {
-  public static void main(String args[]) throws IOException{
-    FileInputStream in = null;
-    FileOutputStream out = null;
-    try {
-      in = new FileInputStream("input.txt");
-      out = new FileOutputStream("output.txt");
-      int c;
-      while ((c = in.read()) != -1) {
-        out.write(c);
-      }
+    public static void main(String args[]) throws IOException{
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            System.out.print(in.next());
+        }
     }
-    finally {
-      if (in != null) {in.close();}
-      if (out != null) {out.close();}
-    }
-  }
 }
 ```
 
 IO Practice Python
 ```
-with open('output.txt', 'w') as f1:
-  for line in open('input.txt'):
-    f1.write(line)
+from __future__ import print_function
+
+text = raw_input()
+print(text, end="")
 ```
 

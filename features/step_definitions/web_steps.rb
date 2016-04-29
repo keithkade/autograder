@@ -64,7 +64,7 @@ When /^(?:|I )tableclickcourse "([^"]*)"$/ do |table|
 end
 
 When /^(?:|I )tableclickstudent "([^"]*)"$/ do |table|
-  student = Student.all.find_by(Name: table)
+  student = Student.all.find_by(FirstName: table)
   path = "/admin/students/#{student.id}"
   visit(path)
 end

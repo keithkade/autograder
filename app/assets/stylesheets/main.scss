@@ -38,6 +38,8 @@ $fontFallback: sans-serif;
 $fancyFont: 'Shadows Into Light Two';
 $fancyFontFallback: cursive;
 
+$footerHeight: 148px;
+
 /*  Global (@global)
  *  ==========================================================================*/
 html, body {
@@ -48,6 +50,11 @@ html, body {
 body {
     background: $white;
     font-family: $font, $fontFallback;
+}
+
+.container-wrap {
+    min-height: 100%;
+    position: relative;
 }
 
 a {
@@ -255,9 +262,11 @@ footer {
     background: $lightGrey;
     font-size: 16px;
     padding-top: 42px;
-    padding-bottom: 24px;
-    margin-top: 42px;
+    padding-bottom: 42px;
     box-shadow: 0 5px 3px -5px rgba(0, 0, 0, 0.12) inset;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     
     .license-area {
         text-align: center;
@@ -270,6 +279,7 @@ footer {
 main {
     font-size: 16px;
     line-height: 1.72em;
+    padding-bottom: $footerHeight;
     
     .page-title {
         font-size: 36px;

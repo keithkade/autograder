@@ -34,8 +34,9 @@
 <div class="ace-banner">
     <h1>Your Code</h1>
     <span id="shortcut">Show shortcuts: Cmd-Alt-H (Mac) Ctrl-Alt-H (Windows)</span>
-    <button>Save</button>
-    <button>Load</button>
+    <span id="save-success">Save Successful</span>
+    <button id="save-btn" class="btn btn-default" onclick="SaveCode()">Save</button>
+    <button id="load-btn" class="btn btn-default" onclick="LoadCode()">Load</button>
 </div>
 <div id="editor" data-lang="<%= @problem.language %>"><pre><code><%= @problem.skeleton %></code></pre></div>
 
@@ -62,3 +63,5 @@
     </div>
   </div>
 </div>
+
+<script>Setup();</script>

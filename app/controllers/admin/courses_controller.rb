@@ -1,10 +1,25 @@
 class Admin::CoursesController < ApplicationController
+  require 'fileutils'
+
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    
+    if not params.include?(:semester)
+      #show current classes (from today's year)
+      @courses = Course.where(year: Time.now.year)
+    
+    elsif (params[:semester] == 'All' && params[:year] == '')
+      @courses = Course.all
+    elsif (params[:semester] != '' && params[:year] == '')
+      @courses = Course.where(semester: params[:semester])
+    elsif (params[:semester] == 'All' && params[:year] != '')
+      @courses = Course.where(year: params[:year])
+    elsif
+      @courses = Course.where(year: params[:year], semester: params[:semester])
+    end  
   end
 
   # GET /courses/1
@@ -67,6 +82,19 @@ class Admin::CoursesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # POST /courses/1/download
+  def download
+    students = Course.find(params[:courseid]).users
+    File.open("roster.csv", 'w') do |file|
+      for student in students do
+        student.problems_grade
+        file.write(student.LastName + ',' + student.FirstName + ',' + student.Problems_grade + "\n")
+      end
+    end
+    send_file(File.join(Rails.root, "roster.csv"))
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

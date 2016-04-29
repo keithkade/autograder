@@ -13,7 +13,11 @@ Rails.application.routes.draw do
      # Directs /admin/products/* to Admin::ProductsController
      # (app/controllers/admin/products_controller.rb)
     resources :problems
-    resources :courses
+    resources :courses do
+      member do
+        post 'download'
+      end
+    end
     resources :problem_test_cases
     resources :students
     resources :submissions
@@ -27,6 +31,8 @@ Rails.application.routes.draw do
     member do
       get 'evaluate'
       get 'submissions'
+      get 'load'
+      post 'save'
     end
   end
 

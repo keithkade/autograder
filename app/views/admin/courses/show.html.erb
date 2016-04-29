@@ -1,11 +1,14 @@
 <% content_for :title do %>
   <%= @course.name %>
+  <%= @course.semester %>
+  <%= @course.year %>
 <% end %>
 
 <% content_for :options do %>
   <%= link_to 'Courses List', admin_courses_path, :class => 'btn btn-default' %>
   <%= link_to 'Edit', edit_admin_course_path(@course), :class => 'btn btn-primary' %>
   <%= link_to 'New Problem', new_admin_problem_path(:courseid => @myid), :class => 'btn btn-info' %>
+  <%= link_to 'Download CSV', download_admin_course_path(@course, :courseid => @course.id), :method => :download, :class => 'btn btn-success' %>
   <%= link_to 'Delete', admin_course_path(@course), :method => :delete, :data => { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %>
 <% end %>
 
