@@ -10,7 +10,7 @@ class ProblemsController < ApplicationController
   # GET /problems.json
   def index
     @student = Student.find(session[:user_id])
-    @problems = @student.problems
+    @problems = @student.active_problems
   end
 
   # GET /problems/1

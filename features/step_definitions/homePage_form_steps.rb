@@ -6,6 +6,24 @@ Given /^the problem "(.*)" is due in (.*) days$/ do |problem, days|
   problem.save
 end
 
+Given /^the course of problem "(.*)" is archived$/ do |problem|
+  problem = Problem.all.find_by(title: problem)
+  courses = problem.courses
+  courses.each do |course|
+    course.is_archived = true
+    course.save
+  end
+end
+
+Given /^the course of problem "(.*)" is not archived$/ do |problem|
+  problem = Problem.all.find_by(title: problem)
+  courses = problem.courses
+  courses.each do |course|
+    course.is_archived = false
+    course.save
+  end
+end
+
 
 Given /^I am in "(.*)" and have "(.*)" assigned to me$/ do |course, problem|
   course = Course.all.find_by(name: course)
