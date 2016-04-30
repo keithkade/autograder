@@ -4,17 +4,19 @@ class QuizSubmissionsController < ApplicationController
   # GET /quiz_submissions
   # GET /quiz_submissions.json
   def index
-    @quiz_submissions = QuizSubmission.all
+    kick_student_out_of_page
+    @quiz_submissions = []
   end
 
   # GET /quiz_submissions/1
   # GET /quiz_submissions/1.json
   def show
+    kick_if_wrong_student(@quiz_submission.studentid)
     @quiz = Quiz.find_by_id(@quiz_submission.quizid)
     @questions = QuizQuestion.where(:quizid => @quiz.id)
     @answers = Hash.new
     @questions.each do |question|
-      @answers[question.id] = QuizStudentAnswer.find_by_questionid(question.id)
+      @answers[question.id] = QuizStudentAnswer.where(:questionid => question.id).where(:studentid => session[:user_id]).first
     end
   end
 
@@ -40,12 +42,22 @@ class QuizSubmissionsController < ApplicationController
         
         questions = QuizQuestion.where(:quizid => @quiz_submission.quizid)
         questions.each do |question|
-          answer = QuizStudentAnswer.create!(
+          answer_params = {
             :studentid => @quiz_submission.studentid,
             :submissionid => @quiz_submission.id,
             :questionid => question.id,
             :answer => params["question_#{question.id}"]
-          )
+          }
+          
+          if question.question.automatic?
+            if answer_params[:answer] == question.question.correct_answer
+              answer_params[:points] = question.points
+            else
+              answer_params[:points] = 0
+            end
+          end
+          
+          answer = QuizStudentAnswer.create!(answer_params)
           answer.save
         end
         
@@ -61,7 +73,8 @@ class QuizSubmissionsController < ApplicationController
   # PATCH/PUT /quiz_submissions/1
   # PATCH/PUT /quiz_submissions/1.json
   def update
-    redirect_to @quiz_submission
+    kick_student_out_of_page
+    
     respond_to do |format|
       if @quiz_submission.update(quiz_submission_params)
         format.html { redirect_to @quiz_submission, notice: 'Quiz submission was successfully updated.' }
@@ -95,5 +108,15 @@ class QuizSubmissionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def quiz_submission_params
       params.require(:quiz_submission).permit(:studentid, :quizid, :time_taken)
+    end
+    
+    def kick_student_out_of_page
+      redirect_to quizzes_path
+    end
+    
+    def kick_if_wrong_student(student_id)
+      if logged_in_student? and student_id != session[:user_id]
+        kick_student_out_of_page
+      end
     end
 end

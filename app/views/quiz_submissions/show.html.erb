@@ -7,13 +7,28 @@
 <% end %>
 
 <p><strong>Submitted:</strong> <%= @quiz_submission.created_at.strftime("%d %b, %I:%M %p") %></p>
-<div class="alert alert-success">
-  <p><strong>Grade:</strong> ????</p>
+<div class="student-grade">
+  <% if @quiz_submission.graded? %>
+    <p><%= @quiz_submission.raw_score %> (<%= @quiz_submission.score %> %)</p>
+  <% else %>
+    <p>Grade Pending</p>
+  <% end %>
 </div>
 
 <div class="quiz-questions-list">
   <% @questions.each_with_index do |question, i| %>
-    <h1>Question <%= i + 1 %></h1>
+    <div class="alert alert-<%= @answers[question.id].status_css_class %> row">
+      <div class="col-sm-6">
+        <h1>Question <%= i + 1 %></h1>
+      </div>
+      <div class="col-sm-6" style="text-align: right;">
+        <% if @answers[question.id].graded? %>
+          <h1><%= @answers[question.id].raw_score %></h1>
+        <% else %>
+          <h1>Pending</h1>
+        <% end %>
+      </div>
+    </div>
     <%= render question.submission_layout, :question => question.question, :given_answer => @answers[question.id].answer %>
   <% end %>
 </div>

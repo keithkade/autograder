@@ -4,7 +4,7 @@ class QuizzesController < ApplicationController
   # GET /quizzes
   # GET /quizzes.json
   def index
-    @quizzes = Quiz.all
+    @quizzes = Quiz.order('end_time DESC')
     student = Student.find_by_id(session[:user_id])
     quizzes = Quiz.where(:courseid => student.courses.map(&:id))
     
