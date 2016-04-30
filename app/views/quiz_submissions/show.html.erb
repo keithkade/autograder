@@ -30,5 +30,11 @@
       </div>
     </div>
     <%= render question.submission_layout, :question => question.question, :given_answer => @answers[question.id].answer %>
+    <% if not @answers[question.id].comments.nil? and @answers[question.id].comments.length > 0 %>
+      <div class="admin-comments well">
+        <p><strong>Instructor Comments:</strong></p>
+        <p><%= @answers[question.id].comments %></p>
+      </div>
+    <% end %>
   <% end %>
 </div>

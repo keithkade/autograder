@@ -28,6 +28,7 @@ $dangerVeryLight: #F2DEDE;
 
 $successLight: #CBE2C1;
 $warningLight: #F9F4D6;
+$infoLight:  #BAE2F4;
 $dangerLight: #EFCECE;
 
 $failVeryLight: $dangerVeryLight;
@@ -341,7 +342,9 @@ tr.clickable-row:hover {
     }
 }
 tr.clickable-row.success:hover,
-tr.clickable-row.danger:hover {
+tr.clickable-row.danger:hover,
+tr.clickable-row.info:hover,
+tr.clickable-row.warning:hover {
     td {  background: none; }
 }
 
@@ -351,6 +354,9 @@ tr.warning {  background-color: $warningVeryLight; }
 tr.fail { background-color: $failVeryLight; }
 
 tr.clickable-row.success:hover {  background: $successLight; }
+tr.clickable-row.warning:hover {  background: $warningLight; }
+tr.clickable-row.danger:hover {  background: $dangerLight; }
+tr.clickable-row.info:hover {  background: $infoLight; }
 tr.clickable-row.fail:hover  {  background: $failLight;  }
 
 .text-btn {

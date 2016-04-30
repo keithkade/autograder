@@ -4,7 +4,21 @@ class Admin::QuizzesController < ApplicationController
   # GET /quizzes
   # GET /quizzes.json
   def index
-    @quizzes = Quiz.all
+    @quizzes = Quiz.order(:end_time)
+    if params.include?(:courseid)
+      session[:quiz_list_courseid] = params[:courseid]
+    elsif session.include?(:quiz_list_courseid)
+      redirect_to admin_quizzes_path(:courseid => session[:students_list_courseid])
+    else
+      redirect_to admin_quizzes_path(:courseid => -1)
+    end
+    
+    @courseid = params[:courseid].to_i
+    @courses = Course.unarchived.order(:name)
+    if @courseid >= 0
+    # Literally: Keep if the courseid is in the students' list of courses
+      @quizzes = Array(@quizzes).keep_if { |quiz| quiz.courseid == @courseid }
+    end
   end
 
   # GET /quizzes/1
@@ -23,7 +37,11 @@ class Admin::QuizzesController < ApplicationController
     @student_submission_status = Hash.new('danger')
     @submissions.each do |submission|
       @student_submission[submission.studentid] = submission
-      @student_submission_status[submission.studentid] = 'success'
+      if submission.graded?
+        @student_submission_status[submission.studentid] = 'success'
+      else
+        @student_submission_status[submission.studentid] = 'info'
+      end
     end
   end
 

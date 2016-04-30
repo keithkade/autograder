@@ -52,7 +52,7 @@
           <td class="clickable-row-main-cell"><%= student.Name %></td>
           <td><%= @student_submission[student.id].created_at.strftime("%d %b, %I:%M %p") %></td>
           <td><%= @student_submission[student.id].time_taken %></td>
-          <td>???</td>
+          <td><% if @student_submission[student.id].graded? %><%= @student_submission[student.id].score %> %<% else %>Pending<% end %></td>
         </tr>
       <% else %>
         <tr class="<%= @student_submission_status[student.id] %>">

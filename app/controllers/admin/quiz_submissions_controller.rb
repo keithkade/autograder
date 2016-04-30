@@ -10,14 +10,24 @@ class Admin::QuizSubmissionsController < ApplicationController
   # GET /quiz_submissions/1
   # GET /quiz_submissions/1.json
   def show
+    @quiz = Quiz.find_by_id(@quiz_submission.quizid)
+    if params.include?(:submitted)
+      submit_feedback
+      flash[:success] = "Your feedback was submitted!"
+      redirect_to admin_quiz_path(@quiz)
+    end
+    
+    @student = Student.find_by_id(@quiz_submission.studentid)
+    @questions = QuizQuestion.where(:quizid => @quiz.id)
+    @answers = Hash.new
+    @questions.each do |question|
+      @answers[question.id] = QuizStudentAnswer.where(:questionid => question.id).where(:studentid => @quiz_submission.studentid).first
+    end
   end
 
   # GET /quiz_submissions/new
   def new
     @quiz_submission = QuizSubmission.new
-    @student = Student.find_by_id(session[:user_id])
-    @quiz = Quiz.find_by_id(params[:quizid])
-    @questions = QuizQuestion.where(:quizid => @quiz.id)
   end
 
   # GET /quiz_submissions/1/edit
@@ -89,5 +99,21 @@ class Admin::QuizSubmissionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def quiz_submission_params
       params.require(:quiz_submission).permit(:studentid, :quizid, :time_taken)
+    end
+    
+    def submit_feedback
+      questions = QuizQuestion.where(:quizid => @quiz.id)
+      questions.each do |question|
+        answer = QuizStudentAnswer.where(:questionid => question.id).where(:studentid => @quiz_submission.studentid).first
+        update_things = Hash.new
+        if params.include?("points_#{answer.id}")
+          update_things[:points] = params["points_#{answer.id}"]
+        end
+        if params.include?("comments_#{answer.id}")
+          update_things[:comments] = params["comments_#{answer.id}"]
+        end
+        answer.update(update_things)
+        answer.save
+      end
     end
 end

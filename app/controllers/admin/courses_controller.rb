@@ -6,19 +6,20 @@ class Admin::CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
+    @courses = Course.order(:name).where(:is_archived => false)
     
     if not params.include?(:semester)
       #show current classes (from today's year)
-      @courses = Course.where(year: Time.now.year)
+      @courses = @courses.where(year: Time.now.year)
     
     elsif (params[:semester] == 'All' && params[:year] == '')
-      @courses = Course.all
+      @courses = @courses
     elsif (params[:semester] != '' && params[:year] == '')
-      @courses = Course.where(semester: params[:semester])
+      @courses = @courses.where(semester: params[:semester])
     elsif (params[:semester] == 'All' && params[:year] != '')
-      @courses = Course.where(year: params[:year])
+      @courses = @courses.where(year: params[:year])
     elsif
-      @courses = Course.where(year: params[:year], semester: params[:semester])
+      @courses = @courses.where(year: params[:year], semester: params[:semester])
     end  
   end
 
@@ -104,6 +105,6 @@ class Admin::CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name)
+      params.require(:course).permit(:name, :semester, :year, :is_archived)
     end
 end
