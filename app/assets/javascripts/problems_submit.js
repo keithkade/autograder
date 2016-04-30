@@ -15,7 +15,7 @@ var pageLoadTime = new Date();
 var editor;
 
 function Setup() {
-    console.log("setting up");
+    console.log('%c Oh my heavens! ', 'background: #222; color: #bada55');
     
     //this is a naive way to make sure this script doesn't run on all pages
     if (!document.getElementById('editor')){
