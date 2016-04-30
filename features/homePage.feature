@@ -25,7 +25,6 @@ Feature: Student Homepage/Problems
     And I am in "test course" and have "test problem" assigned to me
     And the course of problem "test problem" is archived
     And I am on the student problems page
-    Then show me the page
     Then I should not see "test problem"
 
   Scenario: See active problems
