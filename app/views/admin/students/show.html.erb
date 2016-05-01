@@ -59,6 +59,7 @@
       <th>Cases Passed</th>
       <th>Problem</th>
       <th>Time Submitted</th>
+      <th title="Minutes between first page load and this submission">Time Spent</th>
     </tr>
   </thead>
   <tbody>
@@ -76,6 +77,7 @@
           <% end %>
         </td>
         <td><%= submission.time_submitted.strftime("%d %b, %I:%M %p") %></td>
+        <td><%= (submission.time_submitted.to_i - submission.page_loaded_at.to_i) / 60 %></td>
       </tr>
     <% end %>
   </tbody>

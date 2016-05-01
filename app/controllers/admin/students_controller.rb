@@ -42,7 +42,6 @@ class Admin::StudentsController < ApplicationController
 
     @submissions.each do |submission|
 
-      #TODO write test for these
       problem = Problem.find_by_id(submission.problem_id)
       if not problem.nil?
         @problemNames[submission.problem_id] = problem.title
