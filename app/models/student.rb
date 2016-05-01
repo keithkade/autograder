@@ -5,6 +5,10 @@ class Student < ActiveRecord::Base
         tuples = CourseUserRelation.where(:user => id)
         Course.where(:id => tuples.map(&:course))
     end
+    
+    def submissions
+    	Submission.where(:student_id => self.id)
+    end
 
     def problems
         courses = self.courses

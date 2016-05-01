@@ -46,15 +46,35 @@ class Admin::StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show
+    
     @courses = @student.courses
+    
     @submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
     @problemNames = Hash.new
 
     @testCaseResults = []
 
     @submissions.each do |submission|
-
       #TODO write test for these
+      
+      
+       if params.include?(:problem) 
+        
+        if (Problem.find_by_title(params[:problem]) == nil)
+          flash[:notice] = "No submission found for that problem"
+          @submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
+        else  # when problem title cannot be found -> just show all submissions
+           @submissions = @student.submissions.where(:problem_id => Problem.find_by_title(params[:problem]).id)
+        end
+    
+        #if @submissions == nil
+         # flash[:notice] = "No submission found for that problem"
+          #@submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
+        #end
+       
+       end
+      
+        
       problem = Problem.find_by_id(submission.problem_id)
       if not problem.nil?
         @problemNames[submission.problem_id] = problem.title

@@ -10,4 +10,8 @@ class Submission < ActiveRecord::Base
     def results_obj
         JSON.parse(self.result)
     end
+    
+    def problem
+        Problem.find_by_id(self.problem_id)
+    end
 end
