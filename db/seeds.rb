@@ -57,12 +57,12 @@ courses = [{:name => 'CSCE 111', :semester => 'Spring', :year => 2016, :is_archi
            {:name => 'CSCE 420', :semester => 'FallB', :year => 2018, :is_archived => false},
            ]
 
-students = [{:FirstName => 'Dillon', :LastName => 'Dishman', :ID => 2222, :UserName => 'dman', :Password => 'password'},
-           {:FirstName => 'Kade', :LastName => 'Keith', :ID => 2223, :UserName => 'kdog', :Password => 'drowssap'},
-           {:FirstName => 'William', :LastName => 'Bracho Blok', :ID => 2224, :UserName => 'villham', :Password => 'drowpass'},
-           {:FirstName => 'Timothy', :LastName => 'Foster', :ID => 2225, :UserName => 'timayh', :Password => 'wordssap'},
-           {:FirstName => 'Matt', :LastName => 'Saari', :ID => 2226, :UserName => 'imsaari', :Password => 'password'},
-           {:FirstName => 'Jeff Dean', :LastName => '', :ID => 0, :UserName => 'the one', :Password => ''},
+students = [{:FirstName => 'Dillon', :LastName => 'Dishman', :ID => 2222, :UserName => 'dman', :password => 'password'},
+           {:FirstName => 'Kade', :LastName => 'Keith', :ID => 2223, :UserName => 'kdog', :password => 'drowssap'},
+           {:FirstName => 'William', :LastName => 'Bracho Blok', :ID => 2224, :UserName => 'villham', :password => 'drowpass'},
+           {:FirstName => 'Timothy', :LastName => 'Foster', :ID => 2225, :UserName => 'timayh', :password => 'wordssap'},
+           {:FirstName => 'Matt', :LastName => 'Saari', :ID => 2226, :UserName => 'imsaari', :password => 'password'},
+           {:FirstName => 'Jeff Dean', :LastName => '', :ID => 0, :UserName => 'the one', :password => ' '},
            ]
     
 problems = [{:title => 'Hello World', :due_date => DateTime.parse('1 May 2016 11:59:59 PM'), :summary => 'Will write hello world', :input_description => 'none', :output_description => 'print Hello World!', :skeleton => 'n\a', :language => 'java'},

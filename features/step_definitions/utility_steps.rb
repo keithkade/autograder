@@ -18,7 +18,7 @@ end
 Given /^I have the existing student dman$/ do
   student = Student.new
   student.UserName = "dman"
-  student.Password = "password"
+  student.password = "password"
   student.FirstName = "Dillon"
   student.LastName = "Dishman"
   student.save
@@ -27,7 +27,7 @@ end
 Given /^I am logged in as Student/ do
   student = Student.new
   student.UserName = "dman"
-  student.Password = "password"
+  student.password = "password"
   student.FirstName = "Dillon"
   student.LastName = "Dishman"
   student.save
