@@ -1,0 +1,15 @@
+<div class="free-response-question">
+  <div class="question-text" style="margin-bottom: 16px;">
+    <%= question.question %>
+  </div>
+  <div class="question-answer">
+    <div class="student-answer">
+      <p><strong>Student's Answer: </strong></p>
+      <%= given_answer %>
+    </div>
+    <div class="alert alert-success">
+      <p><strong>Instructor's Answer: </strong></p>
+      <%= question.correct_answer %>
+    </div>
+  </div>
+</div>

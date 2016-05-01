@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :quizzes
     resources :quiz_submissions
     resources :quiz_multiple_choice_questions
+    resources :quiz_free_response_questions
   end
 
   resources :quizzes
