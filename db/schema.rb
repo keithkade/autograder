@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424184235) do
+ActiveRecord::Schema.define(version: 20160501193852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,14 @@ ActiveRecord::Schema.define(version: 20160424184235) do
     t.text     "output_description"
     t.text     "language"
     t.datetime "due_date"
+  end
+
+  create_table "quiz_free_response_questions", force: :cascade do |t|
+    t.text     "correct_answer"
+    t.text     "question"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "questionid"
   end
 
   create_table "quiz_multiple_choice_questions", force: :cascade do |t|

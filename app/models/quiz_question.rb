@@ -3,6 +3,8 @@ class QuizQuestion < ActiveRecord::Base
         case self.qtype
         when 'multiple_choice'
             QuizMultipleChoiceQuestion.find_by_id(self.qid)
+        when 'free_response'
+            QuizFreeResponseQuestion.find_by_id(self.qid)
         else
             nil
         end
@@ -21,6 +23,6 @@ class QuizQuestion < ActiveRecord::Base
     end
     
     def self.question_types
-        ["multiple_choice"]
+        ["multiple_choice", "free_response"]
     end
 end

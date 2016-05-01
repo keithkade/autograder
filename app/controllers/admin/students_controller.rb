@@ -73,8 +73,6 @@ class Admin::StudentsController < ApplicationController
         #end
        
        end
-      
-        
       problem = Problem.find_by_id(submission.problem_id)
       if not problem.nil?
         @problemNames[submission.problem_id] = problem.title
