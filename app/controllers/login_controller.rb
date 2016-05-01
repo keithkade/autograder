@@ -10,8 +10,9 @@ class LoginController < ApplicationController
   end
 
   def create
-    user = Student.find_by(UserName: params['user'], Password:  params['password'])
-    if not user.nil?
+    user = Student.find_by(UserName: params['user'])
+
+    if not user.nil? and user.authenticate(params['password'])
       log_in_student(user.id)
       flash[:notice] = "Welcome #{user.Name}!"
       redirect_to '/home'

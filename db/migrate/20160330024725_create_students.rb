@@ -4,7 +4,7 @@ class CreateStudents < ActiveRecord::Migration
       t.string :Name
       t.string :ID
       t.string :UserName
-      t.string :Password
+      t.string :password_digest
       t.string :Class
 
       t.timestamps null: false

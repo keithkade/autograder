@@ -1,6 +1,8 @@
 class Student < ActiveRecord::Base
     require 'pp'
 
+    has_secure_password
+
     def courses
         tuples = CourseUserRelation.where(:user => id)
         Course.where(:id => tuples.map(&:course))
