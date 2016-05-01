@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  Creating a Free Response Question
+<% end %>
+
+<% content_for :actions do %>
+  <%= link_to 'Cancel', admin_quiz_path(@quiz), :class => 'btn btn-danger' %>
+<% end %>
+
+<%= render edit_quiz_question_layout, :question => @question, :form_layout => 'admin/quiz_free_response_questions/form' %>
