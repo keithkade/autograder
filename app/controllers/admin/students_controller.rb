@@ -61,10 +61,13 @@ class Admin::StudentsController < ApplicationController
        if params.include?(:problem) 
         
         if (Problem.find_by_title(params[:problem]) == nil)
-          flash[:notice] = "No submission found for that problem"
+          flash[:notice] = "No submission found for that problem!"
           @submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
-        else  # when problem title cannot be found -> just show all submissions
-           @submissions = @student.submissions.where(:problem_id => Problem.find_by_title(params[:problem]).id)
+          #redirect_to admin_student_path(@student)
+        else  
+          @submissions = @student.submissions.where(:problem_id => Problem.find_by_title(params[:problem]).id)
+          flash[:notice] = "Submission(s) successfully found!" 
+          #redirect_to admin_student_path(@student)
         end
     
         #if @submissions == nil
