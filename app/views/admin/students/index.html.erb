@@ -5,16 +5,6 @@
 <% content_for :options_top do %>
   <%= link_to 'New Student', new_admin_student_path, :class => 'btn btn-primary' %><br />
    
-    <form class="form-inline">
-      <div class="form-group">
-        <label>sort by</label>
-        <select name="semester" class="form-control">
-          <option value="Grades">Grades</option>
-        </select>
-      </div>
-      <%= submit_tag 'Refresh', :class => 'btn btn-default' %>
-    </form>
-  
     <form name="filter_by_course">
       <label>Find student by course</label>
       <select class="form-control" name="courseid" onchange="submit();">
@@ -23,20 +13,22 @@
           <option value="<%= course.id %>"<% if course.id == @courseid %> selected="selected"<% end %>><%= course.name %></option>
         <% end %>
       </select>
-    </form>
-    
-    
-    <form name="Find_Student">
       <div class="form-group">
-        <label>Find student by ID/Name</label>
-        <input type="text" class="form-control" name="year" />
-      </div>
+          <label>Find Student by name/ID</label>
+          <input type="text" class="form-control" name="estudiante" />
+        </div>
       <%= submit_tag 'Refresh', :class => 'btn btn-default' %>
     </form>
-
-  
- 
+    
 <% end %>
+
+<!-- good gode above ------------------------------------------------- !-->
+
+
+
+
+
+<!-- good gode Below ------------------------------------------------- !-->
 
 <table class="table">
   <thead>

@@ -9,7 +9,12 @@ class Admin::StudentsController < ApplicationController
   def index
   # Remember which option was selected for course filtering
   
-    if params.include?(:courseid)
+    if params.include?(:estudiante)
+      puts("************************************MERWEBO*************************************")
+     # @student = Student.find_by_id(:estudiante)
+      #redirect_to admin_students_path(:id => params[:estudiante])
+
+    elsif params.include?(:courseid)
       session[:students_list_courseid] = params[:courseid]
     elsif session.include?(:students_list_courseid)
       redirect_to admin_students_path(:courseid => session[:students_list_courseid])
