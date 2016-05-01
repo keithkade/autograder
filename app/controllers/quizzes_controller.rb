@@ -9,9 +9,10 @@ class QuizzesController < ApplicationController
     quizzes = Quiz.where(:courseid => student.courses.map(&:id))
     
     submissions = QuizSubmission.where(:studentid => session[:user_id])
-    @quizzes_to_take = Array(quizzes).clone.keep_if { |quiz| (not submissions.map { |submission| submission.quizid }.include?(quiz.id)) and (not Time.now > quiz.end_time) }
+  # Cannot take quizzes which have already been submitted, have passed the end time, or are before hte start time
+    @quizzes_to_take = Array(quizzes).clone.keep_if { |quiz| (not submissions.map { |submission| submission.quizid }.include?(quiz.id)) and (not Time.now > quiz.end_time) and (not Time.now < quiz.start_time) }
     
-    @quizzes_submitted_or_missed = Array(quizzes).clone.keep_if { |quiz| not @quizzes_to_take.map { |quiz2| quiz2.id }.include?(quiz.id) }
+    @quizzes_submitted_or_missed = Array(quizzes).clone.keep_if { |quiz| not @quizzes_to_take.map { |quiz2| quiz2.id }.include?(quiz.id) and (not Time.now < quiz.start_time) }
     @submissions = Hash.new
     submissions.each do |submission|
       @submissions[submission.quizid] = submission

@@ -6,7 +6,7 @@
       <th>Title</th>
       <th>Course</th>
       <th>Quiz Closes</th>
-      <th>Time Limit</th>
+  <!--<th>Time Limit</th>-->
     </tr>
   </thead>
 
@@ -16,7 +16,7 @@
         <td class="clickable-row-main-cell"><%= quiz.title %></td>
         <td><%= quiz.course.name %></td>
         <td><%= quiz.end_time.strftime("%d %b, %I:%M %p") %></td>
-        <td><% if quiz.time_limit == 0 %>No limit<% else %><%= quiz.time_limit %> minutes<% end %></td>
+        <!--<td><% if quiz.time_limit == 0 %>No limit<% else %><%= quiz.time_limit %> minutes<% end %></td>-->
       </tr>
     <% end %>
   </tbody>
@@ -43,8 +43,8 @@
           <td><% if @submissions[quiz.id].graded? %><%= @submissions[quiz.id].score %> %<% else %>Pending<% end %></td>
         </tr>
       <% else %>
-        <tr class="clickable-row">
-          <td class="clickable-row-main-cell"><%= quiz.title %></td>
+        <tr class="danger">
+          <td><%= quiz.title %></td>
           <td><%= quiz.course.name %></td>
           <td>Not Submitted</td>
           <td>0 %</td>
