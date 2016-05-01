@@ -1,0 +1,35 @@
+<%= form_for(@quiz_submission) do |f| %>
+  <% if @quiz_submission.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@quiz_submission.errors.count, "error") %> prohibited this quiz_submission from being saved:</h2>
+
+      <ul>
+      <% @quiz_submission.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="hidden-fields hide">
+    <%= f.hidden_field :studentid, :value => @student.id %>
+    <%= f.hidden_field :quizid, :value => params[:quizid] %>
+    <%= f.hidden_field :time_taken, :value => 0 %>
+  </div>
+  
+  <div class="quiz-questions">
+    <% @questions.each_with_index do |question, i| %>
+      <div class="quiz-question">
+        <h1>Question <%= i+1 %></h1>
+        <p><strong>Points Possible:</strong> <%= question.points %></p>
+        <%= render question.take_question_layout, :question => question.question, :index => question.id %>
+        <hr />
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Submit', :class => 'btn btn-primary btn-max btn-large' %>
+    <%= yield(:actions) %>
+  </div>
+<% end %>

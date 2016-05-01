@@ -2,6 +2,14 @@
 
 <% content_for :options_top do %>
   <%= link_to 'New Quiz', new_admin_quiz_path, :class => 'btn btn-primary' %>
+  <form name="filter_by_course">
+    <select class="form-control" name="courseid" onchange="submit();">
+      <option value="-1">All Courses</option>
+      <% @courses.each do |course| %>
+        <option value="<%= course.id %>"<% if course.id == @courseid %> selected="selected"<% end %>><%= course.name %></option>
+      <% end %>
+    </select>
+  </form>
 <% end %>
 
 <table class="quizzes-list-table table">

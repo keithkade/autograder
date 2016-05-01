@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Quiz Multiple Choice Questions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Correct answer</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @quiz_multiple_choice_questions.each do |quiz_multiple_choice_question| %>
+      <tr>
+        <td><%= quiz_multiple_choice_question.question %></td>
+        <td><%= quiz_multiple_choice_question.correct_answer %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

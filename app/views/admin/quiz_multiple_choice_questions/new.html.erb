@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  Creating a Multiple Choice Question
+<% end %>
+
+<% content_for :actions do %>
+  <%= link_to 'Cancel', admin_quiz_path(@quiz), :class => 'btn btn-danger' %>
+<% end %>
+
+<%= render edit_quiz_question_layout, :question => @question, :form_layout => 'admin/quiz_multiple_choice_questions/form' %>

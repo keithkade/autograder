@@ -12,6 +12,12 @@
   <%= link_to 'Delete', admin_course_path(@course), :method => :delete, :data => { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %>
 <% end %>
 
+<% if @course.is_archived %>
+  <div class="alert alert-danger">
+    <p>This class has been <strong>archived</strong>.</p>
+  </div>
+<% end %>
+
 <div class="row">
   <div class="course-students col-sm-6">
     <h1>Enrolled Students</h1>

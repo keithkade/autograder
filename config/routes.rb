@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :quiz_submissions
   resources :course_user_relations
   resources :course_problem_relations
 
@@ -21,8 +22,11 @@ Rails.application.routes.draw do
     resources :students
     resources :submissions
     resources :quizzes
+    resources :quiz_submissions
+    resources :quiz_multiple_choice_questions
   end
 
+  resources :quizzes
   resources :problems do
     member do
       get 'evaluate'
