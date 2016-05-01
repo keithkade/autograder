@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20160501193852) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -131,6 +132,7 @@ ActiveRecord::Schema.define(version: 20160501193852) do
     t.string   "Saves"
     t.string   "Quizs_grade"
     t.string   "Problems_grade"
+    t.string   "lateProblemsGrade"
   end
 
   create_table "submissions", force: :cascade do |t|
@@ -143,6 +145,7 @@ ActiveRecord::Schema.define(version: 20160501193852) do
     t.datetime "time_submitted"
     t.integer  "problem_id"
     t.integer  "student_id"
+    t.boolean  "complete"
   end
 
 end
