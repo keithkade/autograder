@@ -1,0 +1,19 @@
+<%= form_for [:admin, question] do |f| %>
+  <div class="hidden-fields hide">
+    <input type="text" name="qtype" value="<%= params[:qtype] %>" />
+    <input type="number" name="quizid" value="<%= params[:quizid] %>" />
+  </div>
+  
+  <div class="form-group">
+    <label>Points Possible</label>
+    <input type="text" class="form-control" name="points" value="<%= params[:points] %>" />
+  </div>
+  
+  <%= render form_layout, :f => f %>
+  
+  <div class="form-actions">
+    <%= f.submit :class => 'btn btn-primary' %>
+    <%= yield(:actions) %>
+  </div>
+
+<% end %>

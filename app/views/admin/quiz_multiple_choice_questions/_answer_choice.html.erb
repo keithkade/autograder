@@ -1,0 +1,11 @@
+<div id="answer-choice-<%= letter %>" class="form-group">
+  <div class="col-xs-12 text-btn-group hide">
+    <button class="text-btn text-btn-primary"><span class="glyphicon glyphicon-chevron-up"></span></button>
+    <button class="text-btn text-btn-primary"><span class="glyphicon glyphicon-chevron-down"></span></button>
+    <button class="text-btn text-btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+  </div>
+  <label class="control-label col-xs-1"><%= letter %></label>
+  <div class="col-xs-11">
+    <%= f.text_field "answer_#{letter}", :class => 'form-control' %>
+  </div>
+</div>

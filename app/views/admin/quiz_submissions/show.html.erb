@@ -1,0 +1,39 @@
+<% content_for :title do %>
+  Submission for <%= @quiz.title %>
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Submission List', admin_quiz_path(@quiz), :class => 'btn btn-default' %>
+  <button class="btn btn-primary" onclick="document.admin_feedback.submit()">Submit Feedback</button>
+<% end %>
+
+<p><strong>Student:</strong> <%= link_to @student.Name, admin_student_path(@student) %></p>
+<p><strong>Submitted:</strong> <%= @quiz_submission.created_at.strftime("%d %b, %I:%M %p") %></p>
+<div class="student-grade">
+  <% if @quiz_submission.graded? %>
+    <p><%= @quiz_submission.raw_score %> (<%= @quiz_submission.score %> %)</p>
+  <% else %>
+    <p>Grade Pending</p>
+  <% end %>
+</div>
+
+<div class="quiz-questions-list">
+  <form name="admin_feedback">
+    <input type="hidden" name="submitted" value="true" />
+    <% @questions.each_with_index do |question, i| %>
+      <div class="alert alert-<%= @answers[question.id].status_css_class %> row">
+        <div class="col-sm-6">
+          <h1>Question <%= i + 1 %></h1>
+        </div>
+        <div class="col-sm-6" style="text-align: right;">
+          <h1 class="form-inline"><input type="text" class="form-control" style="width: 50px;" name="points_<%= @answers[question.id].id %>" value="<%= @answers[question.id].points %>" /> / <%= question.points %></h1>
+        </div>
+      </div>
+      <%= render question.submission_layout, :question => question.question, :given_answer => @answers[question.id].answer %>
+      <div class="form-group">
+        <label>Your Comments</label>
+        <textarea class="form-control" name="comments_<%= @answers[question.id].id %>" rows="4"><%= @answers[question.id].comments %></textarea>
+      </div>
+    <% end %>
+  </form>
+</div>

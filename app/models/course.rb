@@ -8,4 +8,13 @@ class Course < ActiveRecord::Base
         tuples = CourseUserRelation.where(:course => id)
         Student.where(:id => tuples.map(&:user))
     end
+    
+  # alias using ruby convention
+    def archived?
+        self.is_archived
+    end
+    
+    def self.unarchived
+        Course.where(:is_archived => false)
+    end
 end

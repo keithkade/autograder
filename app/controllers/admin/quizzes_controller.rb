@@ -4,12 +4,45 @@ class Admin::QuizzesController < ApplicationController
   # GET /quizzes
   # GET /quizzes.json
   def index
-    @quizzes = Quiz.all
+    @quizzes = Quiz.order(:end_time)
+    if params.include?(:courseid)
+      session[:quiz_list_courseid] = params[:courseid]
+    elsif session.include?(:quiz_list_courseid)
+      redirect_to admin_quizzes_path(:courseid => session[:students_list_courseid])
+    else
+      redirect_to admin_quizzes_path(:courseid => -1)
+    end
+    
+    @courseid = params[:courseid].to_i
+    @courses = Course.unarchived.order(:name)
+    if @courseid >= 0
+    # Literally: Keep if the courseid is in the students' list of courses
+      @quizzes = Array(@quizzes).keep_if { |quiz| quiz.courseid == @courseid }
+    end
   end
 
   # GET /quizzes/1
   # GET /quizzes/1.json
   def show
+    @course = Course.find_by_id(@quiz.courseid)
+    @questions = QuizQuestion.where(:quizid => @quiz.id)
+    @initial_qtype = QuizQuestion.question_types[0]
+    
+  # Builds a list of students with submissions
+  # Not every student will have submitted a quiz, but we want to display all of
+  # the students anyways.  Those missing a submission will be marked "danger"
+    @students = @course.users.order(:LastName)
+    @submissions = QuizSubmission.where(:quizid => @quiz.id)
+    @student_submission = Hash.new
+    @student_submission_status = Hash.new('danger')
+    @submissions.each do |submission|
+      @student_submission[submission.studentid] = submission
+      if submission.graded?
+        @student_submission_status[submission.studentid] = 'success'
+      else
+        @student_submission_status[submission.studentid] = 'info'
+      end
+    end
   end
 
   # GET /quizzes/new
@@ -56,6 +89,12 @@ class Admin::QuizzesController < ApplicationController
   # DELETE /quizzes/1
   # DELETE /quizzes/1.json
   def destroy
+  # Must destroy all associated questions also
+    @questions = @quiz.questions
+    @questions.each do |question|
+      question.question.destroy
+      question.destroy
+    end
     @quiz.destroy
     respond_to do |format|
       format.html { redirect_to admin_quizzes_url, notice: 'Quiz was successfully destroyed.' }

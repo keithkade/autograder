@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424211632) do
+ActiveRecord::Schema.define(version: 20160424184235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,11 +60,45 @@ ActiveRecord::Schema.define(version: 20160424211632) do
     t.datetime "due_date"
   end
 
+  create_table "quiz_multiple_choice_questions", force: :cascade do |t|
+    t.text     "question"
+    t.string   "correct_answer"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "answer_A"
+    t.string   "answer_B"
+    t.string   "answer_C"
+    t.string   "answer_D"
+    t.string   "answer_E"
+    t.integer  "questionid"
+  end
+
   create_table "quiz_questions", force: :cascade do |t|
     t.string   "qtype"
     t.integer  "qid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "points"
+    t.integer  "quizid"
+  end
+
+  create_table "quiz_student_answers", force: :cascade do |t|
+    t.integer  "studentid"
+    t.integer  "submissionid"
+    t.integer  "questionid"
+    t.text     "answer"
+    t.integer  "points"
+    t.text     "comments"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "quiz_submissions", force: :cascade do |t|
+    t.integer  "studentid"
+    t.integer  "quizid"
+    t.integer  "time_taken"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "quizzes", force: :cascade do |t|
@@ -87,8 +121,6 @@ ActiveRecord::Schema.define(version: 20160424211632) do
     t.string   "LastName"
     t.string   "FirstName"
     t.string   "Saves"
-    t.float    "problemGrades"
-    t.float    "quizGrades"
     t.string   "Quizs_grade"
     t.string   "Problems_grade"
   end

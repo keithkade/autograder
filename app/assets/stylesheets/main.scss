@@ -28,6 +28,7 @@ $dangerVeryLight: #F2DEDE;
 
 $successLight: #CBE2C1;
 $warningLight: #F9F4D6;
+$infoLight:  #BAE2F4;
 $dangerLight: #EFCECE;
 
 $failVeryLight: $dangerVeryLight;
@@ -318,6 +319,8 @@ main {
 
 /*  Utility (@util)
  *  ==========================================================================*/
+.italic {  font-style: italic; }
+
 .alert-debug {
     color: black;
     border: 3px solid black;
@@ -339,13 +342,31 @@ tr.clickable-row:hover {
     }
 }
 tr.clickable-row.success:hover,
-tr.clickable-row.danger:hover {
+tr.clickable-row.danger:hover,
+tr.clickable-row.info:hover,
+tr.clickable-row.warning:hover {
     td {  background: none; }
 }
 
 tr.success { background-color: $successVeryLight; }
-
+tr.danger { background-color: $dangerVeryLight; }
+tr.warning {  background-color: $warningVeryLight; }
 tr.fail { background-color: $failVeryLight; }
 
 tr.clickable-row.success:hover {  background: $successLight; }
+tr.clickable-row.warning:hover {  background: $warningLight; }
+tr.clickable-row.danger:hover {  background: $dangerLight; }
+tr.clickable-row.info:hover {  background: $infoLight; }
 tr.clickable-row.fail:hover  {  background: $failLight;  }
+
+.text-btn {
+    border: none;
+    background: none;
+    color: #CCC;
+}
+.text-btn.text-btn-default:hover {  color: #676767;  }
+.text-btn.text-btn-primary:hover {  color: $primary; }
+.text-btn.text-btn-info:hover    {  color: $info;    }
+.text-btn.text-btn-success:hover {  color: $success; }
+.text-btn.text-btn-warning:hover {  color: $warning; }
+.text-btn.text-btn-danger:hover  {  color: $danger;  }

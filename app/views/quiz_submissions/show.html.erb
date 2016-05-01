@@ -1,0 +1,40 @@
+<% content_for :title do %>
+  Submission for <%= @quiz.title %>
+<% end %>
+
+<% content_for :options do %>
+  <%= link_to 'Quiz List', quizzes_path, :class => 'btn btn-default' %>
+<% end %>
+
+<p><strong>Submitted:</strong> <%= @quiz_submission.created_at.strftime("%d %b, %I:%M %p") %></p>
+<div class="student-grade">
+  <% if @quiz_submission.graded? %>
+    <p><%= @quiz_submission.raw_score %> (<%= @quiz_submission.score %> %)</p>
+  <% else %>
+    <p>Grade Pending</p>
+  <% end %>
+</div>
+
+<div class="quiz-questions-list">
+  <% @questions.each_with_index do |question, i| %>
+    <div class="alert alert-<%= @answers[question.id].status_css_class %> row">
+      <div class="col-sm-6">
+        <h1>Question <%= i + 1 %></h1>
+      </div>
+      <div class="col-sm-6" style="text-align: right;">
+        <% if @answers[question.id].graded? %>
+          <h1><%= @answers[question.id].raw_score %></h1>
+        <% else %>
+          <h1>Pending</h1>
+        <% end %>
+      </div>
+    </div>
+    <%= render question.submission_layout, :question => question.question, :given_answer => @answers[question.id].answer %>
+    <% if not @answers[question.id].comments.nil? and @answers[question.id].comments.length > 0 %>
+      <div class="admin-comments well">
+        <p><strong>Instructor Comments:</strong></p>
+        <p><%= @answers[question.id].comments %></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

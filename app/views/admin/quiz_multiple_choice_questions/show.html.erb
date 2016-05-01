@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @quiz_multiple_choice_question.question %>
+</p>
+
+<p>
+  <strong>Correct answer:</strong>
+  <%= @quiz_multiple_choice_question.correct_answer %>
+</p>
+
+<%= link_to 'Edit', edit_quiz_multiple_choice_question_path(@quiz_multiple_choice_question) %> |
+<%= link_to 'Back', quiz_multiple_choice_questions_path %>

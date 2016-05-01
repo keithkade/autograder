@@ -18,9 +18,10 @@ class Admin::StudentsController < ApplicationController
     end
   # @courseid is used in the view to set the default option in the select field
     @courseid = params[:courseid].to_i
-    @courses = Course.order(:name)
+    @courses = Course.unarchived.order(:name)
     @students = Student.order(:LastName)
     @students.each do |student|
+      student.problems_grade
       #getGrade(student.id)
     end
 

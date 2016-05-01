@@ -49,12 +49,12 @@ public class useCode {
 }'
 
 
-courses = [{:name => 'CSCE 111', :semester => 'Spring', :year => 2016},
-           {:name => 'CSCE 121', :semester => 'Fall', :year => 2016},
-           {:name => 'CSCE 222', :semester => 'Spring', :year => 2017},
-           {:name => 'CSCE 482', :semester => 'Spring', :year => 2017},
-           {:name => 'CSCE 431', :semester => 'Summer', :year => 2018},
-           {:name => 'CSCE 420', :semester => 'Winter', :year => 2018},
+courses = [{:name => 'CSCE 111', :semester => 'Spring', :year => 2016, :is_archived => false},
+           {:name => 'CSCE 121', :semester => 'Fall', :year => 2016, :is_archived => false},
+           {:name => 'CSCE 222', :semester => 'Spring', :year => 2017, :is_archived => false},
+           {:name => 'CSCE 482', :semester => 'Spring', :year => 2017, :is_archived => false},
+           {:name => 'CSCE 431', :semester => 'Summer', :year => 2018, :is_archived => false},
+           {:name => 'CSCE 420', :semester => 'Winter', :year => 2018, :is_archived => false},
            ]
 
 students = [{:FirstName => 'Dillon', :LastName => 'Dishman', :ID => 2222, :UserName => 'dman', :Password => 'password'},
@@ -68,7 +68,8 @@ students = [{:FirstName => 'Dillon', :LastName => 'Dishman', :ID => 2222, :UserN
 problems = [{:title => 'Hello World', :due_date => DateTime.parse('1 May 2016 11:59:59 PM'), :summary => 'Will write hello world', :input_description => 'none', :output_description => 'print Hello World!', :skeleton => 'n\a', :language => 'java'},
             {:title => 'IO Practice Java', :due_date => DateTime.parse('2 May 2016 11:59:59 PM'), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'java'},
             {:title => 'IO Practice Python', :due_date => DateTime.parse('4 May 2016 11:59:59 PM'), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'python'},
-            {:title => 'Sort a List', :due_date => DateTime.parse('25 April 11:59:59 PM'), :summary => 'You will need to write a program that can take in a generic size list and sort it using any the of sorting algorithms we learned in class. Write the sorting method yourself, do not use library sorting methods.', :input_description => 'Unsorted ArrayList of Numbers', :output_description => 'Sorted Array List of Integers', :skeleton => java_skeleton, :language => 'java'}
+            {:title => 'Sort a List', :due_date => DateTime.parse('25 April 11:59:59 PM'), :summary => 'You will need to write a program that can take in a generic size list and sort it using any the of sorting algorithms we learned in class. Write the sorting method yourself, do not use library sorting methods.', :input_description => 'Unsorted ArrayList of Numbers', :output_description => 'Sorted Array List of Integers', :skeleton => java_skeleton, :language => 'java'},
+            {:title => 'OLD', :due_date => DateTime.parse('1 May 2016 11:59:59 PM'), :summary => 'W', :input_description => 'none', :output_description => 'print!', :skeleton => 'n\a', :language => 'java'},
             ]
 
 problem_tests = [{:problemid => 1, :title => 'main case', :input => '', :output => ''},
@@ -79,13 +80,13 @@ problem_tests = [{:problemid => 1, :title => 'main case', :input => '', :output 
                  {:problemid => 4, :title => 'Unsorted List Sorting', :input => '1 3 2 9 2 8 5 6 3', :output => '1 2 2 3 3 5 6 8 9 '},
                  ]
 
-course_student_relations = [{:course => 1, :student => 1}, {:course => 2, :student => 2}, {:course => 3, :student => 2}, {:course => 4, :student => 3}, {:course => 5, :student => 3},  {:course => 6, :student => 6},
+course_student_relations = [{:course => 1, :student => 1}, {:course => 2, :student => 2}, {:course => 3, :student => 2}, {:course => 4, :student => 3}, {:course => 5, :student => 3},  {:course => 6, :student => 6}, {:course => 7, :student => 6},
                             {:course => 1, :student => 2}, {:course => 2, :student => 4}, {:course => 3, :student => 4}, {:course => 4, :student => 4}, {:course => 5, :student => 4},
                             {:course => 1, :student => 5}, {:course => 2, :student => 6}, {:course => 3, :student => 6}, {:course => 4, :student => 6}, {:course => 5, :student => 6},
                             {:course => 1, :student => 6},
                             ]
 
-course_problem_relations = [{:course => 1, :problem => 1}, {:course => 2, :problem => 2}, {:course => 3, :problem => 2}, {:course => 4, :problem => 2}, {:course => 5, :problem => 2}, {:course => 6, :problem => 2},
+course_problem_relations = [{:course => 1, :problem => 1}, {:course => 2, :problem => 2}, {:course => 3, :problem => 2}, {:course => 4, :problem => 2}, {:course => 5, :problem => 2}, {:course => 6, :problem => 2}, {:course => 7, :problem => 5},
                             {:course => 1, :problem => 2}, {:course => 2, :problem => 3}, {:course => 3, :problem => 3}, {:course => 4, :problem => 4}, {:course => 5, :problem => 4}, {:course => 6, :problem => 4},
                             {:course => 1, :problem => 3}, {:course => 2, :problem => 4}, {:course => 3, :problem => 4},
                             {:course => 1, :problem => 4},

@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  Creating Quiz
+<% end %>
+
+<% content_for :actions do %>
+  <%= link_to 'Cancel', admin_quizzes_path, :class => 'btn btn-danger' %>
+<% end %>
+
+<%= render 'form' %>
