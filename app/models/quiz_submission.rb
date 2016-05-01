@@ -32,6 +32,10 @@ class QuizSubmission < ActiveRecord::Base
   end
   
   def score
-    100 * self.points / quiz.points_possible
+    if quiz.points_possible !=0
+      return 100 * self.points / quiz.points_possible
+    else
+      return 100
+    end
   end
 end
