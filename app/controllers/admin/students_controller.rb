@@ -34,7 +34,7 @@ class Admin::StudentsController < ApplicationController
   def sort
     if (@student.find{|student| student.problems_grade = nil})
       flash[:notice] = "all students must have a grade assigned!"
-      redirect_to movies_path
+      redirect_to admin_student_path
       else
         @students.sort_by(&:Problems_grade).reverse.each do |student|
       end

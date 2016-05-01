@@ -53,6 +53,17 @@
 
 <h1>Submissions</h1>
 <table class="table submissions">
+  
+  <form name="Filter_Submissions">
+      <div class="form-group">
+        <label>Filter Submission</label>
+        <input type="text" class="form-control" name="problem" />
+      </div>
+      <%= submit_tag 'Refresh', :class => 'btn btn-default' %>
+  </form>
+  
+  
+  
   <thead>
     <tr>
       <th>Passed?</th>
