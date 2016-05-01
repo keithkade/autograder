@@ -188,6 +188,9 @@ function SaveCode(){
 function LoadCode(){
     $.get(document.URL + '/load', {}, function(response) {
         editor.setValue(response.code);
-        pageLoadTime = new Date(response.pageLoadTime * 1000);
+        //if a student loads before they save this prevents time screw up
+        if (response.pageLoadTime != 0){
+            pageLoadTime = new Date(response.pageLoadTime * 1000);
+        }
     });
 }
