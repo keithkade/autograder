@@ -67,7 +67,6 @@ class Student < ActiveRecord::Base
     	else
     		grade = "No Quizzes"
     	end
-    	pp grade
     	student = Student.find(self.id)
     	student.Quizs_grade = grade
     	student.save!
