@@ -34,9 +34,14 @@
 
   <div class="student-courses-form">
     <strong>Select Courses:</strong><br />
-    <% @courses.each do |course| %>
+    <%rels = CourseUserRelation.where(:user => @student.id)%>
+    <%rels2 = Hash.new(false)%>
+    <%rels.each do |rel|%>
+      <%rels2[rel.course] = true%>
+    <%end%>
+    <% Course.where(:is_archived => false).each do |course| %>
       <div class="checkbox"><label>
-        <%= check_box_tag "course-checkbox-#{course.id}", "", @rels[course.id] %> <%= course.name %>
+        <%= check_box_tag "course-checkbox-#{course.id}", "", rels2[course.id] %> <%= course.name %>
       </label></div>
     <% end %>
   </div>

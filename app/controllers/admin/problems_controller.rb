@@ -42,7 +42,7 @@ class Admin::ProblemsController < ApplicationController
   # POST /problems.json
   def create
     @problem = Problem.new(problem_params)
-
+    
     respond_to do |format|
       if @problem.save
         relate_with_courses

@@ -2,7 +2,7 @@ class Student < ActiveRecord::Base
     require 'pp'
 
     has_secure_password
-
+    validates_uniqueness_of :ID
     def courses
         tuples = CourseUserRelation.where(:user => id)
         Course.where(:id => tuples.map(&:course))
@@ -67,7 +67,6 @@ class Student < ActiveRecord::Base
     	else
     		grade = "No Quizzes"
     	end
-    	pp grade
     	student = Student.find(self.id)
     	student.Quizs_grade = grade
     	student.save!

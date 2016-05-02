@@ -92,6 +92,9 @@ class Admin::CoursesController < ApplicationController
       for student in students do
         student.problems_grade
         student.quizs_grade
+        if(student.Quizs_grade == nil or student.Problems_grade == nil or student.lateProblemsGrade == nil)
+          sleep(0.5)
+        end
         file.write(student.ID.to_s + ',' + student.LastName + ',' + student.FirstName + ',' + student.Problems_grade + "," + student.lateProblemsGrade + "," + student.Quizs_grade + "\n")
       end
     end

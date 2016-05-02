@@ -98,12 +98,12 @@ class Admin::StudentsController < ApplicationController
   # GET /students/new
   def new
     @student = Student.new
-    @courses = Course.all
-    rels = CourseUserRelation.where(:user => @student.id)
-    @rels = Hash.new(false)
-    rels.each do |rel|
-      @rels[rel.course] = true
-    end
+    # @courses = Course.all
+    # rels = CourseUserRelation.where(:user => @student.id)
+    # @rels = Hash.new(false)
+    # rels.each do |rel|
+    #   @rels[rel.course] = true
+    # end
   end
 
   # GET /students/1/edit

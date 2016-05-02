@@ -37,6 +37,7 @@
       <th>Id</th>
       <th>Username</th>
       <th title="Test cases passed out of test cases total for problems past due">Grade</th>
+      <th title="Number of Problems that are Late">Late</th>
       <th>Classes</th>
     </tr>
   </thead>
@@ -48,6 +49,7 @@
         <td><%= student.ID %></td>
         <td><%= student.UserName %></td>
         <td><%= student.Problems_grade %></td>
+        <td><%= student.incomplete_problems_past_due.count %></td>
         <td><%= student.courses.map { |course| course.name }.join(", ") %></td>
       </tr>
     <% end %>
