@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resources :problems do
     member do
       get 'evaluate'
+      get 'submit'
       get 'submissions'
       get 'load'
       post 'save'

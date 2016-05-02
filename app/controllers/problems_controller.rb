@@ -41,7 +41,37 @@ class ProblemsController < ApplicationController
                                     :student_id => session[:user_id],
                                     :problem_id => params[:id],
                                     :result => result.to_json,
-                                    :status => status)
+                                    :status => status,
+                                    :complete => false)
+
+    submission.save
+    render json: result, status: 200
+  end
+
+
+  # GET /problems/1/submit
+  def submit
+    result = eval_code(params[:code], params[:id])
+
+    status = true
+    if result[:status] == 'fail'
+      status = false
+    elsif result[:status] == 'success'
+      result[:results].each do |test_case|
+        if test_case[:result] == "fail"
+          status = false
+        end
+      end
+    end
+
+    submission = Submission.create!(:code => params[:code],
+                                    :time_submitted => DateTime.strptime(params[:time_submitted],'%s'),
+                                    :page_loaded_at => DateTime.strptime(params[:page_loaded_at],'%s'),
+                                    :student_id => session[:user_id],
+                                    :problem_id => params[:id],
+                                    :result => result.to_json,
+                                    :status => status,
+                                    :complete => true)
 
     submission.save
     render json: result, status: 200
