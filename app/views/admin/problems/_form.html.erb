@@ -22,11 +22,7 @@
   
   <div class="form-group">
     <%= f.label :language %>
-    <select class="form-control">
-      <% Problem.languages.each do |language| %>
-        <option<% if language == @problem.language %> selected="selected"<% end %>><%= language.capitalize %></option>
-      <% end %>
-    </select>
+    <%= f.select :language, Problem.languages %>
   </div>
 
   <div class="form-group">
@@ -38,17 +34,17 @@
     <%= f.label :summary %>
     <%= f.text_area :summary, :rows => 9, :class => 'form-control' %>
   </div>
-  
+
   <div class="form-group">
     <%= f.label :input_description %>
     <%= f.text_area :input_description, :rows => 9, :class => 'form-control' %>
   </div>
-  
+
   <div class="form-group">
     <%= f.label :output_description %>
     <%= f.text_area :output_description, :rows => 9, :class => 'form-control' %>
   </div>
-  
+
   <div class="form-group">
     <%= f.label :skeleton %>
     <%= f.text_area :skeleton, :rows => 9, :class => 'form-control' %>
