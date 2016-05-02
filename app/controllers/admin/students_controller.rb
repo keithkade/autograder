@@ -13,6 +13,7 @@ class Admin::StudentsController < ApplicationController
       puts("************************************MERWEBO*************************************")
      # @student = Student.find_by_id(:estudiante)
       #redirect_to admin_students_path(:id => params[:estudiante])
+      redirect_to action: "show", id: 5
 
     elsif params.include?(:courseid)
       session[:students_list_courseid] = params[:courseid]
