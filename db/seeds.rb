@@ -51,10 +51,10 @@ public class useCode {
 
 courses = [{:name => 'CSCE 111', :semester => 'Spring', :year => 2016, :is_archived => false},
            {:name => 'CSCE 121', :semester => 'Fall', :year => 2016, :is_archived => false},
-           {:name => 'CSCE 222', :semester => 'Spring', :year => 2017, :is_archived => false},
-           {:name => 'CSCE 482', :semester => 'Spring', :year => 2017, :is_archived => false},
-           {:name => 'CSCE 431', :semester => 'Summer', :year => 2018, :is_archived => false},
-           {:name => 'CSCE 420', :semester => 'Winter', :year => 2018, :is_archived => false},
+           {:name => 'CSCE 222', :semester => 'FY', :year => 2017, :is_archived => false},
+           {:name => 'CSCE 482', :semester => 'SpringB', :year => 2017, :is_archived => false},
+           {:name => 'CSCE 431', :semester => 'FY', :year => 2018, :is_archived => false},
+           {:name => 'CSCE 420', :semester => 'FallB', :year => 2018, :is_archived => false},
            ]
 
 students = [{:FirstName => 'Dillon', :LastName => 'Dishman', :ID => 2222, :UserName => 'dman', :password => 'password'},

@@ -88,9 +88,14 @@ class Admin::CoursesController < ApplicationController
   def download
     students = Course.find(params[:courseid]).users
     File.open("roster.csv", 'w') do |file|
+      file.write("Id,Last Name,First Name,Problems Grade,Late Problems Grades,Quizzes Grade\n")
       for student in students do
         student.problems_grade
-        file.write(student.LastName + ',' + student.FirstName + ',' + student.Problems_grade + "\n")
+        student.quizs_grade
+        if(student.Quizs_grade == nil or student.Problems_grade == nil or student.lateProblemsGrade == nil)
+          sleep(0.5)
+        end
+        file.write(student.ID.to_s + ',' + student.LastName + ',' + student.FirstName + ',' + student.Problems_grade + "," + student.lateProblemsGrade + "," + student.Quizs_grade + "\n")
       end
     end
     send_file(File.join(Rails.root, "roster.csv"))

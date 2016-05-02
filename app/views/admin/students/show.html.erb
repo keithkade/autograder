@@ -47,8 +47,77 @@
   </div>
 </div>
 
+<% if @student.incomplete_problems_past_due.count !=0 %>
+  <h1>Overdue Problems</h1>
+  <table class="problems-list-table table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Courses</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @student.incomplete_problems_past_due.each do |problem| %>
+        <tr class="clickable-row" data-href="<%= admin_problem_path(problem) %>">
+          <td class="clickable-row-main-cell"><%= problem.title %></td>
+          <td><span class="due-date"><%= problem.due_date.strftime("%d %b, %I:%M %p") %></span></td>
+          <td><%= problem.courses.map { |course| course.name }.join(", ") %></td>
+        </tr>
+        <% if Submission.where(:problem_id => problem.id).where(:student_id => @student.id).count != 0 %>
+        <tr><td colspan="3">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Passed?</th>
+                <th>Cases Passed</th>
+                <th>Problem</th>
+                <th>Time Submitted</th>
+                <th title="Minutes between first page load and this submission">Minutes Spent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% Submission.where(:problem_id => problem.id).where(:student_id => @student.id).each.with_index do |submission, index| %>
+                <tr class="clickable-row <% if submission.status %>success<% else %>fail<% end %>" data-href="<%= admin_submission_path(submission) %>">
+                  <td>
+                    <% if submission.status %><span>&#10003;</span><% else %><span>&#10007;</span><% end %>
+                  </td>
+                  <td><%= @testCaseResults[index] %></td>
+                  <td>
+                    <% if @problemNames.include?(submission.problem_id) %>
+                      <%= @problemNames[submission.problem_id] %>
+                    <% else %>
+                      <strong><span class="text-danger">INVALID PROBLEM</span></strong>
+                    <% end %>
+                  </td>
+                  <td><%= submission.time_submitted.strftime("%d %b, %I:%M %p") %></td>
+                  <td><%= (submission.time_submitted.to_i - submission.page_loaded_at.to_i) / 60 %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          </td></tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+
 <h1>Submissions</h1>
 <table class="table submissions">
+  
+  <form name="Filter_Submissions">
+      <div class="form-group">
+        <label>Filter Submission</label>
+        <input type="text" class="form-control" name="problem" />
+      </div>
+      <%= submit_tag 'Refresh', :class => 'btn btn-default' %>
+  </form>
+  
+  
+  
   <thead>
     <tr>
       <th>Passed?</th>

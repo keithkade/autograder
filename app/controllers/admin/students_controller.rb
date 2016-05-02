@@ -8,6 +8,7 @@ class Admin::StudentsController < ApplicationController
   # GET /students.json
   def index
   # Remember which option was selected for course filtering
+  
     if params.include?(:courseid)
       session[:students_list_courseid] = params[:courseid]
     elsif session.include?(:students_list_courseid)
@@ -31,17 +32,50 @@ class Admin::StudentsController < ApplicationController
     end
   end
 
+  def sort
+    if (@student.find{|student| student.problems_grade = nil})
+      flash[:notice] = "all students must have a grade assigned!"
+      redirect_to admin_student_path
+      else
+        @students.sort_by(&:Problems_grade).reverse.each do |student|
+      end
+    end
+  end
+
+
   # GET /students/1
   # GET /students/1.json
   def show
+    
     @courses = @student.courses
+    
     @submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
     @problemNames = Hash.new
 
     @testCaseResults = []
 
     @submissions.each do |submission|
-
+      #TODO write test for these
+      
+      
+       if params.include?(:problem) 
+        
+        if (Problem.find_by_title(params[:problem]) == nil)
+          flash[:notice] = "No submission found for that problem!"
+          @submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
+          #redirect_to admin_student_path(@student)
+        else  
+          @submissions = @student.submissions.where(:problem_id => Problem.find_by_title(params[:problem]).id)
+          flash[:notice] = "Submission(s) successfully found!" 
+          #redirect_to admin_student_path(@student)
+        end
+    
+        #if @submissions == nil
+         # flash[:notice] = "No submission found for that problem"
+          #@submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
+        #end
+       
+       end
       problem = Problem.find_by_id(submission.problem_id)
       if not problem.nil?
         @problemNames[submission.problem_id] = problem.title
@@ -58,12 +92,12 @@ class Admin::StudentsController < ApplicationController
   # GET /students/new
   def new
     @student = Student.new
-    @courses = Course.all
-    rels = CourseUserRelation.where(:user => @student.id)
-    @rels = Hash.new(false)
-    rels.each do |rel|
-      @rels[rel.course] = true
-    end
+    # @courses = Course.all
+    # rels = CourseUserRelation.where(:user => @student.id)
+    # @rels = Hash.new(false)
+    # rels.each do |rel|
+    #   @rels[rel.course] = true
+    # end
   end
 
   # GET /students/1/edit
