@@ -5,26 +5,29 @@
 <% content_for :options_top do %>
   <%= link_to 'New Student', new_admin_student_path, :class => 'btn btn-primary' %><br />
    
-    <form name="filter_by_course">
-      <label>Find student by course</label>
-      <select class="form-control" name="courseid" onchange="submit();">
-        <option value="-1">All Courses</option>
-        <% @courses.each do |course| %>
-          <option value="<%= course.id %>"<% if course.id == @courseid %> selected="selected"<% end %>><%= course.name %></option>
-        <% end %>
-      </select>
-      <div class="form-group">
+   <div class="row">
+     <div class="col-sm-6" style="text-align: left;">
+      <form name="filter_by_course">
+        <label>Find student by course</label>
+        <select class="form-control" name="courseid" onchange="submit();">
+          <option value="-1">All Courses</option>
+          <% @courses.each do |course| %>
+            <option value="<%= course.id %>"<% if course.id == @courseid %> selected="selected"<% end %>><%= course.name %></option>
+          <% end %>
+        </select>
+      </form>
+    </div>
+    
+    <div class="col-sm-6" style="text-align: left;">
+      <form name="filter_by_course">
+        <div class="form-group">
           <label>Find Student by name/ID</label>
           <input type="text" class="form-control" name="estudiante" />
-      </div>
-    </form>
-    
+        </div>
+      </form>
+    </div>
+  </div>
 <% end %>
-
-<!-- good gode above ------------------------------------------------- !-->
-
-
-
 
 
 <!-- good gode Below ------------------------------------------------- !-->

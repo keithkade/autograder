@@ -9,16 +9,14 @@ class Admin::StudentsController < ApplicationController
   def index
   # Remember which option was selected for course filtering
   
-    if params.include?(:estudiante)
+    if params.include?(:estudiante) && params[:estudiante].length > 0 
      # @student = Student.find_by_id(:estudiante)
      #redirect_to admin_students_path(:courseid => params[:estudiante])
       #redirect_to action: "show", Student.find_by_id()
-      if (params[:estudiante].first == '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9' or '0')
-        puts("*********************************LOOK FOR ID####################################")
-        @student = Student.where(:ID => params[:estudiante])
+      if (params[:estudiante].first =~ /[[0-9]]/)
+        @students = Student.where(:ID => params[:estudiante])
       else
-        puts("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@LOOK FOR NAME@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        @student = Student.where(:LastName => params[:estudiante])
+        @students = Student.where(:LastName => params[:estudiante])
       end
       
     elsif params.include?(:courseid)
@@ -34,7 +32,6 @@ class Admin::StudentsController < ApplicationController
     
     if (not params.include?(:estudiante))
       
-      pp("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
       @students = Student.order(:LastName)
       @students.each do |student|
         student.problems_grade
@@ -47,8 +44,6 @@ class Admin::StudentsController < ApplicationController
         @students = Array(@students).keep_if { |student| student.courses.map { |course| course.id }.include?(@courseid) }
       end
     end
-    @students = Array(@students).keep_if{ |student| student.ID == params[:estudiante]}
-    pp @student
   end
 
   def sort
