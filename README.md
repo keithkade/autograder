@@ -33,10 +33,9 @@ Answer to Seed Problems
 
 IO Practice Java
 ```
-import java.io.*;
 import java.util.*;
 public class useCode {
-    public static void main(String args[]) throws IOException{
+    public static void main(String args[]){
         Scanner in = new Scanner(System.in);
         while (in.hasNext()) {
             System.out.print(in.next());
@@ -49,6 +48,6 @@ IO Practice Python
 ```
 from __future__ import print_function
 text = raw_input()
-print(text, end="")
+print(text)
 ```
 

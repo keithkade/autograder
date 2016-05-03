@@ -11,51 +11,32 @@ describe ProblemsHelper, :type => :helper do
   
   describe "Running with java code" do
     it 'should succeed with good code' do
-      code = "import java.io.*;\n"+
-            "public class useCode {\n"+
-            " public static void main(String args[]) throws IOException{\n"+
-            "   FileInputStream in = null;\n"+
-            "   FileOutputStream out = null;\n"+
-            "   try {\n"+
-            "     in = new FileInputStream(\"input.txt\");\n"+
-            "     out = new FileOutputStream(\"output.txt\");\n"+
-            "     int c;\n"+
-            "     while ((c = in.read()) != -1) {\n"+
-            "       out.write(c);\n"+
-            "     }\n"+
-            "   }\n"+
-            "   finally {\n"+
-            "     if (in != null) {in.close();}\n"+
-            "     if (out != null) {out.close();}\n"+
-            "   }\n"+
-            "  }\n"+
-            "}"
+      code = "import java.util.*;\n
+public class useCode {\n
+    public static void main(String args[]){\n
+        Scanner in = new Scanner(System.in);\n
+        while (in.hasNext()) {\n
+            System.out.print(in.next());\n
+        }\n
+    }\n
+}"
       result = eval_code(code, 1)
       expect(result[:status]).to eq('success')
       expect(result[:err]).to eq('')
       expect(result[:results][0][:result]).to eq('success')
-      expect(result[:results][0][:err]).to eq(nil)
+      expect(result[:results][0][:err]).to eq('')
     end
     
     it 'should fail compile with bad code' do
-      code = "import java.io.*;\n"+
-            "public class useCode {\n"+
-            " public static void main(String args[]) throws IOException{\n"+
-            "   FileInputStream in = null;\n"+
-            "   FileOutputStream out = null;\n"+
-            "   try {\n"+
-            "     in = new FileInputStream(\"input.txt\")\n"+
-            "     int c;\n"+
-            "     while ((c = in.read()) != -1) {\n"+
-            "       out.write(c);\n"+
-            "     }\n"+
-            "   }\n"+
-            "   finally {\n"+
-            "     if (in != null) {in.close();}\n"+
-            "     if (out != null) {out.close();}\n"+
-            "   }\n"+
-            "  }\n"+
-            "}"
+      code = "import java.util.*;\n
+public class useCode {\n
+    public static void main(String args[]){\n
+        Scanner in = new Scanner(System.in)\n
+        while (in.hasNext()) {\n
+            System.out.print(in.next());\n
+        }\n
+    }\n
+}"
         
       result = eval_code(code, 1)
       expect(result[:status]).to eq('fail')
@@ -64,70 +45,59 @@ describe ProblemsHelper, :type => :helper do
     end
     
     it 'should pass compile and fail testcase with good, but wrong, code' do
-      code = "import java.io.*;\n"+
-            "public class useCode {\n"+
-            " public static void main(String args[]) throws IOException{\n"+
-            "   FileInputStream in = null;\n"+
-            "   FileOutputStream out = null;\n"+
-            "   try {\n"+
-            "     in = new FileInputStream(\"input.txt\");\n"+
-            "     out = new FileOutputStream(\"output.txt\");\n"+
-            "     int c;\n"+
-            "     while ((c = in.read()) != -1) {\n"+
-            "       out.write(c);\n"+
-            "       out.write(1);\n"+
-            "     }\n"+
-            "   }\n"+
-            "   finally {\n"+
-            "     if (in != null) {in.close();}\n"+
-            "     if (out != null) {out.close();}\n"+
-            "   }\n"+
-            "  }\n"+
-            "}"
+      code = "import java.util.*;\n
+public class useCode {\n
+    public static void main(String args[]){\n
+        Scanner in = new Scanner(System.in);\n
+        while (in.hasNext()) {\n
+            System.out.print(in.next());\n
+        }\n
+        System.out.println(\"Extra Stuff\");\n
+    }\n
+}"
       result = eval_code(code, 1)
       expect(result[:status]).to eq('success')
       expect(result[:err]).to eq('')
       expect(result[:results][0][:result]).to eq('fail')
-      expect(result[:results][0][:err]).to eq(nil)
+      expect(result[:results][0][:err]).to eq('')
     end
   end
   
   describe "Running with python code" do
     it 'should succeed with good code' do
-      code ="with open('output.txt', 'w') as f1:\n"+
-            "  for line in open('input.txt'):\n"+
-            "    f1.write(line)"
+      code ="from __future__ import print_function\n
+text = raw_input()\n
+print(text)"
             
       result = eval_code(code, 2)
       expect(result[:status]).to eq('success')
       expect(result[:err]).to eq('')
       expect(result[:results][0][:result]).to eq('success')
-      expect(result[:results][0][:err]).to eq(nil)
+      expect(result[:results][0][:err]).to eq('')
     end
     
-    it 'should fail compile with bad code' do
-      code ="with open('output.txt', 'w') as f1:\n"+
-            "  for line in open('input.txt'):\n"+
-            "f1.write(line)"
+    it 'should fail with bad code' do
+      code ="from __future__ import print_function\n
+text = rw_input()\n
+print(text)"
         
       result = eval_code(code, 2)
       expect(result[:status]).to eq('success')
       expect(result[:err]).to eq('')
       expect(result[:results][0][:result]).to eq('fail')
-      expect(result[:results][0][:err]).to_not eq(nil)
+      expect(result[:results][0][:err]).to_not eq('')
     end
     
-    it 'should pass compile and fail testcase with good, but wrong, code' do
-      code ="with open('output.txt', 'w') as f1:\n"+
-            "  for line in open('input.txt'):\n"+
-            "    f1.write(line)\n"+
-            "    f1.write('extra')\n"
+    it 'should fail with good, but wrong, code' do
+      code ="from __future__ import print_function\n
+text = raw_input()\n
+print(text + \"a\")"
             
       result = eval_code(code, 2)
       expect(result[:status]).to eq('success')
       expect(result[:err]).to eq('')
       expect(result[:results][0][:result]).to eq('fail')
-      expect(result[:results][0][:err]).to eq(nil)
+      expect(result[:results][0][:err]).to eq('')
     end
   end
 end
