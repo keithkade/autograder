@@ -23,6 +23,17 @@ class Student < ActiveRecord::Base
         all_problems
     end
 
+		def quizzes
+			courses = self.courses
+			all_quizzes = []
+
+			for course in courses
+				# Prevents duplicates of problems from appearing.
+				all_quizzes.concat(Array(course.quizzes).keep_if { |quiz| not all_quizzes.map { |quiz2| quiz2.id }.include?(quiz.id) })
+			end
+			all_quizzes
+		end
+
     def quiz_submissions
     	q_submissions = QuizSubmission.where(:studentid => self.id)
     end
@@ -41,6 +52,22 @@ class Student < ActiveRecord::Base
 			end
 
 			all_problems
+		end
+
+		def active_quizzes
+			quizzes = self.quizzes
+			active_quizzes = []
+
+			for course in courses
+				if course.is_archived
+					next
+				end
+
+				# Prevents duplicates of problems from appearing.
+				active_quizzes.concat(Array(course.quizzes).keep_if { |quiz| not active_quizzes.map { |quiz2| quiz2.id }.include?(quiz2.id) })
+			end
+
+			active_quizzes
 		end
 
     def Name
