@@ -1,4 +1,6 @@
 class Quiz < ActiveRecord::Base
+  before_destroy :destroy_dependents
+  
   def course
     Course.find_by_id(self.courseid)
   end
@@ -15,5 +17,10 @@ class Quiz < ActiveRecord::Base
       end
     end
     total
+  end
+  
+  def destroy_dependents
+    QuizQuestion.where(:quizid => self.id).each { |q| q.destroy }
+    QuizSubmission.where(:quizid => self.id).each { |q| q.destroy }
   end
 end

@@ -1,4 +1,5 @@
 class QuizQuestion < ActiveRecord::Base
+    
     def question
         case self.qtype
         when 'multiple_choice'
