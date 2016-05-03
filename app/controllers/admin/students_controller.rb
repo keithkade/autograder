@@ -22,9 +22,9 @@ class Admin::StudentsController < ApplicationController
     elsif params.include?(:courseid)
       session[:students_list_courseid] = params[:courseid]
     elsif session.include?(:students_list_courseid)
-      redirect_to admin_students_path(:courseid => session[:students_list_courseid])
+      redirect_to admin_students_path(:courseid => session[:students_list_courseid], :order => params[:order])
     else
-      redirect_to admin_students_path(:courseid => -1)
+      redirect_to admin_students_path(:courseid => -1, :order => params[:order])
     end
   # @courseid is used in the view to set the default option in the select field
     @courseid = params[:courseid].to_i
@@ -44,8 +44,12 @@ class Admin::StudentsController < ApplicationController
         @students = Array(@students).keep_if { |student| student.courses.map { |course| course.id }.include?(@courseid) }
       end
     end
+    #sort
+    if params.include?(:order)
+      puts("############################SORTING#####################")
+      sort
+    end
     
-    # sort
   end
 
   #def sort
