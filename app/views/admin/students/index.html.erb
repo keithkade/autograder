@@ -52,6 +52,7 @@
   
   <tbody>
     <% @students.each do |student| %>
+      <%if student.is_archived != true%>
       <tr class="clickable-row" data-href="<%= admin_student_path(student) %>">
         <td class="clickable-row-main-cell"><%= student.Name %></td>
         <td><%= student.ID %></td>
@@ -60,6 +61,7 @@
         <td><%= student.incomplete_problems_past_due.count %></td>
         <td><%= student.courses.map { |course| course.name }.join(", ") %></td>
       </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

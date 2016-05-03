@@ -31,6 +31,9 @@
     <%= f.label :password %><br>
     <%= f.text_field :password, :class => 'form-control' %>
   </div>
+  <div class="checkbox">
+    <label><%= f.check_box :is_archived, :class => 'form-control' %> Archive this Student?</label>
+  </div>
 
   <div class="student-courses-form">
     <strong>Select Courses:</strong><br />

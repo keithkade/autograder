@@ -48,7 +48,6 @@ public class useCode {
 IO Practice Python
 ```
 from __future__ import print_function
-
 text = raw_input()
 print(text, end="")
 ```
