@@ -44,17 +44,31 @@ class Admin::StudentsController < ApplicationController
         @students = Array(@students).keep_if { |student| student.courses.map { |course| course.id }.include?(@courseid) }
       end
     end
+    
+    # sort
   end
 
-  def sort
-    if (@student.find{|student| student.problems_grade = nil})
-      flash[:notice] = "all students must have a grade assigned!"
-      redirect_to admin_student_path
-      else
-        @students.sort_by(&:Problems_grade).reverse.each do |student|
-      end
+  #def sort
+   # if (@student.find{|student| student.problems_grade = nil})
+    #  flash[:notice] = "all students must have a grade assigned!"
+     # redirect_to admin_student_path
+    #  else
+     #   @students.sort_by(&:Problems_grade).reverse.each do |student|
+    #  end
+  #  end
+#  end
+
+def sort
+  @students = @students.sort_by do |student|
+    g = student.Problems_grade.split('/')
+    if (g[1] == "0")
+      -1
+    else
+      g[0].to_f/g[1].to_f
     end
   end
+  @students = @students.reverse
+end
 
 
   # GET /students/1
