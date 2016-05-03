@@ -16,9 +16,10 @@ var pageLoadTime = new Date();
 var editor;
 
 function Setup() {
-    //console.log('%c Oh my heavens! ', 'background: #222; color: #bada55');
+    console.log('%cHello inquisitive CS student. Welcome to our source code. Hopefully you are not trying to hack our site.' +
+                ' If you are, it will probably be easier to just do your assignment.', 'color: #772815; font-size: 20px');
     
-    //this is a naive way to make sure this script doesn't run on all pages
+    //make sure this script doesn't run on all pages
     if (!document.getElementById('editor')){
         return;
     }
