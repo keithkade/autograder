@@ -41,6 +41,7 @@
 <div id="editor" data-lang="<%= @problem.language %>"><pre><code><%= @problem.skeleton %></code></pre></div>
 
 <div class="submit-container">
+  <button id="evaluate-btn" class="btn btn-primary btn-max btn-large" onclick="EvaluateCode(editor.getValue(), 'submission-results')">Evaluate Code</button>
   <button id="submit-btn" class="btn btn-primary btn-max btn-large" onclick="SubmitCode(editor.getValue(), 'submission-results')">Submit Code</button>
   <div id="loader-area" class="load-container"></div>
   <div id="submission-results-after"></div>

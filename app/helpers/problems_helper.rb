@@ -5,12 +5,15 @@ require 'securerandom'
 module ProblemsHelper
   
   def eval_code(code, problemID)
-    compile_languages = ['java']
+    @compile_languages = ['java']
+    #@file_names also append SecureRandom.hex to prevent accidental collisions. Excluding only python.
+    @file_names = {python: 'student_code', folder: 'temp_', input: 'input_', expected_output: 'expected_', actual_output: 'output_'}
     
-    rand_folder_name = 'temp_' + SecureRandom.hex
+    begin 
+      rand_folder_name = @file_names[:folder] + SecureRandom.hex(8) 
+    end while Dir.exist?(rand_folder_name)
     FileUtils.mkdir(rand_folder_name)
     problem = Problem.find(problemID)
-    pp "what's happening" + rand_folder_name
     begin
       case problem.language
       when 'java'
@@ -20,7 +23,7 @@ module ProblemsHelper
         end
         file = rand_folder_name + '/' + name + '.java'
       when 'python'
-        file = rand_folder_name + '/useCode.py'
+        file = rand_folder_name + '/' + @file_names[:python] + '.py'
       else
         clean_files(rand_folder_name)
         return {:status => 'fail', :err => 'problem has to language set', :results => []}
@@ -29,7 +32,7 @@ module ProblemsHelper
         f.print code
       end
       
-      if compile_languages.include?(problem.language)
+      if @compile_languages.include?(problem.language)
         my_json = compile_problem(code, problem, rand_folder_name)
       else
         my_json = {}
@@ -40,6 +43,8 @@ module ProblemsHelper
       if my_json[:status] == 'success'
         my_json[:results] = execute_problem(code, problem, rand_folder_name)
       end
+    rescue => e
+      my_json = {:status => 'fail', :err => "Unknown Error in Ruby on Rails has occured. Running Code Suspended. Error: #{e}", :results => []}
     ensure
       clean_files(rand_folder_name)
     end
@@ -59,6 +64,14 @@ module ProblemsHelper
     else
       return nil
     end
+  end
+  
+  def files_equal?(file1, file2)
+    f1 = File.open(file1)
+    f2 = File.open(file2)
+    s1 = f1.read(f1.size).strip
+    s2 = f2.read(f2.size).strip
+    s1.eql?(s2)
   end
   
   def get_os_command(timeout, folder, command)
@@ -107,17 +120,17 @@ module ProblemsHelper
     case problem.language
     when 'java'
       name = determine_java_file_name(code)
-      command = get_os_command(10, folder, 'java ' + name + ' < input_' + my_append + '.txt > output_' + my_append + '.txt')
+      command = get_os_command(10, folder, 'java ' + name + ' < ' + @file_names[:input] + my_append + '.txt > ' + @file_names[:actual_output] + my_append + '.txt')
     when 'python'
-      command = get_os_command(10, folder, 'python useCode.py < input_' + my_append + '.txt > output_' + my_append + '.txt')
+      command = get_os_command(10, folder, 'python ' + @file_names[:python] + '.py < ' + @file_names[:input] + my_append + '.txt > ' + @file_names[:actual_output] + my_append + '.txt')
     end
     
     results_array = []  
     ProblemTestCase.where(problemid: problem.id).each do |testcase|
-      File.open(folder + '/input_' + my_append + '.txt', 'w') do |f|
+      File.open(folder + '/' + @file_names[:input] + my_append + '.txt', 'w') do |f|
         f.print testcase.input
       end
-      File.open(folder + '/expected_' + my_append + '.txt', 'w') do |f|
+      File.open(folder + '/' + @file_names[:expected_output] + my_append + '.txt', 'w') do |f|
         f.print testcase.output
       end
       
@@ -126,10 +139,18 @@ module ProblemsHelper
       result_hash = {}
       result_hash[:title] = testcase.title
       result_hash[:input] = testcase.input   
-      
-      if(runtimeStatus.success? && File.exists?(folder + '/output_' + my_append + '.txt')) 
-        FileUtils.compare_file(folder + '/expected_' + my_append + '.txt', folder + '/output_' + my_append + '.txt') ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
-        result_hash[:output] = File.read(folder + '/output_' + my_append + '.txt');
+      if runtimeStatus.success? && File.exists?(folder + '/' + @file_names[:actual_output] + my_append + '.txt') 
+        if files_equal?(folder + '/' + @file_names[:expected_output] + my_append + '.txt', folder + '/' + @file_names[:actual_output] + my_append + '.txt') 
+          result_hash[:result] = 'success'
+        else
+          result_hash[:result] = 'fail'
+        end
+        result_hash[:output] = File.read(folder + '/' + @file_names[:actual_output] + my_append + '.txt');
+        result_hash[:err] = runtimeError
+      elsif runtimeStatus.exitstatus == 124
+        result_hash[:result] = 'fail'
+        result_hash[:err] = 'Program timed out by Autograder for taking too long. (5+ seconds)'
+        result_hash[:output] = ''
       else
         result_hash[:result] = 'fail'
         result_hash[:err] = runtimeError

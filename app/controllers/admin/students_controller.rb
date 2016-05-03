@@ -150,7 +150,8 @@ class Admin::StudentsController < ApplicationController
   # PATCH/PUT /students/1.json
   def update
     relate_with_courses
-    
+    pp @student.UserName
+    pp @student.is_archived
     respond_to do |format|
       if @student.update(student_params)
         format.html { redirect_to admin_student_path(@student), notice: 'Student was successfully updated.' }
@@ -181,7 +182,7 @@ class Admin::StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:FirstName, :ID, :UserName, :password, :LastName, :Quizs_grade, :Problems_grade)
+      params.require(:student).permit(:FirstName, :ID, :UserName, :password, :LastName, :Quizs_grade, :Problems_grade, :is_archived)
     end
     
     def relate_with_courses

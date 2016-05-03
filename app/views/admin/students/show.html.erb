@@ -73,7 +73,7 @@
                 <th>Passed?</th>
                 <th>Cases Passed</th>
                 <th>Problem</th>
-                <th>Time Submitted</th>
+                <th>Timestamp</th>
                 <th title="Minutes between first page load and this submission">Minutes Spent</th>
               </tr>
             </thead>
@@ -121,9 +121,10 @@
   <thead>
     <tr>
       <th>Passed?</th>
+      <th>Submitted</th>
       <th>Cases Passed</th>
       <th>Problem</th>
-      <th>Time Submitted</th>
+      <th>Timestamp</th>
       <th title="Minutes between first page load and this submission">Minutes Spent</th>
     </tr>
   </thead>
@@ -133,6 +134,7 @@
         <td>
           <% if submission.status %><span>&#10003;</span><% else %><span>&#10007;</span><% end %>
         </td>
+        <td><%= submission.complete %></td>
         <td><%= @testCaseResults[index] %></td>
         <td>
           <% if @problemNames.include?(submission.problem_id) %>
