@@ -77,7 +77,6 @@ class Admin::ProblemsController < ApplicationController
   # DELETE /problems/1
   # DELETE /problems/1.json
   def destroy
-    CourseProblemRelation.destroy_by_problem(@problem.id)
     @problem.destroy
     respond_to do |format|
       format.html { redirect_to admin_problems_url, notice: 'Problem was successfully destroyed.' }

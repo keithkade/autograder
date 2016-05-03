@@ -179,7 +179,6 @@ end
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
-    CourseUserRelation.destroy_by_user(@student.id)
     @student.destroy
     respond_to do |format|
       format.html { redirect_to admin_students_url, notice: 'Student was successfully destroyed.' }

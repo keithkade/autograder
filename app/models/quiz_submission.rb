@@ -1,4 +1,6 @@
 class QuizSubmission < ActiveRecord::Base
+  before_destroy :destroy_dependents
+  
   def student
     Student.find_by_id(self.studentid)
   end
@@ -37,5 +39,10 @@ class QuizSubmission < ActiveRecord::Base
     else
       return 100
     end
+  end
+  
+private
+  def destroy_dependents
+    QuizStudentAnswer.where(:submissionid => self.id).each { |s| s.destroy }
   end
 end

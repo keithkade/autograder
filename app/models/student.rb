@@ -1,5 +1,7 @@
 class Student < ActiveRecord::Base
     require 'pp'
+    
+    before_destroy :destroy_dependents
 
     has_secure_password
     validates_uniqueness_of :ID
@@ -170,6 +172,15 @@ class Student < ActiveRecord::Base
 			end
 		end
 		return missing_problems
+	end
+	
+private
+	def destroy_dependents
+		CourseUserRelation.destroy_by_user(self.id)
+		
+		Submission.where(:student_id => self.id).each { |s| s.destroy }
+		QuizSubmission.where(:studentid => self.id).each { |s| s.destroy }
+		QuizStudentAnswer.where(:studentid => self.id).each { |s| s.destroy }
 	end
 
 end

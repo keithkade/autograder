@@ -75,8 +75,6 @@ class Admin::CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    CourseProblemRelation.destroy_by_course(@course.id)
-    CourseUserRelation.destroy_by_course(@course.id)
     @course.destroy
     respond_to do |format|
       format.html { redirect_to admin_courses_url, notice: 'Course was successfully destroyed.' }
