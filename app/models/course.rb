@@ -1,4 +1,6 @@
 class Course < ActiveRecord::Base
+    before_destroy :destroy_dependents
+    
     def problems
         tuples = CourseProblemRelation.where(:course => id)
         Problem.where(:id => tuples.map(&:problem))
@@ -16,5 +18,12 @@ class Course < ActiveRecord::Base
     
     def self.unarchived
         Course.where(:is_archived => false)
+    end
+    
+private
+    def destroy_dependents
+        CourseProblemRelation.destroy_by_course(self.id)
+        CourseUserRelation.destroy_by_course(self.id)
+        Quiz.where(:courseid => self.id).each { |q| q.destroy }
     end
 end
