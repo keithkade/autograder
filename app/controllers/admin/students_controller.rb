@@ -10,11 +10,17 @@ class Admin::StudentsController < ApplicationController
   # Remember which option was selected for course filtering
   
     if params.include?(:estudiante)
-      puts("************************************MERWEBO*************************************")
      # @student = Student.find_by_id(:estudiante)
-      #redirect_to admin_students_path(:id => params[:estudiante])
-      redirect_to action: "show", id: 5
-
+     #redirect_to admin_students_path(:courseid => params[:estudiante])
+      #redirect_to action: "show", Student.find_by_id()
+      if (params[:estudiante].first == '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9' or '0')
+        puts("*********************************LOOK FOR ID####################################")
+        @student = Student.where(:ID => params[:estudiante])
+      else
+        puts("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@LOOK FOR NAME@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        @student = Student.where(:LastName => params[:estudiante])
+      end
+      
     elsif params.include?(:courseid)
       session[:students_list_courseid] = params[:courseid]
     elsif session.include?(:students_list_courseid)
@@ -25,17 +31,24 @@ class Admin::StudentsController < ApplicationController
   # @courseid is used in the view to set the default option in the select field
     @courseid = params[:courseid].to_i
     @courses = Course.unarchived.order(:name)
-    @students = Student.order(:LastName)
-    @students.each do |student|
-      student.problems_grade
-      #getGrade(student.id)
-    end
+    
+    if (not params.include?(:estudiante))
+      
+      pp("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+      @students = Student.order(:LastName)
+      @students.each do |student|
+        student.problems_grade
+      end
+    
 
   # A negative courseid is used to select all students
-    if @courseid >= 0
-    # Literally: Keep if the courseid is in the students' list of courses
-      @students = Array(@students).keep_if { |student| student.courses.map { |course| course.id }.include?(@courseid) }
+      if @courseid >= 0
+      # Literally: Keep if the courseid is in the students' list of courses
+        @students = Array(@students).keep_if { |student| student.courses.map { |course| course.id }.include?(@courseid) }
+      end
     end
+    @students = Array(@students).keep_if{ |student| student.ID == params[:estudiante]}
+    pp @student
   end
 
   def sort
@@ -67,12 +80,12 @@ class Admin::StudentsController < ApplicationController
        if params.include?(:problem) 
         
         if (Problem.find_by_title(params[:problem]) == nil)
-          flash[:notice] = "No submission found for that problem!"
+          #flash[:notice] = "No submission found for that problem!"
           @submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
           #redirect_to admin_student_path(@student)
         else  
           @submissions = @student.submissions.where(:problem_id => Problem.find_by_title(params[:problem]).id)
-          flash[:notice] = "Submission(s) successfully found!" 
+          #flash[:notice] = "Submission(s) successfully found!" 
           #redirect_to admin_student_path(@student)
         end
     
