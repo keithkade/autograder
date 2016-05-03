@@ -7,10 +7,11 @@ module ProblemsHelper
   def eval_code(code, problemID)
     compile_languages = ['java']
     
-    rand_folder_name = 'temp_' + SecureRandom.hex
+    begin 
+      rand_folder_name = 'temp_' + SecureRandom.hex(8) 
+    end while Dir.exist?(rand_folder_name)
     FileUtils.mkdir(rand_folder_name)
     problem = Problem.find(problemID)
-    pp "what's happening" + rand_folder_name
     begin
       case problem.language
       when 'java'
@@ -40,6 +41,8 @@ module ProblemsHelper
       if my_json[:status] == 'success'
         my_json[:results] = execute_problem(code, problem, rand_folder_name)
       end
+    rescue => e
+      my_json = {:status => 'fail', :err => "Unknown Error in Ruby on Rails has occured. Running Code Suspended. Error: #{e}", :results => []}
     ensure
       clean_files(rand_folder_name)
     end
@@ -126,10 +129,14 @@ module ProblemsHelper
       result_hash = {}
       result_hash[:title] = testcase.title
       result_hash[:input] = testcase.input   
-      
-      if(runtimeStatus.success? && File.exists?(folder + '/output_' + my_append + '.txt')) 
+      if runtimeStatus.success? && File.exists?(folder + '/output_' + my_append + '.txt') 
         FileUtils.compare_file(folder + '/expected_' + my_append + '.txt', folder + '/output_' + my_append + '.txt') ? result_hash[:result] = 'success' : result_hash[:result] = 'fail'
         result_hash[:output] = File.read(folder + '/output_' + my_append + '.txt');
+        result_hash[:err] = runtimeError
+      elsif runtimeStatus.exitstatus == 124
+        result_hash[:result] = 'fail'
+        result_hash[:err] = 'Program timed out by Autograder for taking too long. (5+ seconds)'
+        result_hash[:output] = ''
       else
         result_hash[:result] = 'fail'
         result_hash[:err] = runtimeError
