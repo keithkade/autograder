@@ -1,7 +1,7 @@
 #
 # Best method to reset your database
 
-# rake db:reset 
+# rake db:reset
 # rake db:drop db:create db:migrate db:seed
 #
 result = {}
@@ -21,31 +21,23 @@ import java.util.*;
 
 public class useCode {
 
-    public static ArrayList<Integer> yourCode(ArrayList<Integer> input) {
-        //your code here
-        return input;
-    }		
-  
-    public static void main(String args[]) throws IOException{
-        FileInputStream is = null;
-        FileOutputStream os = null;
-        try {
-            Scanner in = new Scanner(System.in);
-            ArrayList<Integer> input = new ArrayList<Integer>();
-            while(in.hasNextInt()){
-                input.add(new Integer(in.nextInt()));
-            }
-            ArrayList<Integer> output = yourCode(input);
-            for(Integer i: output){
-                System.out.print(i + " ");
-            }
-        } 
-        finally {
-            if (is != null) {is.close();}
-            if (os != null) {os.close();}
-        }
-    
+  public static ArrayList<Integer> yourCode(ArrayList<Integer> input) {
+    //your code here
+    return input;
+  }
+
+  public static void main(String args[]) throws IOException{
+      Scanner in = new Scanner(System.in);
+      ArrayList<Integer> input = new ArrayList<Integer>();
+      while(in.hasNextInt()){
+        input.add(new Integer(in.nextInt()));
+      }
+      ArrayList<Integer> output = yourCode(input);
+      for(Integer i: output){
+        System.out.print(i + " ");
+      }
     }
+  }
 }'
 
 
@@ -64,7 +56,7 @@ students = [{:FirstName => 'Dillon', :LastName => 'Dishman', :ID => 2222, :UserN
            {:FirstName => 'Matt', :LastName => 'Saari', :ID => 2226, :UserName => 'imsaari', :password => 'password'},
            {:FirstName => 'Jeff Dean', :LastName => '', :ID => 0, :UserName => 'the one', :password => ' '},
            ]
-    
+
 problems = [{:title => 'Hello World', :due_date => DateTime.parse('1 May 2016 11:59:59 PM'), :summary => 'Will write hello world', :input_description => 'none', :output_description => 'print Hello World!', :skeleton => 'n\a', :language => 'java'},
             {:title => 'IO Practice Java', :due_date => DateTime.parse('2 May 2016 11:59:59 PM'), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'java'},
             {:title => 'IO Practice Python', :due_date => DateTime.parse('4 May 2016 11:59:59 PM'), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'python'},
@@ -78,12 +70,12 @@ problems = [{:title => 'Hello World', :due_date => DateTime.parse('1 May 2016 11
              :skeleton => 'import java.io.*;
 import java.util.*;
 public class useCode {
-    public static void main(String args[]) throws IOException{
-        Scanner in = new Scanner(System.in);
-        while (in.hasNext()) {
-            System.out.print(in.next());
-        }
+  public static void main(String args[]) throws IOException{
+    Scanner in = new Scanner(System.in);
+    while (in.hasNext()) {
+      System.out.print(in.next());
     }
+  }
 }',
              :language => 'java'},
             ]
@@ -92,8 +84,8 @@ problem_tests = [{:problemid => 1, :title => 'main case', :input => '', :output 
                  {:problemid => 2, :title => 'main case', :input => 'testingbecauseican', :output => 'testingbecauseican'},
                  {:problemid => 3, :title => 'main case', :input => 'testingbecauseican', :output => 'testingbecauseican'},
                  {:problemid => 4, :title => 'Empty List Sorting', :input => '', :output => ''},
-                 {:problemid => 4, :title => 'Sorted List Sorting', :input => '1 2 3 ', :output => '1 2 3 '},
-                 {:problemid => 4, :title => 'Unsorted List Sorting', :input => '1 3 2 9 2 8 5 6 3', :output => '1 2 2 3 3 5 6 8 9 '},
+                 {:problemid => 4, :title => 'Sorted List Sorting', :input => '1 2 3 ', :output => '1 2 3'},
+                 {:problemid => 4, :title => 'Unsorted List Sorting', :input => '1 3 2 9 2 8 5 6 3', :output => '1 2 2 3 3 5 6 8 9'},
                  {:problemid => 6, :title => 'Even split', :input => '2 2 100', :output => '$1000'},
                  {:problemid => 6, :title => 'All female', :input => '0 4 200', :output => '$1000'},
                  {:problemid => 6, :title => 'Uneven Split', :input => '3 5 800', :output => '$1450'},
