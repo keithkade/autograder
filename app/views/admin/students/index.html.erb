@@ -5,46 +5,37 @@
 <% content_for :options_top do %>
   <%= link_to 'New Student', new_admin_student_path, :class => 'btn btn-primary' %><br />
    
-    <form class="form-inline">
-      <div class="form-group">
-        <label>sort by</label>
-        <select name="semester" class="form-control">
-          <option value="Grades">Grades</option>
+   <div class="row">
+     <div class="col-sm-6" style="text-align: left;">
+      <form name="filter_by_course">
+        <label>Find student by course</label>
+        <select class="form-control" name="courseid" onchange="submit();">
+          <option value="-1">All Courses</option>
+          <% @courses.each do |course| %>
+            <option value="<%= course.id %>"<% if course.id == @courseid %> selected="selected"<% end %>><%= course.name %></option>
+          <% end %>
         </select>
-      </div>
-      <%= submit_tag 'Refresh', :class => 'btn btn-default' %>
-    </form>
-  
-    <form name="filter_by_course">
-      <label>Find student by course</label>
-      <select class="form-control" name="courseid" onchange="submit();">
-        <option value="-1">All Courses</option>
-        <% @courses.each do |course| %>
-          <option value="<%= course.id %>"<% if course.id == @courseid %> selected="selected"<% end %>><%= course.name %></option>
-        <% end %>
-      </select>
-    </form>
+      </form>
+    </div>
     
-    
-    <form name="Find_Student">
-      <div class="form-group">
-        <label>Find student by ID/Name</label>
-        <input type="text" class="form-control" name="year" />
-      </div>
-      <%= submit_tag 'Refresh', :class => 'btn btn-default' %>
-    </form>
-
-  
- 
+    <div class="col-sm-6" style="text-align: left;">
+      <form name="filter_by_course">
+        <div class="form-group">
+          <label>Find Student by name/ID</label>
+          <input type="text" class="form-control" name="estudiante" />
+        </div>
+      </form>
+    </div>
+  </div>
 <% end %>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th><%= link_to 'Name', admin_students_path %></th> 
       <th>Id</th>
       <th>Username</th>
-      <th title="Test cases passed out of test cases total for problems past due">Grade</th>
+      <th><%= link_to 'Grades', admin_students_path(:order => "by_grade"), :id => 'title_header'  %></th> 
       <th title="Number of Problems that are Late">Late</th>
       <th>Classes</th>
     </tr>

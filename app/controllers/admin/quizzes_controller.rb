@@ -8,7 +8,7 @@ class Admin::QuizzesController < ApplicationController
     if params.include?(:courseid)
       session[:quiz_list_courseid] = params[:courseid]
     elsif session.include?(:quiz_list_courseid)
-      redirect_to admin_quizzes_path(:courseid => session[:students_list_courseid])
+      redirect_to admin_quizzes_path(:courseid => session[:quiz_list_courseid])
     else
       redirect_to admin_quizzes_path(:courseid => -1)
     end

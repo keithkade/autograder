@@ -37,6 +37,12 @@
             <td class="clickable-row-main-cell"><span class="due-date"><%= problem.due_date.strftime("%d %b, %I:%M %p") %></span></td>
           </tr>
       <% end %>
+      <% @quizzes.each do |quiz| %>
+          <tr class="clickable-row" data-href="<%= quiz_path(quiz) %>">
+            <td class="clickable-row-main-cell"><%= quiz.title %></td>
+            <td class="clickable-row-main-cell"><span class="due-date"><%= quiz.end_time.strftime("%d %b, %I:%M %p") %></span></td>
+          </tr>
+      <% end %>
       </tbody>
     </table>
   </div>

@@ -3,7 +3,11 @@ class Course < ActiveRecord::Base
         tuples = CourseProblemRelation.where(:course => id)
         Problem.where(:id => tuples.map(&:problem))
     end
-    
+
+    def quizzes
+        Quiz.where(:courseid => id)
+    end
+
     def users
         tuples = CourseUserRelation.where(:course => id)
         Student.where(:id => tuples.map(&:user))
