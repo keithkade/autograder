@@ -14,11 +14,11 @@ class HomeController < ApplicationController
       end
     end
 
-    all_quizzes = @student.quizzes
+    active_quzzes = @student.active_quizzes
     @quizzes = []
 
     #get the quizzes due this week
-    for quiz in all_quizzes
+    for quiz in active_quzzes
       if dates.include?(quiz.end_time.to_date)
         @quizzes.push(quiz)
       end
