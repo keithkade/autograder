@@ -11,6 +11,7 @@ var LOADER_ID = 'loader-area';
 var SUBMIT_BUTTON_ID = 'submit-btn';
 var EVALUATE_BUTTON_ID = 'evaluate-btn'
 var MODAL_ID = 'submission-results-modal';
+var EVAL_MODAL_ID = 'evaluation-results-modal';
 
 var pageLoadTime = new Date();
 var editor;
@@ -188,7 +189,7 @@ function EvaluateCode(code, containerId){
         
     //  We only show modal on success
         if (problemPassed) 
-            ShowSubmissionModal(MODAL_ID);
+            ShowSubmissionModal(EVAL_MODAL_ID);
         else
             CopyModalContentsToPage();
     });
@@ -231,7 +232,7 @@ function SubmitCode(code, containerId){
         tbl.appendChild(tblBody);
         
         if (response.status == "success") {
-            status.innerHTML = "Code Succesfully Evaluated";
+            status.innerHTML = "Code Succesfully Submited";
             status.classList.add("alert");
             appendTH(headerRow, "");
             appendTH(headerRow, "Test Case");

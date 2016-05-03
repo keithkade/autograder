@@ -47,7 +47,7 @@
   <div id="submission-results-after"></div>
 </div>
 
-<div id="submission-results-modal" class="modal fade" role="dialog" aria-labelledby="submission-results-label">
+<div id="evaluation-results-modal" class="modal fade" role="dialog" aria-labelledby="evaluation-results-label">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -56,6 +56,24 @@
       </div>
       <div class="modal-body">
         <div id="submission-results"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="submit-btn" class="btn btn-primary" data-dismiss="modal" onclick="SubmitCode(editor.getValue(), 'evaluation-results')">Submit Code</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="submission-results-modal" class="modal fade" role="dialog" aria-labelledby="submission-results-label">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Good Job!</h4>
+      </div>
+      <div class="modal-body">
+        <div id="evaluation-results"></div>
       </div>
       <div class="modal-footer">
         <%= link_to 'Other Problems', problems_path, :class => 'btn btn-primary' %>
