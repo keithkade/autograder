@@ -169,6 +169,17 @@ function EvaluateCode(code, containerId){
             errorRow.className = "fail";
             errorRow.insertCell(0).innerHTML = "<pre><code>" + response.err + "</code></pre>";
         }
+        else if (response.status == "error") {
+            status.innerHTML = "Autograder Error"; 
+            status.classList.add("alert");
+            status.classList.add("alert-danger");
+            appendTH(headerRow, "Error");
+            
+            var errorRow = tblBody.insertRow(0);
+            errorRow.className = "fail";
+            errorRow.insertCell(0).innerHTML = "<pre><code>" + response.err + "</code></pre>";
+        }
+        
         result.appendChild(tbl);
         
         responseContainer.appendChild(status);

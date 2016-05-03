@@ -26,7 +26,7 @@ public class useCode {
     return input;
   }
 
-  public static void main(String args[]) throws IOException{
+  public static void main(String args[]){
       Scanner in = new Scanner(System.in);
       ArrayList<Integer> input = new ArrayList<Integer>();
       while(in.hasNextInt()){
@@ -70,7 +70,7 @@ problems = [{:title => 'Hello World', :due_date => DateTime.parse('1 May 2016 11
              :skeleton => 'import java.io.*;
 import java.util.*;
 public class useCode {
-  public static void main(String args[]) throws IOException{
+  public static void main(String args[]){
     Scanner in = new Scanner(System.in);
     while (in.hasNext()) {
       System.out.print(in.next());

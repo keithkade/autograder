@@ -17,16 +17,21 @@ module ProblemsHelper
     begin
       case problem.language
       when 'java'
+        unsafe, message = io_imported?(code)
+        pp unsafe
+        pp message
+        return {:status => 'error', :err => message} if unsafe
+        
         name = determine_java_file_name(code)
-        if(name == nil)
-          return {:status => 'fail', :err => 'no main method detected', :results => []}
+        if name == nil
+          return {:status => 'error', :err => 'no main method detected', :results => []}
         end
         file = rand_folder_name + '/' + name + '.java'
       when 'python'
         file = rand_folder_name + '/' + @file_names[:python] + '.py'
       else
         clean_files(rand_folder_name)
-        return {:status => 'fail', :err => 'problem has to language set', :results => []}
+        return {:status => 'error', :err => 'problem has to language set', :results => []}
       end
       File.open(file, 'w') do |f|
         f.print code
@@ -44,7 +49,7 @@ module ProblemsHelper
         my_json[:results] = execute_problem(code, problem, rand_folder_name)
       end
     rescue => e
-      my_json = {:status => 'fail', :err => "Unknown Error in Ruby on Rails has occured. Running Code Suspended. Error: #{e}", :results => []}
+      my_json = {:status => 'error', :err => "Unknown Error in Ruby on Rails has occured. Running Code Suspended. Error: #{e}", :results => []}
     ensure
       clean_files(rand_folder_name)
     end
@@ -63,6 +68,16 @@ module ProblemsHelper
       return /class ([A-Za-z][0-9A-Za-z_]+) {((?!class)[\s\S])+ public static (void|int) main\(/.match(code)[1]
     else
       return nil
+    end
+  end
+  
+  def io_imported?(code)
+    if /import java\.io/.match(code)
+      return true, 'Autograder doesn\'t allow use of java.io.'
+    elsif /java\.io/.match(code)
+      return true, 'java.io is restricted from use. Do not try to use it.'
+    else
+      return false, ''
     end
   end
   
@@ -102,11 +117,13 @@ module ProblemsHelper
       name = determine_java_file_name(code)
       command = get_os_command(-1, folder, 'javac ' + name + '.java')
     end
+    
     compileOut, compileError, compileStatus = Open3.capture3(command) 
+    
     my_json = {}
     if(compileStatus.success?)
       my_json[:status] = 'success'
-      my_json[:err] = ''
+      my_json[:err] = compileError
     else
       my_json[:status] = 'fail'
       my_json[:err] = compileError
