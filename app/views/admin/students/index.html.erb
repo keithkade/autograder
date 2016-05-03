@@ -32,10 +32,10 @@
 <table class="table">
   <thead>
     <tr>
-      <th><%= link_to 'Name'%></th> 
+      <th><%= link_to 'Name', admin_students_path %></th> 
       <th>Id</th>
       <th>Username</th>
-      <th><%= link_to 'Grades'%></th> 
+      <th><%= link_to 'Grades', admin_students_path(:order => "by_grade"), :id => 'title_header'  %></th> 
       <th title="Number of Problems that are Late">Late</th>
       <th>Classes</th>
     </tr>
