@@ -41,8 +41,14 @@
 <div id="editor" data-lang="<%= @problem.language %>"><pre><code><%= @problem.skeleton %></code></pre></div>
 
 <div class="submit-container">
-  <button id="evaluate-btn" class="btn btn-primary btn-large" onclick="EvaluateCode(editor.getValue(), 'submission-results')">Evaluate Code</button>
-  <button id="submit-btn" class="btn btn-success btn-large" onclick="SubmitCode(editor.getValue(), 'submission-results')">Submit Code</button>
+  <div class="row">
+    <div class="col-sm-6">
+      <button id="evaluate-btn" class="btn btn-primary btn-large btn-max" onclick="EvaluateCode(editor.getValue(), 'submission-results')">Evaluate Code</button>
+    </div>
+    <div class="col-sm-6">
+      <button id="submit-btn" class="btn btn-success btn-large btn-max" onclick="SubmitCode(editor.getValue(), 'submission-results')">Submit Code</button>
+    </div>
+  </div>
   <div id="loader-area" class="load-container"></div>
   <div id="submission-results-after"></div>
 </div>
@@ -58,7 +64,7 @@
         <div id="submission-results"></div>
       </div>
       <div class="modal-footer">
-        <button id="submit-btn" class="btn btn-primary" data-dismiss="modal" onclick="SubmitCode(editor.getValue(), 'evaluation-results')">Submit Code</button>
+        <button id="submit-btn" class="btn btn-success" data-dismiss="modal" onclick="SubmitCode(editor.getValue(), 'evaluation-results')">Submit Code</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
