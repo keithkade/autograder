@@ -31,3 +31,17 @@ Feature: Quizzes
     And I am on the admin quiz page for "test quiz"
     And I follow "Delete"
     Then I should not have any quizzes
+
+  Scenario: I want to update a quiz
+    Given I am logged in as Admin
+    And I am on the admin quizzes page
+    And I have a course named "Test Course"
+    When I follow "New Quiz"
+    And I fill in "Title" with "test quiz"
+    And I press "Create Quiz"
+    And I am on the admin quiz page for "test quiz"
+    And I follow "Edit"
+    And I fill in "Title" with "test quiz change"
+    And I press "Update Quiz"
+    Then I should see "Quiz was successfully updated."
+    And I should see "test quiz change"
