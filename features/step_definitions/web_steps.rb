@@ -69,6 +69,12 @@ When /^(?:|I )tableclickstudent "([^"]*)"$/ do |table|
   visit(path)
 end
 
+When /^(?:|I )tableclickquiz "([^"]*)"$/ do |table|
+  quiz = Quiz.all.find_by(title: table)
+  path = "/admin/quizzes/#{quiz.id}"
+  visit(path)
+end
+
 When /^(?:|I )tableclickproblem "([^"]*)"$/ do |table|
   problem = Problem.all.find_by(title: table)
   path = "/admin/problems/#{problem.id}"
@@ -78,6 +84,12 @@ end
 When /^(?:|I )studenttableclickproblem "([^"]*)"$/ do |table|
   problem = Problem.all.find_by(title: table)
   path = "/problems/#{problem.id}"
+  visit(path)
+end
+
+When /^(?:|I )studenttableclickquiz "([^"]*)"$/ do |table|
+  quiz = Quiz.all.find_by(title: table)
+  path = "/quizzes/#{quiz.id}"
   visit(path)
 end
 

@@ -13,22 +13,28 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    when /^the student problem page for "(.*)"$/
-      title = $1
-      problem = Problem.all.find_by(title: title)
-      "/problems/#{problem.id}"
+    when /^the student home\s?page$/
+      '/home'
+
+    when /^the student problems\s?page$/
+      '/problems'
+
+    when /^the student quizzes\s?page$/
+      '/quizzes'
 
     when /^the admin courses\s?page$/
       '/admin/courses'
 
-    when /^the student home\s?page$/
-      '/home'
-
     when /^the problems\s?page$/
       '/admin/problems'
 
-    when /^the student problems\s?page$/
-      '/problems'
+    when /^the admin quizzes\s?page$/
+      '/admin/quizzes'
+
+    when /^the admin quiz page for "(.*)"$/
+      title = $1
+      quiz = Quiz.all.find_by(title: title)
+      "/admin/quizzes/#{quiz.id}"
 
     when /^the student problem page for "(.*)"$/
       title = $1

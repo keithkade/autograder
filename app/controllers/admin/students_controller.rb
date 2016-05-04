@@ -46,7 +46,6 @@ class Admin::StudentsController < ApplicationController
     end
     #sort
     if params.include?(:order)
-      puts("############################SORTING#####################")
       sort
     end
     

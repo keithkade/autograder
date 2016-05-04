@@ -35,6 +35,11 @@ describe Admin::CoursesController do
       end
     end
 
+    context "download" do
+      it "downloads" do
+        
+      end
+    end
   end
 
 end
