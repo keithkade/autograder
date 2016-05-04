@@ -47,7 +47,6 @@ Feature: Courses
     When I fill in "year" with "CSCE"
     And I press "Refresh"
     Then I should be on the courses page
-    Then show me the page
     And I should see "CSCE"
     And I should not see "SOCI"
     And I should not see "MATH"

@@ -81,6 +81,12 @@ When /^(?:|I )studenttableclickproblem "([^"]*)"$/ do |table|
   visit(path)
 end
 
+When /^(?:|I )studenttableclickquiz "([^"]*)"$/ do |table|
+  quiz = Quiz.all.find_by(title: table)
+  path = "/quizzes/#{quiz.id}"
+  visit(path)
+end
+
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end

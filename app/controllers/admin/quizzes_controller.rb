@@ -25,12 +25,13 @@ class Admin::QuizzesController < ApplicationController
   # GET /quizzes/1.json
   def show
     @course = Course.find_by_id(@quiz.courseid)
+
     @questions = QuizQuestion.where(:quizid => @quiz.id)
     @initial_qtype = QuizQuestion.question_types[0]
     
-  # Builds a list of students with submissions
-  # Not every student will have submitted a quiz, but we want to display all of
-  # the students anyways.  Those missing a submission will be marked "danger"
+    # Builds a list of students with submissions
+    # Not every student will have submitted a quiz, but we want to display all of
+    # the students anyways.  Those missing a submission will be marked "danger"
     @students = @course.users.order(:LastName)
     @submissions = QuizSubmission.where(:quizid => @quiz.id)
     @student_submission = Hash.new
