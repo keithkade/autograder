@@ -20,7 +20,7 @@ class Student < ActiveRecord::Base
 
         for course in courses
             # Prevents duplicates of problems from appearing.
-            all_problems.concat(Array(course.problems).keep_if { |prob| not all_problems.map { |prob2| prob2.id }.include?(prob.id) })
+            all_problems.concat(Array(course.problems.order('due_date DESC')).keep_if { |prob| not all_problems.map { |prob2| prob2.id }.include?(prob.id) })
         end
         all_problems
     end
@@ -50,7 +50,7 @@ class Student < ActiveRecord::Base
 				end
 
 				# Prevents duplicates of problems from appearing.
-				all_problems.concat(Array(course.problems).keep_if { |prob| not all_problems.map { |prob2| prob2.id }.include?(prob.id) })
+				all_problems.concat(Array(course.problems.order('due_date DESC')).keep_if { |prob| not all_problems.map { |prob2| prob2.id }.include?(prob.id) })
 			end
 
 			all_problems
