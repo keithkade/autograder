@@ -79,30 +79,30 @@ class QuizSubmissionsController < ApplicationController
   # PATCH/PUT /quiz_submissions/1
   # PATCH/PUT /quiz_submissions/1.json
   def update
-    kick_student_out_of_page
-    
-    respond_to do |format|
-      if @quiz_submission.update(quiz_submission_params)
-        format.html { redirect_to @quiz_submission, notice: 'Quiz submission was successfully updated.' }
-        format.json { render :show, status: :ok, location: @quiz_submission }
-      else
-        format.html { render :edit }
-        format.json { render json: @quiz_submission.errors, status: :unprocessable_entity }
-      end
-    end
+    #kick_student_out_of_page
+   #
+   # respond_to do |format|
+   #   if @quiz_submission.update(quiz_submission_params)
+   #     format.html { redirect_to @quiz_submission, notice: 'Quiz submission was successfully updated.' }
+   #     format.json { render :show, status: :ok, location: @quiz_submission }
+   #   else
+   #     format.html { render :edit }
+   #     format.json { render json: @quiz_submission.errors, status: :unprocessable_entity }
+   #   end
+   # end
   end
 
   # DELETE /quiz_submissions/1
   # DELETE /quiz_submissions/1.json
   def destroy
-    if not logged_in_admin?
-      redirect_to '/'
-    end
-    @quiz_submission.destroy
-    respond_to do |format|
-      format.html { redirect_to quiz_submissions_url, notice: 'Quiz submission was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    #if not logged_in_admin?
+    #  redirect_to '/'
+    #end
+    #@quiz_submission.destroy
+    #respond_to do |format|
+    #  format.html { redirect_to quiz_submissions_url, notice: 'Quiz submission was successfully destroyed.' }
+    #  format.json { head :no_content }
+    #end
   end
 
   private

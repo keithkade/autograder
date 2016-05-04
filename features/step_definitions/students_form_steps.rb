@@ -26,3 +26,7 @@ Then /^I have a student with a submission named "(.*)"$/ do |name|
     submission.result = '{"status":"success","err":"","results":[{"title":"main case","input":"testingbecauseican","result":"success","output":"testingbecauseican\n","err":""}]}'
     submission.save
 end
+
+And /^I press enter$/ do
+    find_field('estudiante').native.send_keys(:return)
+end

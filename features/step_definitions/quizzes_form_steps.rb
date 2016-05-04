@@ -3,11 +3,18 @@ Then /^I have a quiz named "(.*)"$/ do |title|
   quiz.title = title
   quiz.start_time = (Date.today() - 1).to_datetime
   quiz.end_time = (Date.today() + 1).to_datetime
+  quiz.save
 
-  question = QuizFreeResponseQuestion.create(:correct_answer => "hod", :question => "or", :questionid => quiz.id)
+  question = QuizQuestion.create(:qtype => "free_response", :quizid => quiz.id)
   question.save
 
-  quiz.save
+  freeQuestion = QuizFreeResponseQuestion.create(:correct_answer => "hod", :question => "or", :questionid => question.id)
+  freeQuestion.save
+
+  question.qid = freeQuestion.id
+  question.save
+
+  pp quiz.questions
 end
 
 Given /^the quiz "(.*)" is due in (.*) days$/ do |quiz, days|

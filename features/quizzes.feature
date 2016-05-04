@@ -11,8 +11,7 @@ Feature: Quizzes
     Then I should see "When you are ready, hit the"
     And I follow "Take Quiz"
     Then I should see "Do not leave this page! If you do, your quiz will be submitted as is, and you will not be able to access it again."
-    Then show me the page
-    And I fill in "question_1" with "lol"
+    And I fill in "for-test" with "lol"
     And I press "Submit"
     Then I should see "Quiz submission was successfully created."
     And I follow "Quiz List"
