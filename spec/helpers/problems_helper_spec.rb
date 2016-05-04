@@ -95,6 +95,63 @@ describe ProblemsHelper, :type => :helper do
       expect(result[:err]).to_not eq('')
       expect(result[:results]).to eq(nil)
     end
+    
+    it 'should fail is someone tries to use io' do
+      code ="import java.io.*;\n"+
+              "import java.util.*;\n"+ 
+              "public class useCode {\n"+
+              "    public static void main(String args[]){\n"+
+              "        Scanner in = new Scanner(System.in);\n"+
+              "        while (in.hasNext()) {\n"+
+              "            System.out.print(in.next());\n"+
+              "        }\n"+
+              "    }\n"+
+              "}"
+      result = eval_code(code, 1)
+      expect(result[:status]).to eq('error')
+      expect(result[:err]).to_not eq('')
+      expect(result[:results]).to eq(nil)
+    end
+    
+    it 'should fail is someone tries to import all' do
+      code ="import java.*;\n"+
+              "import java.util.*;\n"+
+              "public class useCode {\n"+
+              "    public static void main(String args[]){\n"+
+              "        Scanner in = new Scanner(System.in);\n"+
+              "        while (in.hasNext()) {\n"+
+              "            System.out.print(in.next());\n"+
+              "        }\n"+
+              "    }\n"+
+              "}"
+      result = eval_code(code, 1)
+      expect(result[:status]).to eq('error')
+      expect(result[:err]).to_not eq('')
+      expect(result[:results]).to eq(nil)
+    end
+    
+    it 'should fail on infinite loop' do
+      code ="import java.util.*;\n"+
+              "public class useCode {\n"+
+              "    public static void main(String args[]){\n"+
+              "        Scanner in = new Scanner(System.in);\n"+
+              "        while (in.hasNext()) {\n"+
+              "            System.out.print(in.next());\n"+
+              "        }\n"+
+              "        int count = 0;\n"+
+              "        while (count != -1)\n"+
+              "        {\n"+
+              "           count++;\n"+
+              "           count--;\n"+
+              "        }\n"+
+              "        System.out.println();\n"+
+              "    }\n"+
+              "}"
+      result = eval_code(code, 1, 2)
+      expect(result[:status]).to eq('success')
+      expect(result[:results][0][:result]).to eq('fail')
+      expect(result[:results][0][:err]).to_not eq('')
+    end
   end
   
   describe "Running with python code" do
