@@ -21,3 +21,7 @@ Given /^I am in "(.*)" and have the quiz "(.*)" assigned to me$/ do |course, qui
   quiz.courseid = course.id
   quiz.save
 end
+
+Then /^I should not have any quizzes/ do
+  Quiz.count(:all).should eq(0)
+end

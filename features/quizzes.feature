@@ -20,3 +20,14 @@ Feature: Quizzes
     And I fill in "Title" with "Sample Quiz"
     And I press "Create Quiz"
     Then I should be on the admin quiz page for "Sample Quiz"
+
+  Scenario: I want to delete a quiz
+    Given I am logged in as Admin
+    And I am on the admin quizzes page
+    And I have a course named "Test Course"
+    When I follow "New Quiz"
+    And I fill in "Title" with "test quiz"
+    And I press "Create Quiz"
+    And I am on the admin quiz page for "test quiz"
+    And I follow "Delete"
+    Then I should not have any quizzes
