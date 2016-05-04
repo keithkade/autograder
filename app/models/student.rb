@@ -66,7 +66,7 @@ class Student < ActiveRecord::Base
 				end
 
 				# Prevents duplicates of problems from appearing.
-				active_quizzes.concat(Array(course.quizzes).keep_if { |quiz| not active_quizzes.map { |quiz2| quiz2.id }.include?(quiz2.id) })
+				active_quizzes.concat(Array(course.quizzes).keep_if { |quiz| not active_quizzes.map { |quiz2| quiz2.id }.include?(quiz.id) })
 			end
 
 			active_quizzes

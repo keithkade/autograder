@@ -1,9 +1,21 @@
+Then /^I have a quiz named "(.*)"$/ do |title|
+  quiz = Quiz.new
+  quiz.title = title
+  quiz.save
+end
 
 Given /^the problem "(.*)" is due in (.*) days$/ do |problem, days|
   problem = Problem.all.find_by(title: problem)
   daysInt = days.to_f
   problem.due_date = (Date.today() + daysInt).to_datetime
   problem.save
+end
+
+Given /^the quiz "(.*)" is due in (.*) days$/ do |quiz, days|
+  quiz = Quiz.all.find_by(title: quiz)
+  daysInt = days.to_f
+  quiz.end_time = (Date.today() + daysInt).to_datetime
+  quiz.save
 end
 
 Given /^the course of problem "(.*)" is archived$/ do |problem|
@@ -25,7 +37,7 @@ Given /^the course of problem "(.*)" is not archived$/ do |problem|
 end
 
 
-Given /^I am in "(.*)" and have "(.*)" assigned to me$/ do |course, problem|
+Given /^I am in "(.*)" and have the problem "(.*)" assigned to me$/ do |course, problem|
   course = Course.all.find_by(name: course)
   problem = Problem.all.find_by(title: problem)
 
@@ -37,6 +49,17 @@ Given /^I am in "(.*)" and have "(.*)" assigned to me$/ do |course, problem|
   course.save
   problem.save
   student.save
+end
+
+Given /^I am in "(.*)" and have the quiz "(.*)" assigned to me$/ do |course, quiz|
+  course = Course.all.find_by(name: course)
+  quiz = Quiz.all.find_by(title: quiz)
+  student = Student.all.find_by(UserName: 'dman')
+
+  CourseUserRelation.relate!(course.id, student.id)
+  quiz.courseid = course.id
+
+  quiz.save
 end
 
 Given /^I have a submission for "(.*)" problem$/ do |problem|

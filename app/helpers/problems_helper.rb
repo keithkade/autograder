@@ -18,20 +18,18 @@ module ProblemsHelper
       case problem.language
       when 'java'
         unsafe, message = io_imported?(code)
-        pp unsafe
-        pp message
         return {:status => 'error', :err => message} if unsafe
         
         name = determine_java_file_name(code)
         if name == nil
-          return {:status => 'error', :err => 'no main method detected', :results => []}
+          return {:status => 'error', :err => 'no main method detected'}
         end
         file = rand_folder_name + '/' + name + '.java'
       when 'python'
         file = rand_folder_name + '/' + @file_names[:python] + '.py'
       else
         clean_files(rand_folder_name)
-        return {:status => 'error', :err => 'problem has to language set', :results => []}
+        return {:status => 'error', :err => 'problem has to language set'}
       end
       File.open(file, 'w') do |f|
         f.print code
@@ -72,10 +70,10 @@ module ProblemsHelper
   end
   
   def io_imported?(code)
-    if /import java\.io/.match(code)
-      return true, 'Autograder doesn\'t allow use of java.io.'
-    elsif /java\.io/.match(code)
-      return true, 'java.io is restricted from use. Do not try to use it.'
+    if /java\s*\.\s*io/.match(code)
+      return true, 'Autograder restricts use of term java.io.'
+    elsif /java\s*\.\s*\*/.match(code)
+      return true, 'Autograder restricts use of term java.*.'
     else
       return false, ''
     end
