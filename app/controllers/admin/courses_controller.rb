@@ -7,20 +7,31 @@ class Admin::CoursesController < ApplicationController
   # GET /courses.json
   def index
     @courses = Course.order(:name).where(:is_archived => false)
-    
-    if not params.include?(:semester)
-      #show current classes (from today's year)
-      @courses = @courses.where(year: Time.now.year)
-    
-    elsif (params[:semester] == 'All' && params[:year] == '')
-      @courses = @courses
-    elsif (params[:semester] != '' && params[:year] == '')
-      @courses = @courses.where(semester: params[:semester])
-    elsif (params[:semester] == 'All' && params[:year] != '')
-      @courses = @courses.where(year: params[:year])
-    elsif
-      @courses = @courses.where(year: params[:year], semester: params[:semester])
-    end  
+    if params[:semester] == nil
+      @semester = 'All'
+    elsif params[:semester] != 'All'
+      @semester = params[:semester]
+      @courses = @courses.where(semester: @semester)
+    end
+    if params[:year] == nil
+      @year = Time.now.year
+      @courses = @courses.where(year: @year)
+    elsif not params[:year].empty?
+      @year = params[:year]
+      @courses = @courses.where(year: @year)
+    end
+    pp @semester
+    # if not params.include?(:semester)
+    #   @courses = @courses.where(year: @year)
+    # if (params[:semester] == 'All' && params[:year] == '')
+    #   @courses = @courses
+    # elsif (params[:semester] != '' && params[:year] == '')
+    #   @courses = @courses.where(semester: params[:semester])
+    # elsif (params[:semester] == 'All' && params[:year] != '')
+    #   @courses = @courses.where(year: params[:year])
+    # elsif
+    #   @courses = @courses.where(year: params[:year], semester: params[:semester])
+    # end  
   end
 
   # GET /courses/1
