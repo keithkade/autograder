@@ -2,6 +2,11 @@ Then /^I have a quiz named "(.*)"$/ do |title|
   quiz = Quiz.new
   quiz.title = title
   quiz.start_time = (Date.today() - 1).to_datetime
+  quiz.end_time = (Date.today() + 1).to_datetime
+
+  question = QuizFreeResponseQuestion.create(:correct_answer => "hod", :question => "or", :questionid => quiz.id)
+  question.save
+
   quiz.save
 end
 
