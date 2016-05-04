@@ -5,7 +5,7 @@ describe CourseUserRelation do
 
 	before :all do
 		Course.create!(name: 'csce111')
-		Student.create!(Name: 'tim')
+		Student.create!(LastName: 'tim', FirstName: 'tim', password: 'bob', is_archived: false, ID: 287346589726345762348975637465982)
 	end
 
 
