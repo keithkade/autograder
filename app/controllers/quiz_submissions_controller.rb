@@ -22,6 +22,11 @@ class QuizSubmissionsController < ApplicationController
 
   # GET /quiz_submissions/new
   def new
+    if QuizSubmissionStarted.started?(params[:quizid], session[:user_id])
+      kick_student_out_of_page
+    else
+      QuizSubmissionStarted.create!(:quizid => params[:quizid], :studentid => session[:user_id]).save
+    end
     @quiz_submission = QuizSubmission.new
     @student = Student.find_by_id(session[:user_id])
     @quiz = Quiz.find_by_id(params[:quizid])
@@ -30,6 +35,7 @@ class QuizSubmissionsController < ApplicationController
 
   # GET /quiz_submissions/1/edit
   def edit
+    kick_student_out_of_page
   end
 
   # POST /quiz_submissions

@@ -61,7 +61,7 @@
           <td class="clickable-row-main-cell"><%= student.Name %></td>
           <td></td>
       <!--<td></td>-->
-          <td>Missing</td>
+          <td><% if QuizSubmissionStarted.started?(@quiz.id, student.id) %>Started, but left<% else %>Missing<% end %></td>
         </tr>
       <% end %>
     <% end %>
@@ -83,6 +83,9 @@
       </select>
     </form>
   </div>
+</div>
+<div class="alert alert-info<% if Time.now < @quiz.start_time %> hide<% end %>">
+  <p>Once a quiz has started, new questions cannot be created.</p>
 </div>
 <div class="quiz-questions"><form>
   <% @questions.each_with_index do |question, i| %>
