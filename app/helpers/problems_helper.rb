@@ -4,7 +4,7 @@ require 'securerandom'
 
 module ProblemsHelper
   
-  def eval_code(code, problemID)
+  def eval_code(code, problemID, timeout=4)
     @compile_languages = ['java']
     #@file_names also append SecureRandom.hex to prevent accidental collisions. Excluding only python.
     @file_names = {python: 'student_code', folder: 'temp_', input: 'input_', expected_output: 'expected_', actual_output: 'output_'}
@@ -44,7 +44,7 @@ module ProblemsHelper
       end
       
       if my_json[:status] == 'success'
-        my_json[:results] = execute_problem(code, problem, rand_folder_name)
+        my_json[:results] = execute_problem(code, problem, rand_folder_name, timeout)
       end
     rescue => e
       my_json = {:status => 'error', :err => "Unknown Error in Ruby on Rails has occured. Running Code Suspended. Error: #{e}", :results => []}
@@ -129,15 +129,15 @@ module ProblemsHelper
     return my_json
   end
   
-  def execute_problem(code, problem, folder)
+  def execute_problem(code, problem, folder, timeout)
     my_append = SecureRandom.hex(6)
     
     case problem.language
     when 'java'
       name = determine_java_file_name(code)
-      command = get_os_command(10, folder, 'java ' + name + ' < ' + @file_names[:input] + my_append + '.txt > ' + @file_names[:actual_output] + my_append + '.txt')
+      command = get_os_command(timeout, folder, 'java ' + name + ' < ' + @file_names[:input] + my_append + '.txt > ' + @file_names[:actual_output] + my_append + '.txt')
     when 'python'
-      command = get_os_command(10, folder, 'python ' + @file_names[:python] + '.py < ' + @file_names[:input] + my_append + '.txt > ' + @file_names[:actual_output] + my_append + '.txt')
+      command = get_os_command(timeout, folder, 'python ' + @file_names[:python] + '.py < ' + @file_names[:input] + my_append + '.txt > ' + @file_names[:actual_output] + my_append + '.txt')
     end
     
     results_array = []  

@@ -51,3 +51,22 @@ text = raw_input()
 print(text)
 ```
 
+IO Practice Bad Java
+```
+import java.util.*;
+public class useCode {
+    public static void main(String args[]){
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            System.out.print(in.next());
+        }
+        int count = 0;
+        while (count != -1)
+        {
+          count++;
+          count--;
+        }
+        System.out.println();
+    }
+}
+```

@@ -23,7 +23,7 @@ class ProblemsController < ApplicationController
   # GET /problems/1/evaluate
   def evaluate
     result = eval_code(params[:code], params[:id])
-
+    
     status = true
     if result[:status] == 'fail'
       status = false
