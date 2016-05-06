@@ -93,8 +93,8 @@
       <h2>
         Question <%= i+1 %>
         <span class="text-btn-group">
-          <%= link_to raw('<span class="glyphicon glyphicon-remove"></span>'), quiz_question_of_type_path(question.qtype, question), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-btn text-btn-danger' %>
-          <a class="text-btn text-btn-primary" href="<%= edit_quiz_question_of_type_path(question.qtype, question, :points => question.points) %>"><span class="glyphicon glyphicon-pencil"></span></a>
+          <%= link_to raw('<span class="glyphicon glyphicon-remove"></span>'), quiz_question_of_type_path(question.qtype, question.question), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-btn text-btn-danger' %>
+          <a class="text-btn text-btn-primary" href="<%= edit_quiz_question_of_type_path(question.qtype, question.question, :points => question.points) %>"><span class="glyphicon glyphicon-pencil"></span></a>
       <!--<a class="text-btn text-btn-info"><span class="glyphicon glyphicon-chevron-up"></span></a>-->
       <!--<a class="text-btn text-btn-info"><span class="glyphicon glyphicon-chevron-down"></span></a>-->
         </span>
