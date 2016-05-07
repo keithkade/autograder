@@ -48,12 +48,14 @@ Feature: Students
     And I press "Update Student"
     Then I should be on the student page for "New First Name"
 
+  @javascript
   Scenario: I want to fillter students
     Given I am logged in as Admin
     And I am on the students page
     And I have a student named "Existing Student"
     Given I have the existing student dman
     And I fill in "estudiante" with "Dishman"
+    And I press enter
     Then I should not see "Existing Student"
     And I should see "Name"
     When I follow "Name"

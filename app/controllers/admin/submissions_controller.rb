@@ -56,11 +56,11 @@ class Admin::SubmissionsController < ApplicationController
   # DELETE /submissions/1
   # DELETE /submissions/1.json
   def destroy
-    @submission.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_submissions_url, notice: 'Submission was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    # @submission.destroy
+    # respond_to do |format|
+    #   format.html { redirect_to admin_submissions_url, notice: 'Submission was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
   end
 
   private

@@ -16,37 +16,27 @@ results_one[:input] = "testingbecauseican"
 results.push(results_one)
 result[:results] = results
 
-java_skeleton = 'import java.io.*;
-import java.util.*;
-
+java_skeleton = 'import java.util.*;
 public class useCode {
-
-  public static ArrayList<Integer> yourCode(ArrayList<Integer> input) {
-    //your code here
-    return input;
-  }
-
-  public static void main(String args[]){
-      Scanner in = new Scanner(System.in);
-      ArrayList<Integer> input = new ArrayList<Integer>();
-      while(in.hasNextInt()){
-        input.add(new Integer(in.nextInt()));
-      }
-      ArrayList<Integer> output = yourCode(input);
-      for(Integer i: output){
-        System.out.print(i + " ");
-      }
+    public static void main(String args[]){
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            System.out.print(in.next());
+        }
     }
-  }
 }'
+
+python_skeleton = 'from __future__ import print_function
+text = raw_input()
+print(text)'
 
 
 courses = [{:name => 'CSCE 111', :semester => 'Spring', :year => 2016, :is_archived => false},
            {:name => 'CSCE 121', :semester => 'Fall', :year => 2016, :is_archived => false},
-           {:name => 'CSCE 222', :semester => 'FY', :year => 2017, :is_archived => false},
-           {:name => 'CSCE 482', :semester => 'Spring', :year => 2017, :is_archived => false},
-           {:name => 'CSCE 431', :semester => 'FY', :year => 2018, :is_archived => false},
-           {:name => 'CSCE 420', :semester => 'Fall', :year => 2018, :is_archived => false},
+           {:name => 'CSCE 222', :semester => 'FY', :year => 2015, :is_archived => false},
+           {:name => 'CSCE 482', :semester => 'Spring', :year => 2015, :is_archived => true},
+           {:name => 'CSCE 431', :semester => 'FY', :year => 2014, :is_archived => false},
+           {:name => 'CSCE 420', :semester => 'Fall', :year => 2014, :is_archived => false},
            ]
 
 students = [{:FirstName => 'Dillon', :LastName => 'Dishman', :ID => 2222, :UserName => 'dman', :password => 'password'},
@@ -54,29 +44,20 @@ students = [{:FirstName => 'Dillon', :LastName => 'Dishman', :ID => 2222, :UserN
            {:FirstName => 'William', :LastName => 'Bracho Blok', :ID => 2224, :UserName => 'villham', :password => 'drowpass'},
            {:FirstName => 'Timothy', :LastName => 'Foster', :ID => 2225, :UserName => 'timayh', :password => 'wordssap'},
            {:FirstName => 'Matt', :LastName => 'Saari', :ID => 2226, :UserName => 'imsaari', :password => 'password'},
-           {:FirstName => 'Jeff Dean', :LastName => '', :ID => 0, :UserName => 'the one', :password => ' '},
+           {:FirstName => 'Jeff', :LastName => 'Dean', :ID => 0, :UserName => 'the one', :password => ' '},
            ]
 
 problems = [{:title => 'Hello World', :due_date => DateTime.parse("1 May 2016 10:59:59 PM Central Time (US & Canada) "), :summary => 'Will write hello world', :input_description => 'none', :output_description => 'print Hello World!', :skeleton => 'n\a', :language => 'java'},
             {:title => 'IO Practice Java', :due_date => DateTime.parse("2 May 2016 10:59:59 PM Central Time (US & Canada) "), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'java'},
-            {:title => 'IO Practice Python', :due_date => DateTime.parse("4 May 2016 10:59:59 PM Central Time (US & Canada) "), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => 'n/a', :language => 'python'},
+            {:title => 'IO Practice Python', :due_date => DateTime.parse("4 May 2016 10:59:59 PM Central Time (US & Canada) "), :summary => 'Read in input from input.txt and output it to output.txt', :input_description => 'string', :output_description => 'should read same as input.txt', :skeleton => python_skeleton, :language => 'python'},
             {:title => 'Sort a List', :due_date => DateTime.parse("4 May 10:59:59 PM Central Time (US & Canada) "), :summary => 'You will need to write a program that can take in a generic size list and sort it using any the of sorting algorithms we learned in class. Write the sorting method yourself, do not use library sorting methods.', :input_description => 'Unsorted ArrayList of Numbers', :output_description => 'Sorted Array List of Integers', :skeleton => java_skeleton, :language => 'java'},
-            {:title => 'OLD', :due_date => DateTime.parse("1 May 2016 10:59:59 PM Central Time (US & Canada) "), :summary => 'W', :input_description => 'none', :output_description => 'print!', :skeleton => 'n\a', :language => 'java'},
+            {:title => 'Old Problem', :due_date => DateTime.parse("1 May 2014 10:59:59 PM Central Time (US & Canada) "), :summary => 'W', :input_description => 'none', :output_description => 'print!', :skeleton => 'n\a', :language => 'java'},
             {:title => 'Puppy Profit',
              :due_date => DateTime.parse("4 May 2016 10:59:59 PM Central Time (US & Canada) "),
              :summary => 'Female puppies sell for $250 each and males for $300 each.  There are expenses when caring for a litter of puppies – shots, food, veterinary checkups, etc.  Read the number of female and male puppies in a litter and the projected amount of expenses and determine the expected profit from that litter.',
              :input_description => 'The first integer is the number of female puppies, the second is the number of male puppies, and the third is the amount of expenses.  All data will be read from keyboard input.',
              :output_description => 'A dollar sign ($) is to precede the amount of money.',
-             :skeleton => 'import java.io.*;
-import java.util.*;
-public class useCode {
-  public static void main(String args[]){
-    Scanner in = new Scanner(System.in);
-    while (in.hasNext()) {
-      System.out.print(in.next());
-    }
-  }
-}',
+             :skeleton => java_skeleton,
              :language => 'java'},
             ]
 
