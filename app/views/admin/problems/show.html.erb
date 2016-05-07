@@ -17,21 +17,21 @@
 </div>
 
 <div class="problem-summary">
-  <%= html_multi_line_format(@problem.summary) %>
+  <%= markup @problem.summary %>
 </div>
 
 <div class="row">
   <div class="col-sm-6">
     <h1>Input Description</h1>
     <div class="problem-input-description">
-      <%= html_multi_line_format(@problem.input_description) %>
+      <%= markup @problem.input_description %>
     </div>
   </div>
   
   <div class="col-sm-6">
     <h1>Output Description</h1>
     <div class="problem-output-description">
-      <%= html_multi_line_format(@problem.output_description) %>
+      <%= markup @problem.output_description %>
     </div>
   </div>
 </div>
