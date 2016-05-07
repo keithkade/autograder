@@ -6,32 +6,31 @@ class Admin::CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
+    is_Fall = Time.now.month > 7 
     @courses = Course.order(:name).where(:is_archived => false)
-    if params[:semester] == nil
-      @semester = 'All'
-    elsif params[:semester] != 'All'
+    
+    if not params.include?(:year)
+       is_Fall ? @semester = 'Fall' : @semester = 'Spring'
+    else
       @semester = params[:semester]
-      @courses = @courses.where(semester: @semester)
     end
-    if params[:year] == nil
+    if not params.include?(:year) 
       @year = Time.now.year
-      @courses = @courses.where(year: @year)
-    elsif not params[:year].empty?
-      @year = params[:year]
-      @courses = @courses.where(year: @year)
+    else
+      @year = params[:year].empty? ? nil : params[:year].to_i
     end
-    pp @semester
-    # if not params.include?(:semester)
-    #   @courses = @courses.where(year: @year)
-    # if (params[:semester] == 'All' && params[:year] == '')
-    #   @courses = @courses
-    # elsif (params[:semester] != '' && params[:year] == '')
-    #   @courses = @courses.where(semester: params[:semester])
-    # elsif (params[:semester] == 'All' && params[:year] != '')
-    #   @courses = @courses.where(year: params[:year])
-    # elsif
-    #   @courses = @courses.where(year: params[:year], semester: params[:semester])
-    # end  
+    
+    case @semester
+    when 'All'
+      @courses = @courses.where(year: @year) if @year
+    when 'Fall', 'Spring'
+      if @year
+        full_year_courses = @courses.where(semester: 'FY', year: @year - (@semester == 'Spring' ? 1 : 0))
+        @courses = @courses.where(semester: @semester, year: @year) + full_year_courses
+      else
+        @courses.where(semester: @semester)
+      end
+    end
   end
 
   # GET /courses/1
