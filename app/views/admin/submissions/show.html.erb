@@ -20,3 +20,11 @@
 <% end %>
 
 <pre><code><%= @submission.code %></code></pre>
+
+<% if @submission.results_obj['status'] == "success" %>
+  <%= render 'layouts/submission_cases', :cases => @submission.results_obj['results'] %>
+<% else %>
+  <div class="alert alert-danger">
+    <p>Compiler Error: <%= @submission.results_obj['err'] %></p>
+  </div>
+<% end %>

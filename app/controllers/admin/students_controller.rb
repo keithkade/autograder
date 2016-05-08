@@ -96,7 +96,7 @@ end
     end
     
     @initial_filter_title = ""
-    if params.include?(:problem)
+    if params.include?(:problem) and params[:problem].length > 0
       problem = Problem.find_by_title(params[:problem])
       if problem.nil?
         flash[:warning] = "No problem was found with title #{params[:problem]}"

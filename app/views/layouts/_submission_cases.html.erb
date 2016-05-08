@@ -1,0 +1,22 @@
+<table class="table submission-cases">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Test Case</th>
+      <th>Test Input</th>
+      <th>Student's Output</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% cases.each do |c| %>
+      <tr class="<%= c['result'] %>">
+        <td><% if c['result'] == "success" %>&#10003;<% else %>&#10007;<% end %></td>
+        <td><%= c['title'] %></td>
+        <td><pre><code><%= c['input'] %></code></pre></td>
+        <td><pre><code><%= c['output'] %></code></pre></td>
+        <td><%= c['err'] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
