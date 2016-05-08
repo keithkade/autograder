@@ -83,7 +83,7 @@
                   <td>
                     <% if submission.status %><span>&#10003;</span><% else %><span>&#10007;</span><% end %>
                   </td>
-                  <td><%= @testCaseResults[index] %></td>
+                  <td><%= @testCaseResults[submission.id] %></td>
                   <td>
                     <% if @problemNames.include?(submission.problem_id) %>
                       <%= @problemNames[submission.problem_id] %>
@@ -110,7 +110,7 @@
 <form name="Filter_Submissions">
     <div class="form-group">
       <label>Filter Submissions by Problem Name</label>
-      <input type="text" class="form-control" name="problem" />
+      <input type="text" class="form-control" name="problem" value="<%= @initial_filter_title %>" />
     </div>
 </form>
   
@@ -132,7 +132,7 @@
           <% if submission.status %><span>&#10003;</span><% else %><span>&#10007;</span><% end %>
         </td>
         <td><%= submission.complete %></td>
-        <td><%= @testCaseResults[index] %></td>
+        <td><%= @testCaseResults[submission.id] %></td>
         <td>
           <% if @problemNames.include?(submission.problem_id) %>
             <%= @problemNames[submission.problem_id] %>
@@ -141,7 +141,7 @@
           <% end %>
         </td>
         <td><%= submission.time_submitted.strftime("%d %b, %I:%M %p") %></td>
-        <td><%= (submission.time_submitted.to_i - submission.page_loaded_at.to_i) / 60 %></td>
+        <td><%= submission.time_spent %></td>
       </tr>
     <% end %>
   </tbody>

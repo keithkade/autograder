@@ -14,4 +14,11 @@ class Submission < ActiveRecord::Base
     def problem
         Problem.find_by_id(self.problem_id)
     end
+    
+    def time_spent
+        minutes = (time_submitted.to_i - page_loaded_at.to_i) / 60
+        seconds = (time_submitted.to_i - page_loaded_at.to_i) % 60
+        extra_zero = seconds < 10 ? "0" : ""
+        "#{minutes}:#{extra_zero}#{seconds}"
+    end
 end

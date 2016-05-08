@@ -77,45 +77,32 @@ end
   # GET /students/1
   # GET /students/1.json
   def show
-    
     @courses = @student.courses
-    
-    @submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
+    @submissions = @student.submissions.order('time_submitted DESC')
     @problemNames = Hash.new
-
-    @testCaseResults = []
-
-    @submissions.each do |submission|
-      #TODO write test for these
-      
-      
-       if params.include?(:problem) 
-        
-        if (Problem.find_by_title(params[:problem]) == nil)
-          #flash[:notice] = "No submission found for that problem!"
-          @submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
-          #redirect_to admin_student_path(@student)
-        else  
-          @submissions = @student.submissions.where(:problem_id => Problem.find_by_title(params[:problem]).id)
-          #flash[:notice] = "Submission(s) successfully found!" 
-          #redirect_to admin_student_path(@student)
-        end
+    @testCaseResults = Hash.new
     
-        #if @submissions == nil
-         # flash[:notice] = "No submission found for that problem"
-          #@submissions = Submission.order('time_submitted DESC').where(:student_id => @student.id)
-        #end
-       
-       end
+    @submissions.each do |submission|
       problem = Problem.find_by_id(submission.problem_id)
       if not problem.nil?
         @problemNames[submission.problem_id] = problem.title
       end
-
+      
       if submission.total_cases > 0
-        @testCaseResults.push(submission.success_cases.to_s + '/' + submission.total_cases.to_s)
+        @testCaseResults[submission.id] = submission.success_cases.to_s + '/' + submission.total_cases.to_s
       else
-        @testCaseResults.push('Compile Error')
+        @testCaseResults[submission.id] = 'Compile Error'
+      end
+    end
+    
+    @initial_filter_title = ""
+    if params.include?(:problem)
+      problem = Problem.find_by_title(params[:problem])
+      if problem.nil?
+        flash[:warning] = "No problem was found with title #{params[:problem]}"
+      else
+        @submissions = @student.submissions.order('time_submitted DESC').where(:problem_id => problem.id)
+        @initial_filter_title = params[:problem]
       end
     end
   end
