@@ -3,31 +3,31 @@
     <%= markup question.question %>
   </div>
   <div class="answer-choices">
-    <div class="radio">
+    <div class="radio<% if question.answer_A.nil? or question.answer_A.length <= 0 %> hide<% end %>">
       <label>
         <input type="radio" name="question_<%= index %>" value="A">
         <strong>A. </strong><%= question.answer_A %>
       </label>
     </div>
-    <div class="radio">
+    <div class="radio<% if question.answer_B.nil? or question.answer_B.length <= 0 %> hide<% end %>">
       <label>
         <input type="radio" name="question_<%= index %>" value="B">
         <strong>B. </strong><%= question.answer_B %>
       </label>
     </div>
-    <div class="radio">
+    <div class="radio<% if question.answer_C.nil? or question.answer_C.length <= 0 %> hide<% end %>">
       <label>
         <input type="radio" name="question_<%= index %>" value="C">
         <strong>C. </strong><%= question.answer_C %>
       </label>
     </div>
-    <div class="radio">
+    <div class="radio<% if question.answer_D.nil? or question.answer_D.length <= 0 %> hide<% end %>">
       <label>
         <input type="radio" name="question_<%= index %>" value="D">
         <strong>D. </strong><%= question.answer_D %>
       </label>
     </div>
-    <div class="radio">
+    <div class="radio<% if question.answer_E.nil? or question.answer_E.length <= 0 %> hide<% end %>">
       <label>
         <input type="radio" name="question_<%= index %>" value="E">
         <strong>E. </strong><%= question.answer_E %>
