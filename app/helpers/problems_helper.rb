@@ -92,7 +92,7 @@ module ProblemsHelper
       if timeout == -1
         return 'cmd /c \"cd ' + folder + ' && ' + command + '\"'
       else
-        #difficult bat?
+        return 'cmd /c \"cd ' + folder + ' && ' + command + '\"'
       end
     elsif OS.mac?
       if timeout == -1
