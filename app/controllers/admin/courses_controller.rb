@@ -102,10 +102,9 @@ class Admin::CoursesController < ApplicationController
         student.quizs_grade
         pp student
         pp "delay"
-        if(student.Quizs_grade == nil or student.Problems_grade == nil or student.lateProblemsGrade == nil)
-          sleep(0.5)
-        end
+        if(student.Quizs_grade != nil or student.Problems_grade != nil or student.lateProblemsGrade != nil)
         file.write(student.ID.to_s + ',' + student.LastName + ',' + student.FirstName + ',' + student.Problems_grade + "," + student.lateProblemsGrade + "," + student.Quizs_grade + "\n")
+        end
       end
     end
     send_file(File.join(Rails.root, "roster.csv"))
